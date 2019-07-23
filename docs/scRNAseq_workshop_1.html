@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>scRNAseq_workshop_1</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">scRNA-seq-workshop-Fall-2019</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">scRNAseq_workshop_1</h1>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2019-07-23
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>scRNA-seq-workshop-Fall-2019/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.4.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20190718code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20190718)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20190718code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20190718)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong2095d3e"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> 2095d3e </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrong2095d3e" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  data/pbmc10k/
+    Untracked:  data/pbmc5k/
+    Untracked:  docs/figure/
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+2095d3e
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-23
+</td>
+<td>
+Publish the initial files for myproject
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="downloading-the-data" class="section level1">
+<h1>downloading the data</h1>
+<p>In this tutorial, we are going to mainly use Seurat package with publicly available datasets. Extensive tutorials with various contexts can be found in <a href="https://satijalab.org/seurat/" class="uri">https://satijalab.org/seurat/</a>.</p>
+<p>Here, in the first part, we are going to analyze a single cell RNAseq dataset product by 10X Genomics and processed through Cell Ranger(TM) pipeline to generate barcode count matrices.</p>
+<p>We will download the public 5k pbmc (Peripheral blood mononuclear cell) data set from 10x genomics</p>
+<p>go to the <code>Terminal</code> tab.</p>
+<pre class="bash"><code>cd data
+mkdir pbmc5k
+cd pbmc5k
+
+wget http://cf.10xgenomics.com/samples/cell-exp/3.0.2/5k_pbmc_v3/5k_pbmc_v3_filtered_feature_bc_matrix.tar.gz
+
+tar xvzf 5k_pbmc_v3_filtered_feature_bc_matrix.tar.gz
+
+# remove the .gz to save space
+rm 5k_pbmc_v3_filtered_feature_bc_matrix.tar.gz</code></pre>
+</div>
+<div id="analyze-the-data-in-r" class="section level1">
+<h1>analyze the data in R</h1>
+<div id="install-r-packages" class="section level3">
+<h3>install R packages</h3>
+<p>now, switch back to R and install the packages we are going to use in this workshop.</p>
+<pre class="r"><code>install.packages(&quot;tidyverse&quot;)
+install.packages(&quot;rmarkdown&quot;)
+install.packages(&#39;Seurat&#39;)</code></pre>
+<p>load the library</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>── Attaching packages ────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>✔ ggplot2 3.1.0       ✔ purrr   0.2.5  
+✔ tibble  2.0.1       ✔ dplyr   0.8.0.1
+✔ tidyr   0.8.2       ✔ stringr 1.3.1  
+✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
+<pre><code>Warning: package &#39;tibble&#39; was built under R version 3.5.2</code></pre>
+<pre><code>Warning: package &#39;dplyr&#39; was built under R version 3.5.2</code></pre>
+<pre><code>── Conflicts ───────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>library(Seurat)</code></pre>
+<pre><code>Warning: package &#39;Seurat&#39; was built under R version 3.5.2</code></pre>
+<pre class="r"><code># Load the PBMC dataset
+pbmc.data &lt;- Read10X(data.dir = &quot;data/pbmc5k/filtered_feature_bc_matrix/&quot;)
+# Initialize the Seurat object with the raw (non-normalized data).
+pbmc &lt;- CreateSeuratObject(counts = pbmc.data, project = &quot;pbmc5k&quot;, min.cells = 3, min.features = 200)
+pbmc</code></pre>
+<pre><code>An object of class Seurat 
+18791 features across 4962 samples within 1 assay 
+Active assay: RNA (18791 features)</code></pre>
+<pre class="r"><code>## getting help
+?CreateSeuratObject</code></pre>
+<p>if you want to know more details of the <code>Seurat</code> object, you can learn at <a href="https://github.com/satijalab/seurat/wiki" class="uri">https://github.com/satijalab/seurat/wiki</a></p>
+<pre class="r"><code># Lets examine a few genes in the first thirty cells
+pbmc.data[c(&quot;CD3D&quot;, &quot;TCL1A&quot;, &quot;MS4A1&quot;), 1:30]</code></pre>
+<pre><code>3 x 30 sparse Matrix of class &quot;dgCMatrix&quot;</code></pre>
+<pre><code>   [[ suppressing 30 column names &#39;AAACCCAAGCGTATGG&#39;, &#39;AAACCCAGTCCTACAA&#39;, &#39;AAACCCATCACCTCAC&#39; ... ]]</code></pre>
+<pre><code>                                                                     
+CD3D  . . . . 7 . . 16 8 . 12 . . 6 3 6 11 . 3 3 . 6 4 . 1 . . . 11 6
+TCL1A . . . . . . .  . . .  . . . . . .  . . . . 1 . . . . . . .  . .
+MS4A1 . . . 6 . . .  . . .  1 . . . . .  . . . . 8 . . . . . 3 6  . .</code></pre>
+<p>The <code>.</code> values in the matrix represent 0s (no molecules detected). Since most values in an scRNA-seq matrix are 0, Seurat uses a sparse-matrix representation whenever possible. This results in significant memory and speed savings for Drop-seq/inDrop/10x data.</p>
+</div>
+<div id="quality-control-and-filtering-cells" class="section level3">
+<h3>Quality control and filtering cells</h3>
+<pre class="r"><code>## check at metadata
+head(pbmc@meta.data)</code></pre>
+<pre><code>                 orig.ident nCount_RNA nFeature_RNA
+AAACCCAAGCGTATGG     pbmc5k      13536         3502
+AAACCCAGTCCTACAA     pbmc5k      12667         3380
+AAACCCATCACCTCAC     pbmc5k        962          346
+AAACGCTAGGGCATGT     pbmc5k       5788         1799
+AAACGCTGTAGGTACG     pbmc5k      13185         2886
+AAACGCTGTGTCCGGT     pbmc5k      15495         3801</code></pre>
+<pre class="r"><code># The [[ operator can add columns to object metadata. This is a great place to stash QC stats
+pbmc[[&quot;percent.mt&quot;]] &lt;- PercentageFeatureSet(pbmc, pattern = &quot;^MT-&quot;)
+pbmc@meta.data %&gt;% head()</code></pre>
+<pre><code>                 orig.ident nCount_RNA nFeature_RNA percent.mt
+AAACCCAAGCGTATGG     pbmc5k      13536         3502  10.675236
+AAACCCAGTCCTACAA     pbmc5k      12667         3380   5.620905
+AAACCCATCACCTCAC     pbmc5k        962          346  53.118503
+AAACGCTAGGGCATGT     pbmc5k       5788         1799  10.608155
+AAACGCTGTAGGTACG     pbmc5k      13185         2886   7.819492
+AAACGCTGTGTCCGGT     pbmc5k      15495         3801   7.460471</code></pre>
+<pre class="r"><code># Visualize QC metrics as a violin plot
+VlnPlot(pbmc, features = c(&quot;nFeature_RNA&quot;, &quot;nCount_RNA&quot;, &quot;percent.mt&quot;), ncol = 3)</code></pre>
+<p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>we set the cutoff based on the visualization above. The cutoff is quite objective.</p>
+<pre class="r"><code>pbmc &lt;- subset(pbmc, subset = nFeature_RNA &gt; 200 &amp; nFeature_RNA &lt; 5000 &amp; percent.mt &lt; 25)</code></pre>
+</div>
+<div id="normalization-of-the-data" class="section level3">
+<h3>Normalization of the data</h3>
+<p>By default, we employ a global-scaling normalization method “LogNormalize” that normalizes the feature expression measurements for each cell by the total expression, multiplies this by a scale factor (10,000 by default), and log-transforms the result. Normalized values are stored in <code>pbmc[[&quot;RNA&quot;]]@data</code>.</p>
+<p>Now, Seurat has a new normalization method called <code>SCTransform</code>. Check out the tutorial <a href="https://satijalab.org/seurat/v3.0/sctransform_vignette.html">here</a>.</p>
+<pre class="r"><code>pbmc &lt;- NormalizeData(pbmc, normalization.method = &quot;LogNormalize&quot;, scale.factor = 10000)</code></pre>
+</div>
+<div id="feature-selection" class="section level3">
+<h3>feature selection</h3>
+<pre class="r"><code>pbmc &lt;- FindVariableFeatures(pbmc, selection.method = &quot;vst&quot;, nfeatures = 2000)
+
+# Identify the 10 most highly variable genes
+top10 &lt;- head(VariableFeatures(pbmc), 10)
+
+# plot variable features with and without labels
+plot1 &lt;- VariableFeaturePlot(pbmc)
+plot2 &lt;- LabelPoints(plot = plot1, points = top10, repel = TRUE)</code></pre>
+<pre><code>When using repel, set xnudge and ynudge to 0 for optimal results</code></pre>
+<pre class="r"><code>CombinePlots(plots = list(plot1, plot2))</code></pre>
+<p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="scaling-the-data" class="section level3">
+<h3>Scaling the data</h3>
+<p>Next, we apply a linear transformation (‘scaling’) that is a standard pre-processing step prior to dimensional reduction techniques like PCA. The ScaleData function:</p>
+<ul>
+<li>Shifts the expression of each gene, so that the mean expression across cells is 0</li>
+<li>Scales the expression of each gene, so that the variance across cells is 1.</li>
+</ul>
+<p>Think it as standardize the data. center the mean to 0 and variance to 1. <code>?scale</code></p>
+<p>This step gives equal weight in downstream analyses, so that highly-expressed genes do not dominate * The results of this are stored in <code>pbmc[[&quot;RNA&quot;]]@scale.data</code></p>
+<pre class="r"><code>library(stats)
+x &lt;- matrix(1:10, ncol = 2)
+x</code></pre>
+<pre><code>     [,1] [,2]
+[1,]    1    6
+[2,]    2    7
+[3,]    3    8
+[4,]    4    9
+[5,]    5   10</code></pre>
+<pre class="r"><code>## scale works in a column-wise fashion
+(centered.x &lt;- scale(x, scale = FALSE))</code></pre>
+<pre><code>     [,1] [,2]
+[1,]   -2   -2
+[2,]   -1   -1
+[3,]    0    0
+[4,]    1    1
+[5,]    2    2
+attr(,&quot;scaled:center&quot;)
+[1] 3 8</code></pre>
+<pre class="r"><code>## variance is 1 
+cov(centered.scaled.x &lt;- scale(x))</code></pre>
+<pre><code>     [,1] [,2]
+[1,]    1    1
+[2,]    1    1</code></pre>
+<p>apply it to the single-cell count matrix</p>
+<pre class="r"><code>all.genes &lt;- rownames(pbmc)
+pbmc &lt;- ScaleData(pbmc, features = all.genes)</code></pre>
+<pre><code>Centering and scaling data matrix</code></pre>
+<p>This can take long for large dataset.</p>
+<p>Let’s check the data matrix before and after scaling.</p>
+<pre class="r"><code># raw counts
+pbmc[[&quot;RNA&quot;]]@counts[1:6, 1:6]</code></pre>
+<pre><code>6 x 6 sparse Matrix of class &quot;dgCMatrix&quot;
+           AAACCCAAGCGTATGG AAACCCAGTCCTACAA AAACGCTAGGGCATGT
+AL627309.1                .                .                .
+AL627309.3                .                .                .
+AL669831.5                1                .                1
+FAM87B                    .                .                .
+LINC00115                 .                .                .
+FAM41C                    .                .                .
+           AAACGCTGTAGGTACG AAACGCTGTGTCCGGT AAACGCTGTGTGATGG
+AL627309.1                .                .                .
+AL627309.3                .                .                .
+AL669831.5                .                1                .
+FAM87B                    .                .                .
+LINC00115                 .                .                .
+FAM41C                    .                .                .</code></pre>
+<pre class="r"><code># library size normalized and log transformed data
+pbmc[[&quot;RNA&quot;]]@data[1:6, 1:6]</code></pre>
+<pre><code>6 x 6 sparse Matrix of class &quot;dgCMatrix&quot;
+           AAACCCAAGCGTATGG AAACCCAGTCCTACAA AAACGCTAGGGCATGT
+AL627309.1        .                        .         .       
+AL627309.3        .                        .         .       
+AL669831.5        0.5531784                .         1.003463
+FAM87B            .                        .         .       
+LINC00115         .                        .         .       
+FAM41C            .                        .         .       
+           AAACGCTGTAGGTACG AAACGCTGTGTCCGGT AAACGCTGTGTGATGG
+AL627309.1                .         .                       .
+AL627309.3                .         .                       .
+AL669831.5                .         0.497965                .
+FAM87B                    .         .                       .
+LINC00115                 .         .                       .
+FAM41C                    .         .                       .</code></pre>
+<pre class="r"><code># scaled data
+pbmc[[&quot;RNA&quot;]]@scale.data[1:6, 1:6]</code></pre>
+<pre><code>           AAACCCAAGCGTATGG AAACCCAGTCCTACAA AAACGCTAGGGCATGT
+AL627309.1      -0.09340896      -0.09340896      -0.09340896
+AL627309.3      -0.02057466      -0.02057466      -0.02057466
+AL669831.5       2.15746090      -0.28992330       4.14962192
+FAM87B          -0.04240619      -0.04240619      -0.04240619
+LINC00115       -0.21936495      -0.21936495      -0.21936495
+FAM41C          -0.18753443      -0.18753443      -0.18753443
+           AAACGCTGTAGGTACG AAACGCTGTGTCCGGT AAACGCTGTGTGATGG
+AL627309.1      -0.09340896      -0.09340896      -0.09340896
+AL627309.3      -0.02057466      -0.02057466      -0.02057466
+AL669831.5      -0.28992330       1.91318454      -0.28992330
+FAM87B          -0.04240619      -0.04240619      -0.04240619
+LINC00115       -0.21936495      -0.21936495      -0.21936495
+FAM41C          -0.18753443      -0.18753443      -0.18753443</code></pre>
+<p>Scaling is an essential step in the Seurat workflow, but only on genes that will be used as input to PCA. Therefore, the default in ScaleData is only to perform scaling on the previously identified variable features (2,000 by default). To do this, omit the features argument in the previous function call</p>
+<pre class="r"><code>pbmc &lt;- ScaleData(pbmc, vars.to.regress = &quot;percent.mt&quot;)</code></pre>
+<pre><code>Regressing out percent.mt</code></pre>
+<pre><code>Centering and scaling data matrix</code></pre>
+<pre class="r"><code>pbmc[[&quot;RNA&quot;]]@scale.data[1:6, 1:6]</code></pre>
+<pre><code>         AAACCCAAGCGTATGG AAACCCAGTCCTACAA AAACGCTAGGGCATGT
+HES4           -0.2240073       -0.2669980       -0.2245779
+ISG15          -0.8049725       -0.8742362       -0.8058917
+TNFRSF18       -0.2681255       -0.1699170       -0.2668221
+TNFRSF4        -0.2792813       -0.2248457       -0.2785588
+MMP23B         -0.2296682       -0.1520793       -0.2286385
+NADK            2.0405297        0.6329116       -0.5408565
+         AAACGCTGTAGGTACG AAACGCTGTGTCCGGT AAACGCTGTGTGATGG
+HES4          -0.24829747      -0.25135120       -0.2301381
+ISG15          0.04326699      -0.06614065        1.4610979
+TNFRSF18      -0.21263681      -0.20566084       -0.2541204
+TNFRSF4       -0.24852465      -0.24465796       -0.2715184
+MMP23B        -0.18582978      -0.18031847        6.5839823
+NADK          -0.60309138      -0.61110368        1.5771045</code></pre>
+<pre class="r"><code>dim(pbmc[[&quot;RNA&quot;]]@scale.data)</code></pre>
+<pre><code>[1] 2000 4595</code></pre>
+<pre class="r"><code>## raw counts and log transformed matrix 
+dim(pbmc[[&quot;RNA&quot;]]@counts)</code></pre>
+<pre><code>[1] 18791  4595</code></pre>
+<pre class="r"><code>dim(pbmc[[&quot;RNA&quot;]]@data)</code></pre>
+<pre><code>[1] 18791  4595</code></pre>
+</div>
+<div id="pca" class="section level3">
+<h3>PCA</h3>
+<p>principle component analysis</p>
+<p>Dimenion reduction</p>
+<p>Highly recommend this 5 min video on PCA by StatQuest <a href="https://www.youtube.com/watch?v=HMOI_lkzW08" class="uri">https://www.youtube.com/watch?v=HMOI_lkzW08</a> and two longer versions by the same person:</p>
+<p><a href="https://www.youtube.com/watch?v=_UVHneBUBW0" class="uri">https://www.youtube.com/watch?v=_UVHneBUBW0</a> <a href="https://www.youtube.com/watch?v=FgakZw6K1QQ&amp;t=674s" class="uri">https://www.youtube.com/watch?v=FgakZw6K1QQ&amp;t=674s</a></p>
+<p>some blog posts I wrote on PCA:</p>
+<ul>
+<li><a href="https://divingintogeneticsandgenomics.rbind.io/post/pca-in-action/">PCA in action</a></li>
+<li><a href="https://divingintogeneticsandgenomics.rbind.io/post/permute-test-for-pca-components/">permutation test for PCA components</a></li>
+</ul>
+<pre class="r"><code>pbmc &lt;- RunPCA(pbmc, features = VariableFeatures(object = pbmc), verbose = FALSE)
+
+p1&lt;- DimPlot(pbmc, reduction = &quot;pca&quot;)
+p1</code></pre>
+<p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>replicate the PCA plot ourselves by ggplot2</p>
+<pre class="r"><code>Embeddings(pbmc, reduction = &quot;pca&quot;) %&gt;% head()</code></pre>
+<pre><code>                       PC_1        PC_2        PC_3      PC_4       PC_5
+AAACCCAAGCGTATGG -31.749686   0.3206036   3.2316902 1.4827653 -1.7225612
+AAACCCAGTCCTACAA -27.908666  -0.6308573  -0.6949682 0.0113625  0.9581979
+AAACGCTAGGGCATGT   4.870671 -20.1894017  -4.7668820 2.4256455 -3.7741203
+AAACGCTGTAGGTACG  11.284050   0.9103995   6.7491967 1.1663610  1.4181460
+AAACGCTGTGTCCGGT -30.223838   0.6442844   0.6588781 0.1748505  0.7408780
+AAACGCTGTGTGATGG   4.534149  14.6942792 -23.1932001 1.1324433 -3.1784629
+                       PC_6       PC_7       PC_8       PC_9      PC_10
+AAACCCAAGCGTATGG -7.1866345 -0.1867499  0.4895503 -1.0006664 -0.3164823
+AAACCCAGTCCTACAA  4.0870951  1.7671871  0.6306350 -1.2547806  0.2369933
+AAACGCTAGGGCATGT  0.8191033  2.2543990 -2.5586787  0.3368964 -4.3477827
+AAACGCTGTAGGTACG  0.2487368 -0.5382114  2.1719260 -2.6107720 -0.1532170
+AAACGCTGTGTCCGGT  0.3340276  3.7774882  3.7079025  1.5477937 -0.9396352
+AAACGCTGTGTGATGG -2.8402285 -6.6551671  6.0846685 -0.1622600 -1.4871283
+                      PC_11       PC_12      PC_13       PC_14      PC_15
+AAACCCAAGCGTATGG -2.1493213  4.96183470 0.08345166  0.03259621  1.8707355
+AAACCCAGTCCTACAA -0.8504207 -7.86946696 4.40407254  1.11051682  0.8346257
+AAACGCTAGGGCATGT -3.2665381  0.02841664 2.30566753  0.08737054  0.6239217
+AAACGCTGTAGGTACG -2.5508150 -1.22586296 1.42497983  1.04336412  1.0285061
+AAACGCTGTGTCCGGT  0.1429822 -1.03932058 1.34592056  2.49038139 -3.8596368
+AAACGCTGTGTGATGG -0.6984480  2.19378584 8.13208735 -5.58531619 -1.5305344
+                      PC_16      PC_17      PC_18       PC_19      PC_20
+AAACCCAAGCGTATGG -3.3349121 -4.8736727  0.4050456 -3.27418950  0.4253961
+AAACCCAGTCCTACAA  1.2316544 -1.6176927 -0.4979777 -0.95399649 -0.1487146
+AAACGCTAGGGCATGT  1.2750432 -0.3143667 -0.2387007  0.44034095  0.1070249
+AAACGCTGTAGGTACG -0.4942870  0.7227728  2.6200439 -0.08299444  1.1609031
+AAACGCTGTGTCCGGT  0.1689827 -4.1873678  1.3026329 -3.34110228 -1.6543379
+AAACGCTGTGTGATGG -2.1043566  1.7191834  3.5031758 -3.46892800 -0.4835799
+                       PC_21      PC_22      PC_23      PC_24      PC_25
+AAACCCAAGCGTATGG  0.38826054 -0.3388280 -0.3102357  0.9225296  1.1493121
+AAACCCAGTCCTACAA -2.18038292 -0.1142006  0.4071930 -2.0467116 -0.5891186
+AAACGCTAGGGCATGT -0.04228991 -0.1907637 -0.7797804 -0.6903384 -0.9518594
+AAACGCTGTAGGTACG -0.10282751 -0.6989734  1.0428906 -0.4114054  0.3179832
+AAACGCTGTGTCCGGT  2.29995811  0.1878039 -1.1157439  0.3539011  0.6983157
+AAACGCTGTGTGATGG -1.33740175  4.6367785  2.2547311 -2.3806864  2.6768123
+                      PC_26     PC_27      PC_28      PC_29      PC_30
+AAACCCAAGCGTATGG -0.4425588  0.890669  0.5351597  3.4978863  0.4321732
+AAACCCAGTCCTACAA -0.6206207  0.359402  1.6197689 -0.1211780  1.1727331
+AAACGCTAGGGCATGT -0.7771488  1.069164 -1.1476447  0.6790176 -3.6754527
+AAACGCTGTAGGTACG -0.4084921  2.529226 -0.2994368  0.7076177  0.2165411
+AAACGCTGTGTCCGGT -0.4387852  1.078763 -0.6951068 -0.5594053  0.1534528
+AAACGCTGTGTGATGG -0.1878793 -2.729595 -0.1927358  3.0574628  0.3569375
+                      PC_31      PC_32      PC_33      PC_34      PC_35
+AAACCCAAGCGTATGG  2.3599874 -0.7960682 -0.1130762 -0.7351672  1.5970824
+AAACCCAGTCCTACAA -0.9501188 -1.0153775  3.2736110 -1.1229799  0.8342103
+AAACGCTAGGGCATGT -5.0701162  0.7809748 -0.6555875  2.2242139 -2.5146564
+AAACGCTGTAGGTACG  0.4291666 -1.1757092 -0.3580585 -2.9761781  0.5126442
+AAACGCTGTGTCCGGT  2.6041436  0.7491606 -1.9289241  0.5012251 -0.9122437
+AAACGCTGTGTGATGG  0.4450735  0.3828157 -2.7881259  0.8745306 -3.4854203
+                       PC_36       PC_37      PC_38      PC_39      PC_40
+AAACCCAAGCGTATGG -0.31048972 -0.16548588 -0.9157047  1.9625766  0.6139102
+AAACCCAGTCCTACAA -0.05712522 -0.28466122  0.8316528 -0.1601389 -2.6650656
+AAACGCTAGGGCATGT  2.42056818 -0.03451399 -1.1460427  0.7833359  1.0263942
+AAACGCTGTAGGTACG  1.57055203  0.36080882  0.2593557 -1.9434860  0.6268397
+AAACGCTGTGTCCGGT -0.68994548 -1.00970824  0.1498123  0.6736817 -0.3685838
+AAACGCTGTGTGATGG -1.13799138  0.21677362  0.7602060  0.4963482  0.8885865
+                      PC_41      PC_42      PC_43       PC_44      PC_45
+AAACCCAAGCGTATGG  2.2924768 -0.2957856  3.0658281 -1.04838959  4.2313103
+AAACCCAGTCCTACAA -2.6461173 -2.5570040 -0.6854854  0.83321424 -2.5032691
+AAACGCTAGGGCATGT -1.1891535  3.0783306  0.8626610 -0.05894781 -0.3569243
+AAACGCTGTAGGTACG -0.9844561  0.3379814  1.2725794  0.88184031 -1.1407465
+AAACGCTGTGTCCGGT -1.8434911  0.6358968  1.8239590  0.16793147  1.9540159
+AAACGCTGTGTGATGG  0.2104292 -1.5236830  1.0845757  0.18224377 -0.5292818
+                      PC_46      PC_47      PC_48      PC_49      PC_50
+AAACCCAAGCGTATGG  0.8286060  0.4110526 -0.2684463  0.4881312  1.1611914
+AAACCCAGTCCTACAA  4.0798398  0.7602264 -0.8053542 -2.2931836 -0.4184246
+AAACGCTAGGGCATGT  0.6105477 -0.7581442  0.9540361 -1.7912117  0.6176227
+AAACGCTGTAGGTACG  0.1363981  0.1479181  0.4921191  0.1698165 -1.2546990
+AAACGCTGTGTCCGGT -1.3998959  0.1247547 -0.9317956  1.7330908  2.2860100
+AAACGCTGTGTGATGG  1.5306216 -0.2381258 -0.8683929  0.1394903  1.8223171</code></pre>
+<pre class="r"><code>p2&lt;- Embeddings(pbmc, reduction = &quot;pca&quot;) %&gt;% as.data.frame() %&gt;% 
+  ggplot(aes(x = PC_1, y = PC_2)) +
+  geom_point(color = &quot;red&quot;, size = 0.5) +
+  theme_classic()
+p2</code></pre>
+<p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>CombinePlots(plots = list(p1, p2))</code></pre>
+<pre><code>Warning in align_plots(plotlist = plots, align = align, axis = axis):
+Complex graphs cannot be vertically aligned unless axis parameter is set
+properly. Placing graphs unaligned.</code></pre>
+<p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-15-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="determine-how-many-pcs-to-include-for-downstream-analysis" class="section level3">
+<h3>Determine How many PCs to include for downstream analysis</h3>
+<p>To overcome the extensive technical noise in any single feature for scRNA-seq data, Seurat clusters cells based on their PCA scores, with each PC essentially representing a ‘metafeature’ that combines information across a correlated feature set. The top principal components therefore represent a robust compression of the dataset. However, how many componenets should we choose to include? 10? 20? 100?</p>
+<p>In Macosko et al, we implemented a resampling test inspired by the JackStraw procedure. We randomly permute a subset of the data (1% by default) and rerun PCA, constructing a ‘null distribution’ of feature scores, and repeat this procedure. We identify ‘significant’ PCs as those who have a strong enrichment of low p-value features.</p>
+<pre class="r"><code># NOTE: This process can take a long time for big datasets, comment out for expediency. More
+# approximate techniques such as those implemented in ElbowPlot() can be used to reduce
+# computation time, takes 10 mins for this data set
+pbmc &lt;- JackStraw(pbmc, num.replicate = 100, dims = 50)
+pbmc &lt;- ScoreJackStraw(pbmc, dims = 1:50)
+
+JackStrawPlot(pbmc, dims = 1:30)</code></pre>
+<p>An alternative heuristic method generates an ‘Elbow plot’: a ranking of principle components based on the percentage of variance explained by each one (ElbowPlot function). In this example, we can observe an ‘elbow’ around PC20-30, suggesting that the majority of true signal is captured in the first 20 PCs.</p>
+<pre class="r"><code>ElbowPlot(pbmc, ndims = 50)</code></pre>
+<p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="variance-explained-by-each-pc" class="section level3">
+<h3>variance explained by each PC</h3>
+<p>hint from <a href="https://github.com/satijalab/seurat/issues/982" class="uri">https://github.com/satijalab/seurat/issues/982</a></p>
+<pre class="r"><code>mat &lt;- Seurat::GetAssayData(pbmc, assay = &quot;RNA&quot;, slot = &quot;scale.data&quot;)
+pca &lt;- pbmc[[&quot;pca&quot;]]
+
+# Get the total variance:
+total_variance &lt;- sum(matrixStats::rowVars(mat))
+
+eigValues = (pca@stdev)^2  ## EigenValues
+varExplained = eigValues / total_variance
+
+varExplained %&gt;% enframe(name = &quot;PC&quot;, value = &quot;varExplained&quot; ) %&gt;%
+  ggplot(aes(x = PC, y = varExplained)) + 
+  geom_point() +
+  theme_classic()</code></pre>
+<p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>### this is what Seurat is plotting: standard deviation
+pca@stdev %&gt;% enframe(name = &quot;PC&quot;, value = &quot;Standard Deviation&quot; ) %&gt;%
+  ggplot(aes(x = PC, y = `Standard Deviation`)) + 
+  geom_point() +
+  theme_classic()</code></pre>
+<p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-18-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="cluster-the-cells" class="section level3">
+<h3>Cluster the cells</h3>
+<p>Seurat v3 applies a graph-based clustering approach, building upon initial strategies in (Macosko et al) Briefly, these methods embed cells in a graph structure - for example a K-nearest neighbor (KNN) graph, with edges drawn between cells with similar feature expression patterns, and then attempt to partition this graph into highly interconnected ‘quasi-cliques’ or ‘communities’.</p>
+<p>As in PhenoGraph, we first construct a KNN graph based on the euclidean distance in PCA space, and refine the edge weights between any two cells based on the shared overlap in their local neighborhoods (Jaccard similarity). This step is performed using the FindNeighbors function, and takes as input the previously defined dimensionality of the dataset.</p>
+<p>To cluster the cells, we next apply modularity optimization techniques such as the Louvain algorithm (default) or SLM [SLM, Blondel et al., Journal of Statistical Mechanics], to iteratively group cells together, with the goal of optimizing the standard modularity function. The <code>FindClusters</code> function implements this procedure, and contains a resolution parameter that sets the ‘granularity’ of the downstream clustering, with increased values leading to a greater number of clusters. We find that setting this parameter between <strong>0.4-1.2</strong> typically returns good results for single-cell datasets of around 3K cells. Optimal resolution often increases for larger datasets</p>
+<pre class="r"><code>pbmc &lt;- FindNeighbors(pbmc, dims = 1:20)</code></pre>
+<pre><code>Computing nearest neighbor graph</code></pre>
+<pre><code>Computing SNN</code></pre>
+<pre class="r"><code>pbmc &lt;- FindClusters(pbmc, resolution = 0.5)</code></pre>
+<pre><code>Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 4595
+Number of edges: 166042
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.8998
+Number of communities: 14
+Elapsed time: 0 seconds</code></pre>
+<pre class="r"><code># Look at cluster IDs of the first 5 cells
+head(Idents(pbmc), 5)</code></pre>
+<pre><code>AAACCCAAGCGTATGG AAACCCAGTCCTACAA AAACGCTAGGGCATGT AAACGCTGTAGGTACG 
+               1                1                5                0 
+AAACGCTGTGTCCGGT 
+               1 
+Levels: 0 1 2 3 4 5 6 7 8 9 10 11 12 13</code></pre>
+</div>
+<div id="run-non-linear-dimensional-reduction-umaptsne" class="section level3">
+<h3>Run non-linear dimensional reduction (UMAP/tSNE)</h3>
+<p>Seurat offers several <strong>non-linear</strong> dimensional reduction techniques, such as tSNE and UMAP (as opposed to PCA which is a linear dimensional reduction technique), to visualize and explore these datasets. The goal of these algorithms is to learn the underlying manifold of the data in order to place similar cells together in low-dimensional space. Cells within the graph-based clusters determined above should co-localize on these dimension reduction plots. As input to the UMAP and tSNE, we suggest using the same PCs as input to the clustering analysis.</p>
+<pre class="r"><code>pbmc &lt;- RunUMAP(pbmc, dims = 1:20)
+pbmc&lt;- RunTSNE(pbmc, dims = 1:20)
+DimPlot(pbmc, reduction = &quot;umap&quot;, label = TRUE)</code></pre>
+<p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>## now let&#39;s visualize in the TSNE space
+DimPlot(pbmc, reduction = &quot;tsne&quot;)</code></pre>
+<p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-20-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>## now let&#39;s label the clusters in the PCA space
+DimPlot(pbmc, reduction = &quot;pca&quot;)</code></pre>
+<p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-20-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Tsne/UMAP is for visualization purpose only. The clusters are defined by the graph-based clustering which was implemented by <code>FindClusters</code>. We then color label the cells by the cluster id on the UMAP space.</p>
+</div>
+<div id="finding-differentially-expressed-features-cluster-biomarkers" class="section level3">
+<h3>Finding differentially expressed features (cluster biomarkers)</h3>
+<p>Seurat can help you find markers that define clusters via differential expression. By default, it identifes positive and negative markers of a single cluster (specified in ident.1), compared to all other cells. FindAllMarkers automates this process for all clusters, but you can also test groups of clusters vs. each other, or against all cells.</p>
+<pre class="r"><code># find all markers of cluster 1
+cluster1.markers &lt;- FindMarkers(pbmc, ident.1 = 1, min.pct = 0.25)
+head(cluster1.markers, n = 5)</code></pre>
+<pre><code>       p_val avg_logFC pct.1 pct.2 p_val_adj
+S100A8     0  4.143277 1.000 0.123         0
+S100A9     0  4.125020 1.000 0.233         0
+LYZ        0  3.202571 1.000 0.395         0
+VCAN       0  2.577781 0.992 0.071         0
+MNDA       0  2.564347 1.000 0.109         0</code></pre>
+<pre class="r"><code># find all markers distinguishing cluster 5 from clusters 0 and 3
+cluster5.markers &lt;- FindMarkers(pbmc, ident.1 = 5, ident.2 = c(0, 3), min.pct = 0.25)
+head(cluster5.markers, n = 5)</code></pre>
+<pre><code>         p_val avg_logFC pct.1 pct.2 p_val_adj
+CD79A        0  2.673512 1.000 0.045         0
+HLA-DQA1     0  2.533452 0.993 0.012         0
+MS4A1        0  2.438141 0.993 0.029         0
+HLA-DQB1     0  2.118244 0.982 0.031         0
+BANK1        0  1.992629 0.982 0.006         0</code></pre>
+<p>Finding all marker genes takes long in this step. let’s watch the PCA video while Seurat is working hard.</p>
+<pre class="r"><code># we only have 2 CPUs reserved for each one. 
+# Seurat V3.0.2 parallel processing  read more https://satijalab.org/seurat/v3.0/future_vignette.html
+#plan(&quot;multiprocess&quot;, workers = 2)
+# find markers for every cluster compared to all remaining cells, report only the positive ones
+pbmc.markers &lt;- FindAllMarkers(pbmc, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)</code></pre>
+<pre><code>Calculating cluster 0</code></pre>
+<pre><code>Calculating cluster 1</code></pre>
+<pre><code>Calculating cluster 2</code></pre>
+<pre><code>Calculating cluster 3</code></pre>
+<pre><code>Calculating cluster 4</code></pre>
+<pre><code>Calculating cluster 5</code></pre>
+<pre><code>Calculating cluster 6</code></pre>
+<pre><code>Calculating cluster 7</code></pre>
+<pre><code>Calculating cluster 8</code></pre>
+<pre><code>Calculating cluster 9</code></pre>
+<pre><code>Calculating cluster 10</code></pre>
+<pre><code>Calculating cluster 11</code></pre>
+<pre><code>Calculating cluster 12</code></pre>
+<pre><code>Calculating cluster 13</code></pre>
+<pre class="r"><code>pbmc.markers %&gt;% group_by(cluster) %&gt;% top_n(n = 2, wt = avg_logFC)</code></pre>
+<pre><code># A tibble: 28 x 7
+# Groups:   cluster [14]
+       p_val avg_logFC pct.1 pct.2 p_val_adj cluster gene   
+       &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;fct&gt;   &lt;chr&gt;  
+ 1 0.            0.943 0.856 0.227 0.        0       CCR7   
+ 2 0.            0.889 0.802 0.195 0.        0       TRABD2A
+ 3 0.            4.14  1     0.123 0.        1       S100A8 
+ 4 0.            4.13  1     0.233 0.        1       S100A9 
+ 5 1.25e-224     1.26  0.925 0.43  2.35e-220 2       IL7R   
+ 6 2.46e-198     1.23  0.644 0.146 4.62e-194 2       KLRB1  
+ 7 1.29e-269     2.00  0.988 0.209 2.42e-265 3       CCL5   
+ 8 1.20e-164     1.61  0.576 0.085 2.26e-160 3       GZMK   
+ 9 0.            3.46  0.993 0.119 0.        4       GNLY   
+10 1.98e-288     2.90  1     0.224 3.72e-284 4       NKG7   
+# … with 18 more rows</code></pre>
+</div>
+<div id="visualize-marker-genes" class="section level3">
+<h3>Visualize marker genes</h3>
+<p>VlnPlot (shows expression probability distributions across clusters), and FeaturePlot (visualizes feature expression on a tSNE or PCA plot) are our most commonly used visualizations. We also suggest exploring RidgePlot, CellScatter, and DotPlot as additional methods to view your dataset.</p>
+<pre class="r"><code>VlnPlot(pbmc, features = c(&quot;MS4A1&quot;, &quot;CD79A&quot;))</code></pre>
+<p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>## understanding the matrix of data slots
+pbmc[[&quot;RNA&quot;]]@data[c(&quot;MS4A1&quot;, &quot;CD79A&quot;), 1:30]</code></pre>
+<pre><code>2 x 30 sparse Matrix of class &quot;dgCMatrix&quot;</code></pre>
+<pre><code>   [[ suppressing 30 column names &#39;AAACCCAAGCGTATGG&#39;, &#39;AAACCCAGTCCTACAA&#39;, &#39;AAACGCTAGGGCATGT&#39; ... ]]</code></pre>
+<pre><code>                                                                         
+MS4A1 . . 2.430651 . . . . . . 0.4230566 .         . . . . . . . 2.490309
+CD79A . . 2.696092 . . . . . . .         0.5792753 . . . . . . . 2.696737
+                                         
+MS4A1 . . . . . 1.903265 . . . . 2.611375
+CD79A . . . . . 2.592775 . . . . 3.165980</code></pre>
+<pre class="r"><code>pbmc[[&quot;RNA&quot;]]@scale.data[c(&quot;MS4A1&quot;, &quot;CD79A&quot;), 1:30]</code></pre>
+<pre><code>      AAACCCAAGCGTATGG AAACCCAGTCCTACAA AAACGCTAGGGCATGT AAACGCTGTAGGTACG
+MS4A1       -0.4068538       -0.3388261         2.687411       -0.3684175
+CD79A       -0.4121278       -0.3687476         2.549010       -0.3876176
+      AAACGCTGTGTCCGGT AAACGCTGTGTGATGG AAACGCTTCCTATGGA AAACGCTTCTAGGCAT
+MS4A1       -0.3635853       -0.3971526       -0.3560082       -0.3511574
+CD79A       -0.3845362       -0.4059415       -0.3797043       -0.3766111
+      AAAGAACAGACTAGAT AAAGAACAGGTAGTCG AAAGAACCAAGAGAGA AAAGAACCACCGTCTT
+MS4A1       -0.3676667        0.1481426        -0.392136       -0.2927071
+CD79A       -0.3871388       -0.4015458         0.233356       -0.3393383
+      AAAGAACGTAAGAACT AAAGAACGTACCTTCC AAAGAACTCACCTGGG AAAGAACTCGGAACTT
+MS4A1       -0.4124918       -0.4525260       -0.3628941       -0.3703045
+CD79A       -0.4157231       -0.4412523       -0.3840954       -0.3888209
+      AAAGGATAGCACTCGC AAAGGATGTGCCGAAA AAAGGATTCCCGAACG AAAGGATTCTTTGATC
+MS4A1       -0.3758118       -0.4359815         2.760538       -0.3399273
+CD79A       -0.3923328       -0.4307021         2.547933       -0.3694498
+      AAAGGGCAGGATTTCC AAAGGGCGTCATGGCC AAAGGGCGTGACATCT AAAGGGCTCATGAGTC
+MS4A1       -0.3916844       -0.3940305       -0.3494149       -0.4274362
+CD79A       -0.4024545       -0.4039506       -0.3754999       -0.4252529
+      AAAGGTACAACCACAT AAAGGTAGTCGACTGC AAAGTCCCAGAGACTG AAAGTCCCATGTTCGA
+MS4A1         2.022910       -0.3549116       -0.3422712       -0.3381941
+CD79A         2.439814       -0.3790051       -0.3709445       -0.3683446
+      AAAGTCCGTGAATAAC AAAGTCCTCTTACCGC
+MS4A1       -0.4079680         2.909723
+CD79A       -0.4128383         3.060088</code></pre>
+<pre class="r"><code>pbmc[[&quot;RNA&quot;]]@counts[c(&quot;MS4A1&quot;, &quot;CD79A&quot;), 1:30]</code></pre>
+<pre><code>2 x 30 sparse Matrix of class &quot;dgCMatrix&quot;</code></pre>
+<pre><code>   [[ suppressing 30 column names &#39;AAACCCAAGCGTATGG&#39;, &#39;AAACCCAGTCCTACAA&#39;, &#39;AAACGCTAGGGCATGT&#39; ... ]]</code></pre>
+<pre><code>                                                                    
+MS4A1 . . 6 . . . . . . 1 . . . . . . . .  8 . . . . .  6 . . . . 15
+CD79A . . 8 . . . . . . . 1 . . . . . . . 10 . . . . . 13 . . . . 27</code></pre>
+<pre class="r"><code># you can plot raw counts as well
+VlnPlot(pbmc, features = c(&quot;MS4A1&quot;, &quot;CD79A&quot;), slot = &quot;counts&quot;, log = TRUE)</code></pre>
+<p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>VlnPlot(pbmc, features = c(&quot;MS4A1&quot;, &quot;CD79A&quot;), slot = &quot;scale.data&quot;)</code></pre>
+<p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-24-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>FeaturePlot.</p>
+<p>plot the expression intensity overlaid on the Tsne/UMAP plot.</p>
+<pre class="r"><code>FeaturePlot(pbmc, features = c(&quot;MS4A1&quot;, &quot;GNLY&quot;, &quot;CD3E&quot;, &quot;CD14&quot;, &quot;FCER1A&quot;, &quot;FCGR3A&quot;, &quot;LYZ&quot;, &quot;PPBP&quot;, &quot;CD8A&quot;))</code></pre>
+<p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>ggplot2 plot the data points in the order of the rows present in the dataframe. high-expressed cells can be masked by the (gray) low expressed cells.</p>
+<pre class="r"><code>p&lt;- FeaturePlot(pbmc, features = &quot;CD14&quot;)
+
+## before reordering
+p</code></pre>
+<p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>p_after&lt;- p
+### after reordering
+p_after$data &lt;- p_after$data[order(p_after$data$CD14),]
+
+CombinePlots(plots = list(p, p_after))</code></pre>
+<p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-26-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>There is a pacakge to deal with this type of overplotting problem. <a href="https://github.com/SaskiaFreytag/schex" class="uri">https://github.com/SaskiaFreytag/schex</a></p>
+<p><code>DoHeatmap</code> generates an expression heatmap for given cells and features. In this case, we are plotting the top 20 markers (or all markers if less than 20) for each cluster.</p>
+<pre class="r"><code>top10 &lt;- pbmc.markers %&gt;% group_by(cluster) %&gt;% top_n(n = 10, wt = avg_logFC)
+DoHeatmap(pbmc, features = top10$gene) + NoLegend()</code></pre>
+<pre><code>Warning in DoHeatmap(pbmc, features = top10$gene): The following features
+were omitted as they were not found in the scale.data slot for the RNA
+assay: NUCB2, LUC7L3, CSKMT, INTS6, NKTR, HEXIM1, MT-ND5, MALAT1, MT-CYB,
+NOSIP, SARAF, TCF7, LDHB</code></pre>
+<p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>save the Seurat object into a file</p>
+<pre class="r"><code>saveRDS(pbmc, &quot;data/pbmc5k/pbmc_5k_v3.rds&quot;)</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.5.1 (2018-07-02)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS High Sierra 10.13.6
+
+Matrix products: default
+BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] Seurat_3.0.2    forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1  
+ [5] purrr_0.2.5     readr_1.3.1     tidyr_0.8.2     tibble_2.0.1   
+ [9] ggplot2_3.1.0   tidyverse_1.2.1
+
+loaded via a namespace (and not attached):
+  [1] Rtsne_0.15          colorspace_1.4-1    ggridges_0.5.1     
+  [4] rprojroot_1.3-2     fs_1.2.6            rstudioapi_0.8     
+  [7] listenv_0.7.0       npsurv_0.4-0        ggrepel_0.8.0      
+ [10] fansi_0.4.0         lubridate_1.7.4     xml2_1.2.0         
+ [13] codetools_0.2-16    splines_3.5.1       R.methodsS3_1.7.1  
+ [16] lsei_1.2-0          knitr_1.21          jsonlite_1.6       
+ [19] workflowr_1.4.0     broom_0.5.1         ica_1.0-2          
+ [22] cluster_2.0.7-1     png_0.1-7           R.oo_1.22.0        
+ [25] sctransform_0.2.0   compiler_3.5.1      httr_1.4.0         
+ [28] backports_1.1.3     assertthat_0.2.0    Matrix_1.2-15      
+ [31] lazyeval_0.2.1      cli_1.0.1           htmltools_0.3.6    
+ [34] tools_3.5.1         rsvd_1.0.0          igraph_1.2.2       
+ [37] gtable_0.2.0        glue_1.3.0          RANN_2.6           
+ [40] reshape2_1.4.3      Rcpp_1.0.0          cellranger_1.1.0   
+ [43] gdata_2.18.0        ape_5.2             nlme_3.1-137       
+ [46] gbRd_0.4-11         lmtest_0.9-36       xfun_0.4           
+ [49] globals_0.12.4      rvest_0.3.2         irlba_2.3.2        
+ [52] gtools_3.8.1        future_1.10.0       MASS_7.3-51.1      
+ [55] zoo_1.8-4           scales_1.0.0        hms_0.4.2          
+ [58] parallel_3.5.1      RColorBrewer_1.1-2  yaml_2.2.0         
+ [61] reticulate_1.10     pbapply_1.3-4       gridExtra_2.3      
+ [64] stringi_1.2.4       caTools_1.17.1.1    bibtex_0.4.2       
+ [67] matrixStats_0.54.0  Rdpack_0.10-1       SDMTools_1.1-221   
+ [70] rlang_0.3.1         pkgconfig_2.0.2     bitops_1.0-6       
+ [73] evaluate_0.12       lattice_0.20-38     ROCR_1.0-7         
+ [76] htmlwidgets_1.3     labeling_0.3        cowplot_0.9.3      
+ [79] tidyselect_0.2.5    plyr_1.8.4          magrittr_1.5       
+ [82] R6_2.3.0            gplots_3.0.1        generics_0.0.2     
+ [85] pillar_1.3.1        haven_2.0.0         whisker_0.3-2      
+ [88] withr_2.1.2         fitdistrplus_1.0-11 survival_2.43-3    
+ [91] future.apply_1.0.1  tsne_0.1-3          modelr_0.1.2       
+ [94] crayon_1.3.4        utf8_1.1.4          KernSmooth_2.23-15 
+ [97] plotly_4.8.0        rmarkdown_1.11      grid_3.5.1         
+[100] readxl_1.2.0        data.table_1.11.8   git2r_0.23.0       
+[103] metap_1.0           digest_0.6.18       R.utils_2.7.0      
+[106] munsell_0.5.0       viridisLite_0.3.0  </code></pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

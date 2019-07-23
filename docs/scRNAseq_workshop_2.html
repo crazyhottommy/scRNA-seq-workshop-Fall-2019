@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>scRNAseq_workshop_2</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">scRNA-seq-workshop-Fall-2019</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">scRNAseq_workshop_2</h1>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2019-07-23
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>scRNA-seq-workshop-Fall-2019/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.4.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20190718code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20190718)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20190718code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20190718)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong2095d3e"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> 2095d3e </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrong2095d3e" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  data/pbmc10k/
+    Untracked:  data/pbmc5k/
+    Untracked:  docs/figure/
+
+Unstaged changes:
+    Modified:   analysis/scRNAseq_workshop_1.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+2095d3e
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-23
+</td>
+<td>
+Publish the initial files for myproject
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="annotating-the-cell-types-with-large-data-set" class="section level1">
+<h1>Annotating the cell types with large data set</h1>
+<p>We have gone through a basic Seurat workflow in the last section using 5k PBMC as an example. We have identified some marker genes for each cluster, and how do we assign each cluster a cell type? Usually, cell type assignment requires a lot of expert opinions based on the known biology of the cells being studied. Large single-cell consortiums such as The Human Cell Atalas (HCA) has produced a lot of data sets with a lot of cells for each tissue/organ and has annotated each cell type. A practical problem is that we have our own single-cell experiemnt done and want to know what are the cell types in our own data set when comparing to a reference data set e.g. in HCA?</p>
+<p>Seurat V3 provide convinient functions to do that. For more details, read the paper: <a href="https://www.biorxiv.org/content/10.1101/460147v1">Comprehensive Integration of Single-Cell Data</a> and <a href="https://satijalab.org/seurat/v3.0/integration.html">tutorial</a></p>
+<p>Their method aims to first identify ‘anchors’ between pairs of datasets. These represent pairwise correspondences between individual cells (one in each dataset), that we hypothesize originate from the same biological state. These ‘anchors’ are then used to harmonize the datasets, or transfer information from one dataset to another.</p>
+<p>For this example, we have a 10k PBMC data set (reference data set) which was annotated by the Seurat developing group. Let’s annotate our 5k PMBC data with the reference.</p>
+<p><strong>Transfer of cell type labels from a reference dataset onto a new query dataset</strong></p>
+<pre class="bash"><code>cd data
+mkdir pbmc10k
+cd pbmc10k
+
+curl -Lo pbmc_10k_v3.rds https://www.dropbox.com/s/3f3p5nxrn5b3y4y/pbmc_10k_v3.rds?dl=1 
+# the size of the data
+ls -sh</code></pre>
+<div id="read-in-the-10k-pbmc-data" class="section level3">
+<h3>read in the 10k pbmc data</h3>
+<pre class="r"><code>library(Seurat)</code></pre>
+<pre><code>Warning: package &#39;Seurat&#39; was built under R version 3.5.2</code></pre>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>── Attaching packages ────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>✔ ggplot2 3.1.0       ✔ purrr   0.2.5  
+✔ tibble  2.0.1       ✔ dplyr   0.8.0.1
+✔ tidyr   0.8.2       ✔ stringr 1.3.1  
+✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
+<pre><code>Warning: package &#39;tibble&#39; was built under R version 3.5.2</code></pre>
+<pre><code>Warning: package &#39;dplyr&#39; was built under R version 3.5.2</code></pre>
+<pre><code>── Conflicts ───────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code># this returns a seurat object
+pbmc.10k&lt;- readRDS(&quot;data/pbmc10k/pbmc_10k_v3.rds&quot;)
+pbmc.10k</code></pre>
+<pre><code>An object of class Seurat 
+19089 features across 9432 samples within 1 assay 
+Active assay: RNA (19089 features)
+ 3 dimensional reductions calculated: pca, tsne, umap</code></pre>
+<pre class="r"><code>pbmc.10k@meta.data %&gt;% head()</code></pre>
+<pre><code>                       orig.ident nCount_RNA nFeature_RNA    observed
+rna_AAACCCAAGCGCCCAT-1    10x_RNA       2204         1087 0.035812672
+rna_AAACCCACAGAGTTGG-1    10x_RNA       5884         1836 0.019227034
+rna_AAACCCACAGGTATGG-1    10x_RNA       5530         2216 0.005447865
+rna_AAACCCACATAGTCAC-1    10x_RNA       5106         1615 0.014276003
+rna_AAACCCACATCCAATG-1    10x_RNA       4572         1800 0.053857351
+rna_AAACCCAGTGGCTACC-1    10x_RNA       6702         1965 0.056603774
+                       simulated percent.mito RNA_snn_res.0.4
+rna_AAACCCAAGCGCCCAT-1 0.4382022   0.02359347               1
+rna_AAACCCACAGAGTTGG-1 0.1017964   0.10757988               0
+rna_AAACCCACAGGTATGG-1 0.1392801   0.07848101               5
+rna_AAACCCACATAGTCAC-1 0.4949495   0.10830396               3
+rna_AAACCCACATCCAATG-1 0.1392801   0.08989501               5
+rna_AAACCCAGTGGCTACC-1 0.3554328   0.06326470               1
+                              celltype
+rna_AAACCCAAGCGCCCAT-1      CD4 Memory
+rna_AAACCCACAGAGTTGG-1 CD14+ Monocytes
+rna_AAACCCACAGGTATGG-1          NK dim
+rna_AAACCCACATAGTCAC-1      pre-B cell
+rna_AAACCCACATCCAATG-1       NK bright
+rna_AAACCCAGTGGCTACC-1      CD4 Memory</code></pre>
+<pre class="r"><code>## how many cells for each cell type? 14 cell types
+table(pbmc.10k@meta.data$celltype)</code></pre>
+<pre><code>
+     B cell progenitor        CD14+ Monocytes        CD16+ Monocytes 
+                   460                   2992                    328 
+            CD4 Memory              CD4 Naive           CD8 effector 
+                  1596                   1047                    383 
+             CD8 Naive         Dendritic cell Double negative T cell 
+                   337                     74                    592 
+        Megakaryocytes              NK bright                 NK dim 
+                    52                    109                    435 
+                   pDC             pre-B cell 
+                    68                    959 </code></pre>
+<pre class="r"><code># 10k cells
+length(colnames(pbmc.10k))</code></pre>
+<pre><code>[1] 9432</code></pre>
+<pre class="r"><code>p1&lt;- DimPlot(pbmc.10k, group.by = &quot;celltype&quot;, label = TRUE, repel = TRUE) + NoLegend() + ggtitle(&quot;10k pbmc&quot;)</code></pre>
+</div>
+<div id="plot-the-umap-for-two-data-sets-side-by-side" class="section level3">
+<h3>plot the UMAP for two data sets side by side</h3>
+<pre class="r"><code>pbmc&lt;- readRDS(&quot;data/pbmc5k/pbmc_5k_v3.rds&quot;)
+
+p2&lt;- DimPlot(pbmc, group.by = &quot;seurat_clusters&quot;, label = TRUE, repel = TRUE) + NoLegend() + ggtitle(&quot;5k pbmc&quot;)
+
+CombinePlots(plots = list(p1, p2))</code></pre>
+<p><img src="figure/scRNAseq_workshop_2.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Now, we can identify anchors between the two dataset and use these anchors to transfer the celltype labels we learned from the 10K scRNA-seq data to the 5k pmbc cells.</p>
+<pre class="r"><code>transfer.anchors &lt;- FindTransferAnchors(reference = pbmc.10k, query = pbmc, features = VariableFeatures(object = pbmc.10k), 
+    reference.assay = &quot;RNA&quot;, query.assay = &quot;RNA&quot;, reduction = &quot;pcaproject&quot;)</code></pre>
+<pre><code>Performing PCA on the provided reference using 3000 features as input.</code></pre>
+<pre><code>Projecting PCA</code></pre>
+<pre><code>Finding neighborhoods</code></pre>
+<pre><code>Finding anchors</code></pre>
+<pre><code>    Found 7790 anchors</code></pre>
+<pre><code>Filtering anchors</code></pre>
+<pre><code>    Retained 5062 anchors</code></pre>
+<pre><code>Extracting within-dataset neighbors</code></pre>
+<p><strong>Note if transferring scRNAseq label to scATACseq data, set reduction = “cca” is recommended</strong></p>
+<p>To transfer the cluster ids, we provide a vector of previously annotated cell type labels for the RNA to the refdata parameter. The output will contain a matrix with predictions and confidence scores for each ATAC-seq cell.</p>
+<pre class="r"><code>celltype.predictions &lt;- TransferData(anchorset = transfer.anchors, refdata = pbmc.10k$celltype, 
+    dims = 1:30)</code></pre>
+<pre><code>Finding integration vectors</code></pre>
+<pre><code>Finding integration vector weights</code></pre>
+<pre><code>Predicting cell labels</code></pre>
+<pre class="r"><code>head(celltype.predictions)</code></pre>
+<pre><code>                      predicted.id prediction.score.CD4.Memory
+AAACCCAAGCGTATGG   CD14+ Monocytes                   0.0000000
+AAACCCAGTCCTACAA   CD14+ Monocytes                   0.0000000
+AAACGCTAGGGCATGT B cell progenitor                   0.0000000
+AAACGCTGTAGGTACG         CD4 Naive                   0.1296114
+AAACGCTGTGTCCGGT   CD14+ Monocytes                   0.0000000
+AAACGCTGTGTGATGG            NK dim                   0.0000000
+                 prediction.score.CD14..Monocytes prediction.score.NK.dim
+AAACCCAAGCGTATGG                                1                       0
+AAACCCAGTCCTACAA                                1                       0
+AAACGCTAGGGCATGT                                0                       0
+AAACGCTGTAGGTACG                                0                       0
+AAACGCTGTGTCCGGT                                1                       0
+AAACGCTGTGTGATGG                                0                       1
+                 prediction.score.pre.B.cell prediction.score.NK.bright
+AAACCCAAGCGTATGG                           0                          0
+AAACCCAGTCCTACAA                           0                          0
+AAACGCTAGGGCATGT                           0                          0
+AAACGCTGTAGGTACG                           0                          0
+AAACGCTGTGTCCGGT                           0                          0
+AAACGCTGTGTGATGG                           0                          0
+                 prediction.score.CD4.Naive prediction.score.CD8.Naive
+AAACCCAAGCGTATGG                  0.0000000                  0.0000000
+AAACCCAGTCCTACAA                  0.0000000                  0.0000000
+AAACGCTAGGGCATGT                  0.0000000                  0.0000000
+AAACGCTGTAGGTACG                  0.7578112                  0.1125774
+AAACGCTGTGTCCGGT                  0.0000000                  0.0000000
+AAACGCTGTGTGATGG                  0.0000000                  0.0000000
+                 prediction.score.pDC
+AAACCCAAGCGTATGG                    0
+AAACCCAGTCCTACAA                    0
+AAACGCTAGGGCATGT                    0
+AAACGCTGTAGGTACG                    0
+AAACGCTGTGTCCGGT                    0
+AAACGCTGTGTGATGG                    0
+                 prediction.score.Double.negative.T.cell
+AAACCCAAGCGTATGG                                       0
+AAACCCAGTCCTACAA                                       0
+AAACGCTAGGGCATGT                                       0
+AAACGCTGTAGGTACG                                       0
+AAACGCTGTGTCCGGT                                       0
+AAACGCTGTGTGATGG                                       0
+                 prediction.score.CD16..Monocytes
+AAACCCAAGCGTATGG                                0
+AAACCCAGTCCTACAA                                0
+AAACGCTAGGGCATGT                                0
+AAACGCTGTAGGTACG                                0
+AAACGCTGTGTCCGGT                                0
+AAACGCTGTGTGATGG                                0
+                 prediction.score.Megakaryocytes
+AAACCCAAGCGTATGG                               0
+AAACCCAGTCCTACAA                               0
+AAACGCTAGGGCATGT                               0
+AAACGCTGTAGGTACG                               0
+AAACGCTGTGTCCGGT                               0
+AAACGCTGTGTGATGG                               0
+                 prediction.score.CD8.effector
+AAACCCAAGCGTATGG                             0
+AAACCCAGTCCTACAA                             0
+AAACGCTAGGGCATGT                             0
+AAACGCTGTAGGTACG                             0
+AAACGCTGTGTCCGGT                             0
+AAACGCTGTGTGATGG                             0
+                 prediction.score.B.cell.progenitor
+AAACCCAAGCGTATGG                                  0
+AAACCCAGTCCTACAA                                  0
+AAACGCTAGGGCATGT                                  1
+AAACGCTGTAGGTACG                                  0
+AAACGCTGTGTCCGGT                                  0
+AAACGCTGTGTGATGG                                  0
+                 prediction.score.Dendritic.cell prediction.score.max
+AAACCCAAGCGTATGG                               0            1.0000000
+AAACCCAGTCCTACAA                               0            1.0000000
+AAACGCTAGGGCATGT                               0            1.0000000
+AAACGCTGTAGGTACG                               0            0.7578112
+AAACGCTGTGTCCGGT                               0            1.0000000
+AAACGCTGTGTGATGG                               0            1.0000000</code></pre>
+<pre class="r"><code>pbmc&lt;- AddMetaData(pbmc, metadata = celltype.predictions)
+
+pbmc@meta.data %&gt;% head()</code></pre>
+<pre><code>                 orig.ident nCount_RNA nFeature_RNA percent.mt
+AAACCCAAGCGTATGG     pbmc5k      13536         3502  10.675236
+AAACCCAGTCCTACAA     pbmc5k      12667         3380   5.620905
+AAACGCTAGGGCATGT     pbmc5k       5788         1799  10.608155
+AAACGCTGTAGGTACG     pbmc5k      13185         2886   7.819492
+AAACGCTGTGTCCGGT     pbmc5k      15495         3801   7.460471
+AAACGCTGTGTGATGG     pbmc5k       6148         2347   9.954457
+                 RNA_snn_res.0.5 seurat_clusters      predicted.id
+AAACCCAAGCGTATGG               1               1   CD14+ Monocytes
+AAACCCAGTCCTACAA               1               1   CD14+ Monocytes
+AAACGCTAGGGCATGT               5               5 B cell progenitor
+AAACGCTGTAGGTACG               0               0         CD4 Naive
+AAACGCTGTGTCCGGT               1               1   CD14+ Monocytes
+AAACGCTGTGTGATGG               4               4            NK dim
+                 prediction.score.CD4.Memory
+AAACCCAAGCGTATGG                   0.0000000
+AAACCCAGTCCTACAA                   0.0000000
+AAACGCTAGGGCATGT                   0.0000000
+AAACGCTGTAGGTACG                   0.1296114
+AAACGCTGTGTCCGGT                   0.0000000
+AAACGCTGTGTGATGG                   0.0000000
+                 prediction.score.CD14..Monocytes prediction.score.NK.dim
+AAACCCAAGCGTATGG                                1                       0
+AAACCCAGTCCTACAA                                1                       0
+AAACGCTAGGGCATGT                                0                       0
+AAACGCTGTAGGTACG                                0                       0
+AAACGCTGTGTCCGGT                                1                       0
+AAACGCTGTGTGATGG                                0                       1
+                 prediction.score.pre.B.cell prediction.score.NK.bright
+AAACCCAAGCGTATGG                           0                          0
+AAACCCAGTCCTACAA                           0                          0
+AAACGCTAGGGCATGT                           0                          0
+AAACGCTGTAGGTACG                           0                          0
+AAACGCTGTGTCCGGT                           0                          0
+AAACGCTGTGTGATGG                           0                          0
+                 prediction.score.CD4.Naive prediction.score.CD8.Naive
+AAACCCAAGCGTATGG                  0.0000000                  0.0000000
+AAACCCAGTCCTACAA                  0.0000000                  0.0000000
+AAACGCTAGGGCATGT                  0.0000000                  0.0000000
+AAACGCTGTAGGTACG                  0.7578112                  0.1125774
+AAACGCTGTGTCCGGT                  0.0000000                  0.0000000
+AAACGCTGTGTGATGG                  0.0000000                  0.0000000
+                 prediction.score.pDC
+AAACCCAAGCGTATGG                    0
+AAACCCAGTCCTACAA                    0
+AAACGCTAGGGCATGT                    0
+AAACGCTGTAGGTACG                    0
+AAACGCTGTGTCCGGT                    0
+AAACGCTGTGTGATGG                    0
+                 prediction.score.Double.negative.T.cell
+AAACCCAAGCGTATGG                                       0
+AAACCCAGTCCTACAA                                       0
+AAACGCTAGGGCATGT                                       0
+AAACGCTGTAGGTACG                                       0
+AAACGCTGTGTCCGGT                                       0
+AAACGCTGTGTGATGG                                       0
+                 prediction.score.CD16..Monocytes
+AAACCCAAGCGTATGG                                0
+AAACCCAGTCCTACAA                                0
+AAACGCTAGGGCATGT                                0
+AAACGCTGTAGGTACG                                0
+AAACGCTGTGTCCGGT                                0
+AAACGCTGTGTGATGG                                0
+                 prediction.score.Megakaryocytes
+AAACCCAAGCGTATGG                               0
+AAACCCAGTCCTACAA                               0
+AAACGCTAGGGCATGT                               0
+AAACGCTGTAGGTACG                               0
+AAACGCTGTGTCCGGT                               0
+AAACGCTGTGTGATGG                               0
+                 prediction.score.CD8.effector
+AAACCCAAGCGTATGG                             0
+AAACCCAGTCCTACAA                             0
+AAACGCTAGGGCATGT                             0
+AAACGCTGTAGGTACG                             0
+AAACGCTGTGTCCGGT                             0
+AAACGCTGTGTGATGG                             0
+                 prediction.score.B.cell.progenitor
+AAACCCAAGCGTATGG                                  0
+AAACCCAGTCCTACAA                                  0
+AAACGCTAGGGCATGT                                  1
+AAACGCTGTAGGTACG                                  0
+AAACGCTGTGTCCGGT                                  0
+AAACGCTGTGTGATGG                                  0
+                 prediction.score.Dendritic.cell prediction.score.max
+AAACCCAAGCGTATGG                               0            1.0000000
+AAACCCAGTCCTACAA                               0            1.0000000
+AAACGCTAGGGCATGT                               0            1.0000000
+AAACGCTGTAGGTACG                               0            0.7578112
+AAACGCTGTGTCCGGT                               0            1.0000000
+AAACGCTGTGTGATGG                               0            1.0000000</code></pre>
+<pre class="r"><code>DimPlot(pbmc, group.by = &quot;predicted.id&quot;, label = TRUE, repel = TRUE) + NoLegend() + ggtitle(&quot;5k pbmc&quot;)</code></pre>
+<p><img src="figure/scRNAseq_workshop_2.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.5.1 (2018-07-02)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS High Sierra 10.13.6
+
+Matrix products: default
+BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] forcats_0.3.0   stringr_1.3.1   dplyr_0.8.0.1   purrr_0.2.5    
+ [5] readr_1.3.1     tidyr_0.8.2     tibble_2.0.1    ggplot2_3.1.0  
+ [9] tidyverse_1.2.1 Seurat_3.0.2   
+
+loaded via a namespace (and not attached):
+  [1] tsne_0.1-3          nlme_3.1-137        bitops_1.0-6       
+  [4] fs_1.2.6            lubridate_1.7.4     RColorBrewer_1.1-2 
+  [7] httr_1.4.0          rprojroot_1.3-2     sctransform_0.2.0  
+ [10] tools_3.5.1         backports_1.1.3     R6_2.3.0           
+ [13] irlba_2.3.2         KernSmooth_2.23-15  lazyeval_0.2.1     
+ [16] colorspace_1.4-1    withr_2.1.2         npsurv_0.4-0       
+ [19] gridExtra_2.3       tidyselect_0.2.5    compiler_3.5.1     
+ [22] git2r_0.23.0        cli_1.0.1           rvest_0.3.2        
+ [25] xml2_1.2.0          plotly_4.8.0        labeling_0.3       
+ [28] caTools_1.17.1.1    scales_1.0.0        lmtest_0.9-36      
+ [31] ggridges_0.5.1      pbapply_1.3-4       digest_0.6.18      
+ [34] rmarkdown_1.11      R.utils_2.7.0       pkgconfig_2.0.2    
+ [37] htmltools_0.3.6     bibtex_0.4.2        readxl_1.2.0       
+ [40] htmlwidgets_1.3     rlang_0.3.1         rstudioapi_0.8     
+ [43] generics_0.0.2      zoo_1.8-4           jsonlite_1.6       
+ [46] ica_1.0-2           gtools_3.8.1        R.oo_1.22.0        
+ [49] magrittr_1.5        Matrix_1.2-15       Rcpp_1.0.0         
+ [52] munsell_0.5.0       ape_5.2             reticulate_1.10    
+ [55] R.methodsS3_1.7.1   stringi_1.2.4       whisker_0.3-2      
+ [58] yaml_2.2.0          gbRd_0.4-11         MASS_7.3-51.1      
+ [61] gplots_3.0.1        Rtsne_0.15          plyr_1.8.4         
+ [64] grid_3.5.1          parallel_3.5.1      gdata_2.18.0       
+ [67] listenv_0.7.0       ggrepel_0.8.0       crayon_1.3.4       
+ [70] lattice_0.20-38     haven_2.0.0         cowplot_0.9.3      
+ [73] splines_3.5.1       hms_0.4.2           SDMTools_1.1-221   
+ [76] knitr_1.21          pillar_1.3.1        igraph_1.2.2       
+ [79] reshape2_1.4.3      future.apply_1.0.1  codetools_0.2-16   
+ [82] glue_1.3.0          evaluate_0.12       lsei_1.2-0         
+ [85] metap_1.0           modelr_0.1.2        data.table_1.11.8  
+ [88] png_0.1-7           Rdpack_0.10-1       cellranger_1.1.0   
+ [91] gtable_0.2.0        RANN_2.6            future_1.10.0      
+ [94] assertthat_0.2.0    xfun_0.4            rsvd_1.0.0         
+ [97] broom_0.5.1         survival_2.43-3     viridisLite_0.3.0  
+[100] workflowr_1.4.0     cluster_2.0.7-1     globals_0.12.4     
+[103] fitdistrplus_1.0-11 ROCR_1.0-7         </code></pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
