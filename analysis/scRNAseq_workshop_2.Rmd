@@ -1,0 +1,84 @@
+---
+title: "scRNAseq_workshop_2"
+output: html_document
+---
+
+# Annotating the cell types with large data set
+
+We have gone through a basic Seurat workflow in the last section using 5k PBMC as an example. We have identified some marker genes for each cluster, and how do we assign each cluster a cell type? Usually, cell type assignment requires a lot of expert opinions based on the known biology of the cells being studied. Large single-cell consortiums such as The Human Cell Atalas (HCA) has produced a lot of data sets with a lot of cells for each tissue/organ and has annotated each cell type. A practical problem is that we have our own single-cell experiemnt done and want to know what are the cell types in our own data set when comparing to a reference data set e.g. in HCA?
+
+Seurat V3 provide convinient functions to do that. For more details, read the paper: [Comprehensive Integration of Single-Cell Data](https://www.biorxiv.org/content/10.1101/460147v1) and [tutorial](https://satijalab.org/seurat/v3.0/integration.html)
+
+Their method aims to first identify ‘anchors’ between pairs of datasets. These represent pairwise correspondences between individual cells (one in each dataset), that we hypothesize originate from the same biological state. These ‘anchors’ are then used to harmonize the datasets, or transfer information from one dataset to another.
+
+For this example, we have a 10k PBMC data set (reference data set) which was annotated by the Seurat developing group. Let's annotate our 5k PMBC data with the reference.
+
+**Transfer of cell type labels from a reference dataset onto a new query dataset**
+
+```{bash eval = FALSE}
+cd data
+mkdir pbmc10k
+cd pbmc10k
+
+curl -Lo pbmc_10k_v3.rds https://www.dropbox.com/s/3f3p5nxrn5b3y4y/pbmc_10k_v3.rds?dl=1 
+# the size of the data
+ls -sh
+```
+
+
+### read in the 10k pbmc data 
+
+```{r}
+library(Seurat)
+library(tidyverse)
+# this returns a seurat object
+pbmc.10k<- readRDS("data/pbmc10k/pbmc_10k_v3.rds")
+pbmc.10k
+```
+
+```{r}
+pbmc.10k@meta.data %>% head()
+
+## how many cells for each cell type? 14 cell types
+table(pbmc.10k@meta.data$celltype)
+# 10k cells
+length(colnames(pbmc.10k))
+
+p1<- DimPlot(pbmc.10k, group.by = "celltype", label = TRUE, repel = TRUE) + NoLegend() + ggtitle("10k pbmc")
+
+```
+
+### plot the UMAP for two data sets side by side
+
+```{r}
+pbmc<- readRDS("data/pbmc5k/pbmc_5k_v3.rds")
+
+p2<- DimPlot(pbmc, group.by = "seurat_clusters", label = TRUE, repel = TRUE) + NoLegend() + ggtitle("5k pbmc")
+
+CombinePlots(plots = list(p1, p2))
+```
+
+Now, we can identify anchors between the two dataset and use these anchors to transfer the celltype labels we learned from the 10K scRNA-seq data to the 5k pmbc cells.
+
+```{r}
+transfer.anchors <- FindTransferAnchors(reference = pbmc.10k, query = pbmc, features = VariableFeatures(object = pbmc.10k), 
+    reference.assay = "RNA", query.assay = "RNA", reduction = "pcaproject")
+```
+
+**Note if transferring scRNAseq label to scATACseq data, set reduction = "cca" is recommended**
+
+To transfer the cluster ids, we provide a vector of previously annotated cell type labels for the RNA to the refdata parameter. The output will contain a matrix with predictions and confidence scores for each ATAC-seq cell.
+
+
+```{r}
+celltype.predictions <- TransferData(anchorset = transfer.anchors, refdata = pbmc.10k$celltype, 
+    dims = 1:30)
+
+head(celltype.predictions)
+
+pbmc<- AddMetaData(pbmc, metadata = celltype.predictions)
+
+pbmc@meta.data %>% head()
+
+DimPlot(pbmc, group.by = "predicted.id", label = TRUE, repel = TRUE) + NoLegend() + ggtitle("5k pbmc")
+```
