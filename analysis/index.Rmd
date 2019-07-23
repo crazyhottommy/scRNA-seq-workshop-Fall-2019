@@ -8,4 +8,5 @@ editor_options:
   chunk_output_type: console
 ---
 
-Welcome to my research website.
+This is the main page of the Harvard FAS informatics scRNAseq workshop (part of the
+nanocourse) held from August 19th - 22nd.

@@ -7,4 +7,15 @@ editor_options:
   chunk_output_type: console
 ---
 
-Describe your project.
+### Course description :
+This two week bioinformatics course run by the FAS Informatics group will cover both fundamental tools and applied methods in bioinformatics. The first week (August 12th-16th) will introduce the basics of programming in R and Python, and provide the foundational tools for the topics covered in week 2. This part assumes no prior (extensive) experience with either R or Python, although we will move fast and some prior exposure (even if limited) will be helpful.
+ 
+The second week (August 19th - 22nd) will cover common bioinformatic tools and methods. This will include in-depth modules on RNA-seq analysis (including single-cell RNA-seq), read mapping, variant calling, analysis of population genetic data, manipulation of genomic data types (such as ChIP-seq or ATAC-seq peak data) and other topics. 
+ 
+Participation in the first week is not required to participate in the second week if you have a strong background in the required tools (R and/or Python depending on the topic). Participants who attend at least 4 days of the course will have the opportunity to get course credit. 
+ 
+In addition to the sections below, there will be two public seminars for course participants, featuring Dr. John Novembre (University of Chicago) and Dr. Mansi Srivastava (Harvard University).
+ 
+Please register for all sections below you are intending to participate in. Exact times are to be determined but will be announced as soon as possible.
+ 
+In order to ensure space for all participants, a no-show fee of $50 will be charged. If you cannot attend a session you are signed for, please contact us at least 12 hours in advance to avoid the fee.
