@@ -1,20 +1,24 @@
-name: "scRNA-seq-workshop-Fall-2019"
+name: scRNA-seq-workshop-Fall-2019
 output_dir: ../docs
 navbar:
-  title: "scRNA-seq-workshop-Fall-2019"
+  title: scRNA-seq-workshop-Fall-2019
   left:
   - text: Home
     href: index.html
   - text: About
     href: about.html
-  - text: "Content"
+  - text: Content
     menu:
-      - text: "Part 1"
-        href: "scRNAseq_workshop_1.html"
-      - text: "Part 2"
-        href: "scRNAseq_workshop_2.html"
+    - text: Part 1
+      href: scRNAseq_workshop_1.html
+    - text: Part 2
+      href: scRNAseq_workshop_2.html
   - text: License
     href: license.html
+  right:
+  - icon: fa-github
+    text: Source code
+    href: https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019
 output:
   workflowr::wflow_html:
     toc: yes
