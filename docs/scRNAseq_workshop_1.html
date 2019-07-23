@@ -15,7 +15,7 @@
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -382,6 +382,21 @@ div.tocify {
 <li>
   <a href="about.html">About</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Content
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="scRNAseq_workshop_1.html">Part 1</a>
+    </li>
+    <li>
+      <a href="scRNAseq_workshop_2.html">Part 2</a>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="license.html">License</a>
 </li>
@@ -520,10 +535,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong2095d3e"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> 2095d3e </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong5821efd"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> 5821efd </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrong2095d3e" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrong5821efd" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -536,7 +551,11 @@ Ignored files:
 Untracked files:
     Untracked:  data/pbmc10k/
     Untracked:  data/pbmc5k/
-    Untracked:  docs/figure/
+
+Unstaged changes:
+    Modified:   analysis/about.Rmd
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/license.Rmd
 
 </code></pre>
 <p>
@@ -580,6 +599,40 @@ Message
 Rmd
 </td>
 <td>
+5821efd
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-23
+</td>
+<td>
+wflow_publish(c(“analysis/scRNAseq_workshop_1.Rmd”, “analysis/scRNAseq_workshop_2.Rmd”))
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+7bf52d9
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-23
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 2095d3e
 </td>
 <td>
@@ -602,8 +655,8 @@ Publish the initial files for myproject
 <div id="downloading-the-data" class="section level1">
 <h1>downloading the data</h1>
 <p>In this tutorial, we are going to mainly use Seurat package with publicly available datasets. Extensive tutorials with various contexts can be found in <a href="https://satijalab.org/seurat/" class="uri">https://satijalab.org/seurat/</a>.</p>
-<p>Here, in the first part, we are going to analyze a single cell RNAseq dataset product by 10X Genomics and processed through Cell Ranger(TM) pipeline to generate barcode count matrices.</p>
-<p>We will download the public 5k pbmc (Peripheral blood mononuclear cell) data set from 10x genomics</p>
+<p>Here, in the first part, we are going to analyze a single cell RNAseq dataset product by 10X Genomics and processed through Cell Ranger(TM) pipeline, which generates barcode count matrices.</p>
+<p>We will download the public 5k pbmc (Peripheral blood mononuclear cell) data set from 10x genomics.</p>
 <p>go to the <code>Terminal</code> tab.</p>
 <pre class="bash"><code>cd data
 mkdir pbmc5k
@@ -631,13 +684,10 @@ install.packages(&#39;Seurat&#39;)</code></pre>
 ✔ tibble  2.0.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.2       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>Warning: package &#39;tibble&#39; was built under R version 3.5.2</code></pre>
-<pre><code>Warning: package &#39;dplyr&#39; was built under R version 3.5.2</code></pre>
 <pre><code>── Conflicts ───────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(Seurat)</code></pre>
-<pre><code>Warning: package &#39;Seurat&#39; was built under R version 3.5.2</code></pre>
 <pre class="r"><code># Load the PBMC dataset
 pbmc.data &lt;- Read10X(data.dir = &quot;data/pbmc5k/filtered_feature_bc_matrix/&quot;)
 # Initialize the Seurat object with the raw (non-normalized data).
@@ -683,7 +733,44 @@ AAACGCTGTGTCCGGT     pbmc5k      15495         3801   7.460471</code></pre>
 <pre class="r"><code># Visualize QC metrics as a violin plot
 VlnPlot(pbmc, features = c(&quot;nFeature_RNA&quot;, &quot;nCount_RNA&quot;, &quot;percent.mt&quot;), ncol = 3)</code></pre>
 <p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>we set the cutoff based on the visualization above. The cutoff is quite objective.</p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+7bf52d9
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>we set the cutoff based on the visualization above. The cutoff is quite subjective.</p>
 <pre class="r"><code>pbmc &lt;- subset(pbmc, subset = nFeature_RNA &gt; 200 &amp; nFeature_RNA &lt; 5000 &amp; percent.mt &lt; 25)</code></pre>
 </div>
 <div id="normalization-of-the-data" class="section level3">
@@ -703,8 +790,45 @@ top10 &lt;- head(VariableFeatures(pbmc), 10)
 plot1 &lt;- VariableFeaturePlot(pbmc)
 plot2 &lt;- LabelPoints(plot = plot1, points = top10, repel = TRUE)</code></pre>
 <pre><code>When using repel, set xnudge and ynudge to 0 for optimal results</code></pre>
-<pre class="r"><code>CombinePlots(plots = list(plot1, plot2))</code></pre>
+<pre class="r"><code>CombinePlots(plots = list(plot1, plot2), ncol =1)</code></pre>
 <p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+7bf52d9
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="scaling-the-data" class="section level3">
 <h3>Scaling the data</h3>
@@ -838,6 +962,43 @@ dim(pbmc[[&quot;RNA&quot;]]@counts)</code></pre>
 p1&lt;- DimPlot(pbmc, reduction = &quot;pca&quot;)
 p1</code></pre>
 <p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
+Past versions of unnamed-chunk-14-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-14-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+7bf52d9
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>replicate the PCA plot ourselves by ggplot2</p>
 <pre class="r"><code>Embeddings(pbmc, reduction = &quot;pca&quot;) %&gt;% head()</code></pre>
 <pre><code>                       PC_1        PC_2        PC_3      PC_4       PC_5
@@ -916,11 +1077,85 @@ AAACGCTGTGTGATGG  1.5306216 -0.2381258 -0.8683929  0.1394903  1.8223171</code></
   theme_classic()
 p2</code></pre>
 <p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
+Past versions of unnamed-chunk-15-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-15-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+7bf52d9
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>CombinePlots(plots = list(p1, p2))</code></pre>
 <pre><code>Warning in align_plots(plotlist = plots, align = align, axis = axis):
 Complex graphs cannot be vertically aligned unless axis parameter is set
 properly. Placing graphs unaligned.</code></pre>
 <p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-15-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-2">
+Past versions of unnamed-chunk-15-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-15-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+7bf52d9
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="determine-how-many-pcs-to-include-for-downstream-analysis" class="section level3">
 <h3>Determine How many PCs to include for downstream analysis</h3>
@@ -936,6 +1171,43 @@ JackStrawPlot(pbmc, dims = 1:30)</code></pre>
 <p>An alternative heuristic method generates an ‘Elbow plot’: a ranking of principle components based on the percentage of variance explained by each one (ElbowPlot function). In this example, we can observe an ‘elbow’ around PC20-30, suggesting that the majority of true signal is captured in the first 20 PCs.</p>
 <pre class="r"><code>ElbowPlot(pbmc, ndims = 50)</code></pre>
 <p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-17-1">
+Past versions of unnamed-chunk-17-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-17-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+7bf52d9
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="variance-explained-by-each-pc" class="section level3">
 <h3>variance explained by each PC</h3>
@@ -951,15 +1223,90 @@ varExplained = eigValues / total_variance
 
 varExplained %&gt;% enframe(name = &quot;PC&quot;, value = &quot;varExplained&quot; ) %&gt;%
   ggplot(aes(x = PC, y = varExplained)) + 
-  geom_point() +
-  theme_classic()</code></pre>
+  geom_bar(stat = &quot;identity&quot;) +
+  theme_classic() +
+  ggtitle(&quot;scree plot&quot;)</code></pre>
 <p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
+Past versions of unnamed-chunk-18-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-18-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+7bf52d9
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>### this is what Seurat is plotting: standard deviation
 pca@stdev %&gt;% enframe(name = &quot;PC&quot;, value = &quot;Standard Deviation&quot; ) %&gt;%
   ggplot(aes(x = PC, y = `Standard Deviation`)) + 
   geom_point() +
   theme_classic()</code></pre>
 <p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-18-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-2">
+Past versions of unnamed-chunk-18-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-18-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+7bf52d9
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="cluster-the-cells" class="section level3">
 <h3>Cluster the cells</h3>
@@ -994,12 +1341,123 @@ Levels: 0 1 2 3 4 5 6 7 8 9 10 11 12 13</code></pre>
 pbmc&lt;- RunTSNE(pbmc, dims = 1:20)
 DimPlot(pbmc, reduction = &quot;umap&quot;, label = TRUE)</code></pre>
 <p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-1">
+Past versions of unnamed-chunk-20-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-20-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+7bf52d9
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>## now let&#39;s visualize in the TSNE space
 DimPlot(pbmc, reduction = &quot;tsne&quot;)</code></pre>
 <p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-20-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-2">
+Past versions of unnamed-chunk-20-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-20-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+7bf52d9
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>## now let&#39;s label the clusters in the PCA space
 DimPlot(pbmc, reduction = &quot;pca&quot;)</code></pre>
 <p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-20-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-3">
+Past versions of unnamed-chunk-20-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-20-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+7bf52d9
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Tsne/UMAP is for visualization purpose only. The clusters are defined by the graph-based clustering which was implemented by <code>FindClusters</code>. We then color label the cells by the cluster id on the UMAP space.</p>
 </div>
 <div id="finding-differentially-expressed-features-cluster-biomarkers" class="section level3">
@@ -1065,6 +1523,43 @@ pbmc.markers &lt;- FindAllMarkers(pbmc, only.pos = TRUE, min.pct = 0.25, logfc.t
 <p>VlnPlot (shows expression probability distributions across clusters), and FeaturePlot (visualizes feature expression on a tSNE or PCA plot) are our most commonly used visualizations. We also suggest exploring RidgePlot, CellScatter, and DotPlot as additional methods to view your dataset.</p>
 <pre class="r"><code>VlnPlot(pbmc, features = c(&quot;MS4A1&quot;, &quot;CD79A&quot;))</code></pre>
 <p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-23-1">
+Past versions of unnamed-chunk-23-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-23-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+7bf52d9
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>## understanding the matrix of data slots
 pbmc[[&quot;RNA&quot;]]@data[c(&quot;MS4A1&quot;, &quot;CD79A&quot;), 1:30]</code></pre>
 <pre><code>2 x 30 sparse Matrix of class &quot;dgCMatrix&quot;</code></pre>
@@ -1109,24 +1604,209 @@ CD79A . . 8 . . . . . . . 1 . . . . . . . 10 . . . . . 13 . . . . 27</code></pre
 <pre class="r"><code># you can plot raw counts as well
 VlnPlot(pbmc, features = c(&quot;MS4A1&quot;, &quot;CD79A&quot;), slot = &quot;counts&quot;, log = TRUE)</code></pre>
 <p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-24-1">
+Past versions of unnamed-chunk-24-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-24-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+7bf52d9
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>VlnPlot(pbmc, features = c(&quot;MS4A1&quot;, &quot;CD79A&quot;), slot = &quot;scale.data&quot;)</code></pre>
 <p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-24-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-24-2">
+Past versions of unnamed-chunk-24-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-24-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+7bf52d9
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>FeaturePlot.</p>
 <p>plot the expression intensity overlaid on the Tsne/UMAP plot.</p>
 <pre class="r"><code>FeaturePlot(pbmc, features = c(&quot;MS4A1&quot;, &quot;GNLY&quot;, &quot;CD3E&quot;, &quot;CD14&quot;, &quot;FCER1A&quot;, &quot;FCGR3A&quot;, &quot;LYZ&quot;, &quot;PPBP&quot;, &quot;CD8A&quot;))</code></pre>
 <p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-25-1">
+Past versions of unnamed-chunk-25-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-25-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+7bf52d9
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>ggplot2 plot the data points in the order of the rows present in the dataframe. high-expressed cells can be masked by the (gray) low expressed cells.</p>
 <pre class="r"><code>p&lt;- FeaturePlot(pbmc, features = &quot;CD14&quot;)
 
 ## before reordering
 p</code></pre>
 <p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-26-1">
+Past versions of unnamed-chunk-26-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-26-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+7bf52d9
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>p_after&lt;- p
 ### after reordering
 p_after$data &lt;- p_after$data[order(p_after$data$CD14),]
 
 CombinePlots(plots = list(p, p_after))</code></pre>
 <p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-26-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-26-2">
+Past versions of unnamed-chunk-26-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-26-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+7bf52d9
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>There is a pacakge to deal with this type of overplotting problem. <a href="https://github.com/SaskiaFreytag/schex" class="uri">https://github.com/SaskiaFreytag/schex</a></p>
 <p><code>DoHeatmap</code> generates an expression heatmap for given cells and features. In this case, we are plotting the top 20 markers (or all markers if less than 20) for each cluster.</p>
 <pre class="r"><code>top10 &lt;- pbmc.markers %&gt;% group_by(cluster) %&gt;% top_n(n = 10, wt = avg_logFC)
@@ -1136,6 +1816,43 @@ were omitted as they were not found in the scale.data slot for the RNA
 assay: NUCB2, LUC7L3, CSKMT, INTS6, NKTR, HEXIM1, MT-ND5, MALAT1, MT-CYB,
 NOSIP, SARAF, TCF7, LDHB</code></pre>
 <p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-1">
+Past versions of unnamed-chunk-27-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-27-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+7bf52d9
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>save the Seurat object into a file</p>
 <pre class="r"><code>saveRDS(pbmc, &quot;data/pbmc5k/pbmc_5k_v3.rds&quot;)</code></pre>
 <br>
