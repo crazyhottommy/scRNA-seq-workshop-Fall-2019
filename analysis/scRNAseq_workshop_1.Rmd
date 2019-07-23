@@ -7,9 +7,9 @@ output: html_document
 
 In this tutorial, we are going to mainly use Seurat package with publicly available datasets. Extensive tutorials with various contexts can be found in https://satijalab.org/seurat/.
 
-Here, in the first part, we are going to analyze a single cell RNAseq dataset product by 10X Genomics and processed through Cell Ranger(TM) pipeline to generate barcode count matrices.
+Here, in the first part, we are going to analyze a single cell RNAseq dataset product by 10X Genomics and processed through Cell Ranger(TM) pipeline, which generates barcode count matrices.
 
-We will download the public 5k pbmc (Peripheral blood mononuclear cell) data set from 10x genomics
+We will download the public 5k pbmc (Peripheral blood mononuclear cell) data set from 10x genomics.
 
 go to the `Terminal` tab.
 
@@ -41,7 +41,7 @@ install.packages('Seurat')
 
 load the library
 
-```{r}
+```{r warning=FALSE}
 library(tidyverse)
 library(Seurat)
 ```
@@ -80,7 +80,7 @@ pbmc@meta.data %>% head()
 VlnPlot(pbmc, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
 ```
 
-we set the cutoff based on the visualization above. The cutoff is quite objective.
+we set the cutoff based on the visualization above. The cutoff is quite subjective.
 
 ```{r}
 pbmc <- subset(pbmc, subset = nFeature_RNA > 200 & nFeature_RNA < 5000 & percent.mt < 25)
@@ -107,7 +107,7 @@ top10 <- head(VariableFeatures(pbmc), 10)
 # plot variable features with and without labels
 plot1 <- VariableFeaturePlot(pbmc)
 plot2 <- LabelPoints(plot = plot1, points = top10, repel = TRUE)
-CombinePlots(plots = list(plot1, plot2))
+CombinePlots(plots = list(plot1, plot2), ncol =1)
 ```
 
 ### Scaling the data
@@ -243,8 +243,9 @@ varExplained = eigValues / total_variance
 
 varExplained %>% enframe(name = "PC", value = "varExplained" ) %>%
   ggplot(aes(x = PC, y = varExplained)) + 
-  geom_point() +
-  theme_classic()
+  geom_bar(stat = "identity") +
+  theme_classic() +
+  ggtitle("scree plot")
 
 ### this is what Seurat is plotting: standard deviation
 pca@stdev %>% enframe(name = "PC", value = "Standard Deviation" ) %>%
