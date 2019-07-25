@@ -25,6 +25,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -402,7 +404,13 @@ div.tocify {
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -444,7 +452,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-07-23
+<strong>Last updated:</strong> 2019-07-25
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -535,16 +543,17 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong5821efd"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> 5821efd </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomcrazyhottommyscRNAseqworkshopFall2019treebb1243320ecfa1cdb40b0f777ab133ecbeca526etargetblankbb12433a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/tree/bb1243320ecfa1cdb40b0f777ab133ecbeca526e" target="_blank">bb12433</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrong5821efd" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomcrazyhottommyscRNAseqworkshopFall2019treebb1243320ecfa1cdb40b0f777ab133ecbeca526etargetblankbb12433a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    .DS_Store
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
 
@@ -553,9 +562,7 @@ Untracked files:
     Untracked:  data/pbmc5k/
 
 Unstaged changes:
-    Modified:   analysis/about.Rmd
-    Modified:   analysis/index.Rmd
-    Modified:   analysis/license.Rmd
+    Modified:   README.md
 
 </code></pre>
 <p>
@@ -599,16 +606,16 @@ Message
 Rmd
 </td>
 <td>
-5821efd
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/bb1243320ecfa1cdb40b0f777ab133ecbeca526e/analysis/scRNAseq_workshop_1.Rmd" target="_blank">bb12433</a>
 </td>
 <td>
 Ming Tang
 </td>
 <td>
-2019-07-23
+2019-07-25
 </td>
 <td>
-wflow_publish(c(“analysis/scRNAseq_workshop_1.Rmd”, “analysis/scRNAseq_workshop_2.Rmd”))
+wflow_publish(c(“analysis/index.Rmd”, “analysis/scRNAseq_workshop_1.Rmd”,
 </td>
 </tr>
 <tr>
@@ -616,7 +623,7 @@ wflow_publish(c(“analysis/scRNAseq_workshop_1.Rmd”, “analysis/scRNAseq_wor
 html
 </td>
 <td>
-7bf52d9
+<a href="https://rawcdn.githack.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/8f4aa25722d651535771a56fcae2680e2eafdbde/docs/scRNAseq_workshop_1.html" target="_blank">8f4aa25</a>
 </td>
 <td>
 Ming Tang
@@ -633,7 +640,41 @@ Build site.
 Rmd
 </td>
 <td>
-2095d3e
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/5821efd3561561d175406eaef4034b41678869fc/analysis/scRNAseq_workshop_1.Rmd" target="_blank">5821efd</a>
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-23
+</td>
+<td>
+wflow_publish(c(“analysis/scRNAseq_workshop_1.Rmd”, “analysis/scRNAseq_workshop_2.Rmd”))
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/7bf52d9a683c9dfce39b23563484aaa02dee2602/docs/scRNAseq_workshop_1.html" target="_blank">7bf52d9</a>
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-23
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/2095d3e2c3fd349940547107acdc3647aa218413/analysis/scRNAseq_workshop_1.Rmd" target="_blank">2095d3e</a>
 </td>
 <td>
 Ming Tang
@@ -657,7 +698,7 @@ Publish the initial files for myproject
 <p>In this tutorial, we are going to mainly use Seurat package with publicly available datasets. Extensive tutorials with various contexts can be found in <a href="https://satijalab.org/seurat/" class="uri">https://satijalab.org/seurat/</a>.</p>
 <p>Here, in the first part, we are going to analyze a single cell RNAseq dataset product by 10X Genomics and processed through Cell Ranger(TM) pipeline, which generates barcode count matrices.</p>
 <p>We will download the public 5k pbmc (Peripheral blood mononuclear cell) data set from 10x genomics.</p>
-<p>go to the <code>Terminal</code> tab.</p>
+<p>go to the <code>Terminal</code> tab in your Rstudio.</p>
 <pre class="bash"><code>cd data
 mkdir pbmc5k
 cd pbmc5k
@@ -679,12 +720,12 @@ install.packages(&quot;rmarkdown&quot;)
 install.packages(&#39;Seurat&#39;)</code></pre>
 <p>load the library</p>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ──────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.0       ✔ purrr   0.2.5  
 ✔ tibble  2.0.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.2       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ───────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ─────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(Seurat)</code></pre>
@@ -757,7 +798,7 @@ Date
 <tbody>
 <tr>
 <td>
-7bf52d9
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/7bf52d9a683c9dfce39b23563484aaa02dee2602/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-6-1.png" target="_blank">7bf52d9</a>
 </td>
 <td>
 Ming Tang
@@ -816,7 +857,18 @@ Date
 <tbody>
 <tr>
 <td>
-7bf52d9
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/8f4aa25722d651535771a56fcae2680e2eafdbde/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-9-1.png" target="_blank">8f4aa25</a>
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-23
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/7bf52d9a683c9dfce39b23563484aaa02dee2602/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-9-1.png" target="_blank">7bf52d9</a>
 </td>
 <td>
 Ming Tang
@@ -986,7 +1038,7 @@ Date
 <tbody>
 <tr>
 <td>
-7bf52d9
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/7bf52d9a683c9dfce39b23563484aaa02dee2602/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-14-1.png" target="_blank">7bf52d9</a>
 </td>
 <td>
 Ming Tang
@@ -1101,7 +1153,7 @@ Date
 <tbody>
 <tr>
 <td>
-7bf52d9
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/7bf52d9a683c9dfce39b23563484aaa02dee2602/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-15-1.png" target="_blank">7bf52d9</a>
 </td>
 <td>
 Ming Tang
@@ -1143,7 +1195,7 @@ Date
 <tbody>
 <tr>
 <td>
-7bf52d9
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/7bf52d9a683c9dfce39b23563484aaa02dee2602/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-15-2.png" target="_blank">7bf52d9</a>
 </td>
 <td>
 Ming Tang
@@ -1195,7 +1247,7 @@ Date
 <tbody>
 <tr>
 <td>
-7bf52d9
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/7bf52d9a683c9dfce39b23563484aaa02dee2602/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-17-1.png" target="_blank">7bf52d9</a>
 </td>
 <td>
 Ming Tang
@@ -1251,7 +1303,18 @@ Date
 <tbody>
 <tr>
 <td>
-7bf52d9
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/8f4aa25722d651535771a56fcae2680e2eafdbde/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-18-1.png" target="_blank">8f4aa25</a>
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-23
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/7bf52d9a683c9dfce39b23563484aaa02dee2602/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-18-1.png" target="_blank">7bf52d9</a>
 </td>
 <td>
 Ming Tang
@@ -1294,7 +1357,7 @@ Date
 <tbody>
 <tr>
 <td>
-7bf52d9
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/7bf52d9a683c9dfce39b23563484aaa02dee2602/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-18-2.png" target="_blank">7bf52d9</a>
 </td>
 <td>
 Ming Tang
@@ -1365,7 +1428,7 @@ Date
 <tbody>
 <tr>
 <td>
-7bf52d9
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/7bf52d9a683c9dfce39b23563484aaa02dee2602/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-20-1.png" target="_blank">7bf52d9</a>
 </td>
 <td>
 Ming Tang
@@ -1405,7 +1468,7 @@ Date
 <tbody>
 <tr>
 <td>
-7bf52d9
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/7bf52d9a683c9dfce39b23563484aaa02dee2602/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-20-2.png" target="_blank">7bf52d9</a>
 </td>
 <td>
 Ming Tang
@@ -1445,7 +1508,7 @@ Date
 <tbody>
 <tr>
 <td>
-7bf52d9
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/7bf52d9a683c9dfce39b23563484aaa02dee2602/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-20-3.png" target="_blank">7bf52d9</a>
 </td>
 <td>
 Ming Tang
@@ -1547,7 +1610,7 @@ Date
 <tbody>
 <tr>
 <td>
-7bf52d9
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/7bf52d9a683c9dfce39b23563484aaa02dee2602/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-23-1.png" target="_blank">7bf52d9</a>
 </td>
 <td>
 Ming Tang
@@ -1628,7 +1691,7 @@ Date
 <tbody>
 <tr>
 <td>
-7bf52d9
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/7bf52d9a683c9dfce39b23563484aaa02dee2602/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-24-1.png" target="_blank">7bf52d9</a>
 </td>
 <td>
 Ming Tang
@@ -1667,7 +1730,7 @@ Date
 <tbody>
 <tr>
 <td>
-7bf52d9
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/7bf52d9a683c9dfce39b23563484aaa02dee2602/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-24-2.png" target="_blank">7bf52d9</a>
 </td>
 <td>
 Ming Tang
@@ -1708,7 +1771,7 @@ Date
 <tbody>
 <tr>
 <td>
-7bf52d9
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/7bf52d9a683c9dfce39b23563484aaa02dee2602/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-25-1.png" target="_blank">7bf52d9</a>
 </td>
 <td>
 Ming Tang
@@ -1751,7 +1814,7 @@ Date
 <tbody>
 <tr>
 <td>
-7bf52d9
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/7bf52d9a683c9dfce39b23563484aaa02dee2602/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-26-1.png" target="_blank">7bf52d9</a>
 </td>
 <td>
 Ming Tang
@@ -1794,7 +1857,7 @@ Date
 <tbody>
 <tr>
 <td>
-7bf52d9
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/7bf52d9a683c9dfce39b23563484aaa02dee2602/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-26-2.png" target="_blank">7bf52d9</a>
 </td>
 <td>
 Ming Tang
@@ -1840,7 +1903,7 @@ Date
 <tbody>
 <tr>
 <td>
-7bf52d9
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/7bf52d9a683c9dfce39b23563484aaa02dee2602/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-27-1.png" target="_blank">7bf52d9</a>
 </td>
 <td>
 Ming Tang
