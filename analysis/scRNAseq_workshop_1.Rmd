@@ -11,7 +11,7 @@ Here, in the first part, we are going to analyze a single cell RNAseq dataset pr
 
 We will download the public 5k pbmc (Peripheral blood mononuclear cell) data set from 10x genomics.
 
-go to the `Terminal` tab.
+go to the `Terminal` tab in your Rstudio.
 
 ```{bash eval = FALSE}
 cd data

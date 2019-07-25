@@ -15,6 +15,10 @@ For this example, we have a 10k PBMC data set (reference data set) which was ann
 
 **Transfer of cell type labels from a reference dataset onto a new query dataset**
 
+go to the `Terminal` tab in your Rstudio:
+
+### download 10k pbmc reference data
+
 ```{bash eval = FALSE}
 cd data
 mkdir pbmc10k
@@ -67,7 +71,7 @@ transfer.anchors <- FindTransferAnchors(reference = pbmc.10k, query = pbmc, feat
 
 **Note if transferring scRNAseq label to scATACseq data, set reduction = "cca" is recommended**
 
-To transfer the cluster ids, we provide a vector of previously annotated cell type labels for the RNA to the refdata parameter. The output will contain a matrix with predictions and confidence scores for each ATAC-seq cell.
+To transfer the cluster ids, we provide a vector of previously annotated cell type labels for the RNA to the refdata parameter. The output will contain a matrix with predictions and confidence scores for each 5k pbmc cell.
 
 
 ```{r}
@@ -82,3 +86,84 @@ pbmc@meta.data %>% head()
 
 DimPlot(pbmc, group.by = "predicted.id", label = TRUE, repel = TRUE) + NoLegend() + ggtitle("5k pbmc")
 ```
+
+### confidence of the label transfering
+
+```{r}
+pbmc@meta.data$prediction.score.max %>%
+  tibble::enframe() %>%
+  ggplot(aes(x=value)) + 
+  geom_histogram(color = "white", bins = 50) +
+  geom_vline(xintercept = 0.9, linetype = 2, color = "red") + 
+  theme_classic(base_size = 14) +
+  ggtitle("distribution of max prediciton score")
+```
+
+Most of the cells receive a high prediction score (> 0.9).
+
+
+# Assembly of multiple distinct scRNA-seq datasets into an integrated reference
+
+There are times we want to merge multiple data sets to produce a master reference data. To do this,
+we can identify anchors using the `FindIntegrationAnchors` function, which takes a list of Seurat objects as input. Here, We can combine the 5k and 10k data set into a 15k data set.  
+
+Use `IntegrateData` when the data sets may have batch effect. (e.g. sequenced in different platforms, on different days).
+
+Let's first check if those two data sets have batch effect or not.
+
+```{r}
+pbmc.merge<- merge(pbmc, pbmc.10k)
+table(pbmc.merge@meta.data$orig.ident)
+```
+
+Investigate in a PCA plot 
+
+```{r}
+## using default for all steps
+pbmc.merge<- pbmc.merge %>% 
+  FindVariableFeatures() %>% 
+  NormalizeData() %>% 
+  ScaleData() %>% 
+  RunPCA(verbose = FALSE)
+
+
+DimPlot(pbmc.merge, group.by = "orig.ident")
+```
+
+The points are overlapping each other and make it difficult to read.
+use `split.by` argument
+
+```{r}
+p1<- DimPlot(pbmc.merge, group.by = "orig.ident", split.by = "orig.ident")
+p1
+```
+
+We see the cells in these two data sets mixed well in the PCA space and no batch effect was observed.
+
+If we do see the cells are seprated by batch. we can do 
+
+```{r}
+pbmc.anchors <- FindIntegrationAnchors(object.list = list(pbmc.10k, pbmc), dims = 1:30)
+pbmc.integrated <- IntegrateData(anchorset = pbmc.anchors, dims = 1:30)
+
+DefaultAssay(pbmc.integrated) <- "integrated"
+
+# Run the standard workflow for visualization and clustering
+pbmc.integrated <- pbmc.integrated %>%
+  ScaleData() %>% 
+  RunPCA(verbose = FALSE) %>%
+  RunUMAP(reduction = "pca", dims = 1:30)
+
+DimPlot(pbmc.integrated, reduction = "umap", group.by = "orig.ident", split.by = "orig.ident")
+
+```
+
+Let's compare the PCA with the merged but not "integrated" data
+
+```{r}
+p2<- DimPlot(pbmc.integrated, reduction = "pca", group.by = "orig.ident", split.by = "orig.ident")
+
+CombinePlots(plots = list(p1,p2), ncol = 1)
+```
+
+You may observe the subtle differences :)
