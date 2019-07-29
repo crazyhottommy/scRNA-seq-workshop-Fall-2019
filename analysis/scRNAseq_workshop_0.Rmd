@@ -1,0 +1,118 @@
+---
+title: "Part 0"
+output: html_document
+---
+
+# From sequencer to `cellranger`
+
+In this section, I will show you how to prepare the fastq files and count the scRNAseq matrix by `cellranger`.
+After sequencing, one usually gets a folder from the sequencing core with a folder structure like:
+
+![](img/Run_folder.png)
+
+The `bcl` (Binary Base Call) files in the Data folder contains the raw data generated from the illumina sequencers.
+`cellranger` wraps the illumina [`bcf2fastq`](https://support.illumina.com/sequencing/sequencing_software/bcl2fastq-conversion-software.html) command into `cellranger mkfastq` to convert it to fastq files for single-cell RNAseq data.
+
+### cellranger mkfastq
+
+For details, check the [tutorial](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/what-is-cell-ranger) from 10x Genoimcs.
+
+On `Odyssey` computing cluster:
+
+```{bash eval =FALSE}
+module load bcl2fastq2
+cellranger mkfastq --id=test \
+                   --run=/path/to/the/run/folder \
+                   --csv=test.csv \
+                   --jobmode=local \
+                   --localmem=40 \
+                   --localcores=12
+```
+
+`test.csv` is a comma seprated file with three columns:
+
+```
+Lane,Sample,Index
+1,test_sample,SI-GA-A3
+```
+
+### cellranger count
+
+After `cellranger mkfastq`, we are ready to align the fastqs to the reference genome and count how many reads per gene per cell. These steps are wraped in `cellranger count` command.
+
+```{bash eval =FALSE}
+cellranger count --id=sample345 \
+                   --transcriptome=/opt/refdata-cellranger-GRCh38-3.0.0 \
+                   --fastqs=/home/test/outs/fastq_path/HAWT7ADXX/test_sample/ \
+                   --sample=mysample \
+                   --expect-cells=6000
+```
+
+What does the output of `cellranger count` look like?
+
+In the `sample345` folder there is an `outs` folder, and you will find the files `Seurat` works with in the `filtered_feature_bc_matrix` folder. There are 3 files in the folder:
+
+```{bash eval =FALSE}
+ls -sh filtered_feature_bc_matrix/
+total 90M
+ 60K barcodes.tsv.gz  300K features.tsv.gz   90M matrix.mtx.gz
+ 
+# The `barcodes.tsv.gz` contains the cell barcode that passed the `cellranger` filter.
+zcat barcodes.tsv.gz | head -5
+AAACCCAAGCGCCCAT-1
+AAACCCAAGGTTCCGC-1
+AAACCCACAGAGTTGG-1
+AAACCCACAGGTATGG-1
+AAACCCACATAGTCAC-1
+
+# how many cells (barcodes)?
+zcat barcodes.tsv.gz | wc -l
+11769
+
+# The `features.tsv.gz` contains the ENSEMBLE id and gene symbol
+zcat features.tsv.gz | head -5
+ENSG00000243485 MIR1302-2HG     Gene Expression
+ENSG00000237613 FAM138A Gene Expression
+ENSG00000186092 OR4F5   Gene Expression
+ENSG00000238009 AL627309.1      Gene Expression
+ENSG00000239945 AL627309.3      Gene Expression
+
+## how many genes?
+zcat features.tsv.gz | wc -l
+33538
+
+
+# matrix.mtx.gz is a sparse matrix which contains the non-zero counts
+zcat matrix.mtx.gz | head -10
+%%MatrixMarket matrix coordinate integer general
+%metadata_json: {"format_version": 2, "software_version": "3.0.0"}
+33538 11769 24825783
+33509 1 1
+33506 1 4
+33504 1 2
+33503 1 10
+33502 1 5
+33500 1 20
+33499 1 9
+
+```
+
+Most of the entries in the final `gene x cell` count matrix are zeros. Sparse matrix efficiently save the disk space by only recording the non-zero entries. 
+
+You see the dimension of the matrix is `33538 x 11769` and the number of non-zero entries is `24825783`
+
+e.g. for the subsequent two rows in the sparse matrix:
+
+`33509 1` is the index of the row (gene) and column(cell) of that non-zero entry in the matrix, and `1` is the count number.
+
+`33506 1` is the index of the row and column of that non-zero entry in the matrix, and `4` is the count number.
+
+# From SRA to fastq
+
+# Alternatives to `cellranger`
+
+`cellranger` is very slow. It can take several days to run a mouse single-cell RNAseq data set with even 20 CPUs. There are other tools which can process single-cell RNAseq data set much faster and accurate as well.
+
+#### Alevin
+
+#### Kallisto/bustool
