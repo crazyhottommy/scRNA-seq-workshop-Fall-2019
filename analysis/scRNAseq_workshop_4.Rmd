@@ -1,0 +1,34 @@
+---
+title: "Part 4"
+output: html_document
+---
+
+# Interactive visulization with iSEE package
+
+We primary used `Seurat` package to work with the single-cell data. However, there are a lot of other cool [bioconductor packages](https://bioconductor.org/) to work with single-cell data as well. In this section, I will introduce you to `iSEE` package which provides cool interactive visulization for the single-cell data sets.
+
+`iSEE` is a bioconductor package and it works with the `SingleCellExperiment` object not the `Seurat` object. Let's convert it first.
+
+More converion examples can be found https://satijalab.org/seurat/v3.0/conversion_vignette.html
+
+```{r warning=FALSE}
+library(Seurat)
+library(iSEE)
+#read in the 5k pmbc data we created before
+pbmc<- readRDS("data/pbmc5k/pbmc_5k_v3.rds")
+# Seurat object
+pbmc
+
+pbmc.sce <- as.SingleCellExperiment(pbmc)
+# SingleCellExperiment object
+pbmc.sce
+```
+
+```{r eval=FALSE}
+## feed to iSEE
+iSEE(pbmc.sce)
+```
+
+It opens the `Shiny` Application and now we are ready to do some interactive exploration of the data set!
+
+![](img/iSEE.png)
