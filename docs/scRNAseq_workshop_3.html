@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Part 3</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">scRNA-seq-workshop-Fall-2019</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Content
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="scRNAseq_workshop_0.html">Part 0</a>
+    </li>
+    <li>
+      <a href="scRNAseq_workshop_1.html">Part 1</a>
+    </li>
+    <li>
+      <a href="scRNAseq_workshop_2.html">Part 2</a>
+    </li>
+    <li>
+      <a href="scRNAseq_workshop_3.html">Part 3</a>
+    </li>
+    <li>
+      <a href="scRNAseq_workshop_4.html"></a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Part 3</h1>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2019-07-29
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>scRNA-seq-workshop-Fall-2019/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.4.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20190718code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20190718)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20190718code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20190718)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomcrazyhottommyscRNAseqworkshopFall2019treeb95cdff22971d4d1b2eea70090fabbf41e21ed9btargetblankb95cdffa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/tree/b95cdff22971d4d1b2eea70090fabbf41e21ed9b" target="_blank">b95cdff</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomcrazyhottommyscRNAseqworkshopFall2019treeb95cdff22971d4d1b2eea70090fabbf41e21ed9btargetblankb95cdffa" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  analysis/scRNAseq_workshop_0.Rmd
+    Untracked:  data/pbmc10k/
+    Untracked:  data/pbmc5k/
+    Untracked:  docs/img/
+
+Unstaged changes:
+    Modified:   analysis/scRNAseq_workshop_1.Rmd
+    Modified:   analysis/scRNAseq_workshop_2.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<div id="downstream-analysis-of-scrnaseq-data" class="section level1">
+<h1>Downstream analysis of scRNAseq data</h1>
+<div id="gene-set-enrichment-gsea-analysis" class="section level3">
+<h3>Gene Set enrichment (GSEA) analysis</h3>
+<pre class="r"><code>library(Seurat)</code></pre>
+<pre><code>Warning: package &#39;Seurat&#39; was built under R version 3.5.2</code></pre>
+<pre class="r"><code>pbmc&lt;- readRDS(&quot;data/pbmc5k/pbmc_5k_v3.rds&quot;)
+
+# for GSEA, we need the information of all genes, Seurat is just too slow if we test
+# all 20,000 genes. instead let&#39;s try presto which performs a fast Wilcoxon rank sum test 
+
+#library(devtools)
+#install_github(&#39;immunogenomics/presto&#39;)
+library(presto)</code></pre>
+<pre><code>Loading required package: Rcpp</code></pre>
+<pre class="r"><code>pbmc.genes &lt;- wilcoxauc(pbmc, &#39;seurat_clusters&#39;)
+
+head(pbmc.genes)</code></pre>
+<pre><code>     feature group     avgExpr         logFC statistic       auc
+1 AL627309.1     0 0.005441269 -0.0039398743   2111934 0.4972455
+2 AL627309.3     0 0.000000000 -0.0004917936   2122351 0.4996982
+3 AL669831.5     0 0.058406758 -0.0098809068   2078179 0.4892981
+4     FAM87B     0 0.000000000 -0.0017569714   2117864 0.4986417
+5  LINC00115     0 0.033673117 -0.0053392639   2086692 0.4913023
+6     FAM41C     0 0.015977393 -0.0161927551   2074044 0.4883245
+          pval         padj   pct_in    pct_out
+1 0.0960505617 0.1578387500 0.624025 1.17718080
+2 0.3791408832 0.4752158709 0.000000 0.06036825
+3 0.0201543483 0.0399747053 6.864275 9.20615756
+4 0.0618111058 0.1073170552 0.000000 0.27165711
+5 0.0159900126 0.0323571319 3.744150 5.58406278
+6 0.0001773787 0.0004981502 2.028081 4.37669786</code></pre>
+<pre class="r"><code># we have all the genes for each cluster
+dplyr::count(pbmc.genes, group)</code></pre>
+<pre><code># A tibble: 14 x 2
+   group     n
+   &lt;chr&gt; &lt;int&gt;
+ 1 0     18791
+ 2 1     18791
+ 3 10    18791
+ 4 11    18791
+ 5 12    18791
+ 6 13    18791
+ 7 2     18791
+ 8 3     18791
+ 9 4     18791
+10 5     18791
+11 6     18791
+12 7     18791
+13 8     18791
+14 9     18791</code></pre>
+<p>To do Gene set enrichment analysis, we need to have the annotated gene set first. One popular source is the <a href="http://software.broadinstitute.org/gsea/msigdb/index.jsp">MsigDB</a> from Broad Institute.</p>
+<p><img src="img/msigdb.png" /></p>
+</div>
+<div id="gene-set-enrichment-with-fgsea" class="section level3">
+<h3>Gene Set Enrichment with <code>fgsea</code></h3>
+<pre class="r"><code>library(msigdbr)</code></pre>
+<pre><code>Loading required package: dplyr</code></pre>
+<pre><code>Warning: package &#39;dplyr&#39; was built under R version 3.5.2</code></pre>
+<pre><code>
+Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>The following objects are masked from &#39;package:stats&#39;:
+
+    filter, lag</code></pre>
+<pre><code>The following objects are masked from &#39;package:base&#39;:
+
+    intersect, setdiff, setequal, union</code></pre>
+<pre><code>Loading required package: tibble</code></pre>
+<pre><code>Warning: package &#39;tibble&#39; was built under R version 3.5.2</code></pre>
+<pre class="r"><code>library(fgsea)
+library(dplyr)
+library(ggplot2)
+
+msigdbr_show_species()</code></pre>
+<pre><code> [1] &quot;Bos taurus&quot;               &quot;Caenorhabditis elegans&quot;  
+ [3] &quot;Canis lupus familiaris&quot;   &quot;Danio rerio&quot;             
+ [5] &quot;Drosophila melanogaster&quot;  &quot;Gallus gallus&quot;           
+ [7] &quot;Homo sapiens&quot;             &quot;Mus musculus&quot;            
+ [9] &quot;Rattus norvegicus&quot;        &quot;Saccharomyces cerevisiae&quot;
+[11] &quot;Sus scrofa&quot;              </code></pre>
+<pre class="r"><code>m_df&lt;- msigdbr(species = &quot;Homo sapiens&quot;, category = &quot;C7&quot;)
+
+head(m_df)</code></pre>
+<pre><code># A tibble: 6 x 9
+  gs_name gs_id gs_cat gs_subcat human_gene_symb… species_name entrez_gene
+  &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;            &lt;chr&gt;              &lt;int&gt;
+1 GOLDRA… M3044 C7     &quot;&quot;        ABCA2            Homo sapiens          20
+2 GOLDRA… M3044 C7     &quot;&quot;        ABCC5            Homo sapiens       10057
+3 GOLDRA… M3044 C7     &quot;&quot;        ABHD14A          Homo sapiens       25864
+4 GOLDRA… M3044 C7     &quot;&quot;        ACADM            Homo sapiens          34
+5 GOLDRA… M3044 C7     &quot;&quot;        ACP5             Homo sapiens          54
+6 GOLDRA… M3044 C7     &quot;&quot;        ACP6             Homo sapiens       51205
+# … with 2 more variables: gene_symbol &lt;chr&gt;, sources &lt;chr&gt;</code></pre>
+<pre class="r"><code>fgsea_sets&lt;- m_df %&gt;% split(x = .$gene_symbol, f = .$gs_name)
+
+fgsea_sets$GSE11057_NAIVE_VS_MEMORY_CD4_TCELL_UP</code></pre>
+<pre><code>  [1] &quot;ABLIM1&quot;       &quot;ACER1&quot;        &quot;ACPL2&quot;        &quot;AEBP1&quot;       
+  [5] &quot;AGRN&quot;         &quot;AIF1&quot;         &quot;ALG10B&quot;       &quot;AMN1&quot;        
+  [9] &quot;ANKRD36BP2&quot;   &quot;APBA2&quot;        &quot;APBB1&quot;        &quot;ARMCX2&quot;      
+ [13] &quot;BACH2&quot;        &quot;BEND5&quot;        &quot;BNIP3L&quot;       &quot;BTBD3&quot;       
+ [17] &quot;C10orf58&quot;     &quot;C12orf23&quot;     &quot;C1orf145&quot;     &quot;C6orf170&quot;    
+ [21] &quot;C6orf48&quot;      &quot;CA6&quot;          &quot;CADPS2&quot;       &quot;CAMK4&quot;       
+ [25] &quot;CD248&quot;        &quot;CD55&quot;         &quot;CENPV&quot;        &quot;CEP41&quot;       
+ [29] &quot;CHI3L2&quot;       &quot;CHML&quot;         &quot;CHMP7&quot;        &quot;CIAPIN1&quot;     
+ [33] &quot;CLCN5&quot;        &quot;COL5A2&quot;       &quot;CRLF3&quot;        &quot;CYHR1&quot;       
+ [37] &quot;DDR1&quot;         &quot;DFNB59&quot;       &quot;DNHD1&quot;        &quot;DNTT&quot;        
+ [41] &quot;DSC1&quot;         &quot;EDAR&quot;         &quot;EEA1&quot;         &quot;EFNA1&quot;       
+ [45] &quot;ENGASE&quot;       &quot;EXPH5&quot;        &quot;FAM113B&quot;      &quot;FAM134B&quot;     
+ [49] &quot;FCGRT&quot;        &quot;FLJ13197&quot;     &quot;GAL3ST4&quot;      &quot;GNAI1&quot;       
+ [53] &quot;GP5&quot;          &quot;GPR125&quot;       &quot;GPR160&quot;       &quot;GPRASP1&quot;     
+ [57] &quot;GPRASP2&quot;      &quot;GPRC5B&quot;       &quot;HEMGN&quot;        &quot;HIPK2&quot;       
+ [61] &quot;HSF2&quot;         &quot;IGF1R&quot;        &quot;IGIP&quot;         &quot;ITGA6&quot;       
+ [65] &quot;KCNQ5&quot;        &quot;KCTD3&quot;        &quot;KLHDC1&quot;       &quot;KLHL13&quot;      
+ [69] &quot;KLHL24&quot;       &quot;KRT18&quot;        &quot;KRT2&quot;         &quot;KRT72&quot;       
+ [73] &quot;KRT73&quot;        &quot;LINC00282&quot;    &quot;LMLN&quot;         &quot;LOC100286937&quot;
+ [77] &quot;LOC100287237&quot; &quot;LOC100289019&quot; &quot;LOC100507218&quot; &quot;LOC282997&quot;   
+ [81] &quot;LOC283887&quot;    &quot;LOC284023&quot;    &quot;LOC346887&quot;    &quot;LOC439949&quot;   
+ [85] &quot;LOC440104&quot;    &quot;LOC641518&quot;    &quot;LOC644794&quot;    &quot;LOC646762&quot;   
+ [89] &quot;LOC646808&quot;    &quot;LPHN1&quot;        &quot;LRRN3&quot;        &quot;MALL&quot;        
+ [93] &quot;MAML2&quot;        &quot;MANSC1&quot;       &quot;ME3&quot;          &quot;MEF2A&quot;       
+ [97] &quot;MEST&quot;         &quot;METAP1D&quot;      &quot;MIR101-1&quot;     &quot;MIR600HG&quot;    
+[101] &quot;MLXIP&quot;        &quot;MPP1&quot;         &quot;MPP7&quot;         &quot;MRPL45P2&quot;    
+[105] &quot;MYB&quot;          &quot;MZF1&quot;         &quot;NAA16&quot;        &quot;NBEA&quot;        
+[109] &quot;NDFIP1&quot;       &quot;NET1&quot;         &quot;NPAS2&quot;        &quot;NPM3&quot;        
+[113] &quot;NSUN5&quot;        &quot;NUCB2&quot;        &quot;NUDT12&quot;       &quot;NUDT17&quot;      
+[117] &quot;PADI4&quot;        &quot;PCSK5&quot;        &quot;PDE3B&quot;        &quot;PDE7A&quot;       
+[121] &quot;PDE7B&quot;        &quot;PDE9A&quot;        &quot;PDK1&quot;         &quot;PECAM1&quot;      
+[125] &quot;PHGDH&quot;        &quot;PIGL&quot;         &quot;PIK3CD&quot;       &quot;PIK3IP1&quot;     
+[129] &quot;PITPNM2&quot;      &quot;PKIG&quot;         &quot;PLA2G12A&quot;     &quot;PLAG1&quot;       
+[133] &quot;PLLP&quot;         &quot;PRRT1&quot;        &quot;PTPRK&quot;        &quot;RAPGEF6&quot;     
+[137] &quot;REG4&quot;         &quot;RGS10&quot;        &quot;RHPN2&quot;        &quot;RIN3&quot;        
+[141] &quot;RNF175&quot;       &quot;ROBO3&quot;        &quot;SATB1&quot;        &quot;SCAI&quot;        
+[145] &quot;SCARB1&quot;       &quot;SCML1&quot;        &quot;SCML2&quot;        &quot;SERPINE2&quot;    
+[149] &quot;SERTAD2&quot;      &quot;SERTM1&quot;       &quot;SETD1B&quot;       &quot;SFMBT2&quot;      
+[153] &quot;SFXN2&quot;        &quot;SGK223&quot;       &quot;SH3RF3&quot;       &quot;SIAH1&quot;       
+[157] &quot;SLC11A2&quot;      &quot;SLC25A37&quot;     &quot;SLC29A2&quot;      &quot;SLC2A11&quot;     
+[161] &quot;SMPD1&quot;        &quot;SNORD104&quot;     &quot;SNPH&quot;         &quot;SNRPN&quot;       
+[165] &quot;SNX9&quot;         &quot;SORCS3&quot;       &quot;SPPL2B&quot;       &quot;SREBF1&quot;      
+[169] &quot;STAP1&quot;        &quot;STK17A&quot;       &quot;TAF4B&quot;        &quot;TARBP1&quot;      
+[173] &quot;TGFBR2&quot;       &quot;TIMP2&quot;        &quot;TLE2&quot;         &quot;TMEM170B&quot;    
+[177] &quot;TMEM220&quot;      &quot;TMEM41B&quot;      &quot;TMEM48&quot;       &quot;TMIGD2&quot;      
+[181] &quot;TOM1L2&quot;       &quot;TSPAN3&quot;       &quot;TTC28&quot;        &quot;TUG1&quot;        
+[185] &quot;UBE2E2&quot;       &quot;USP44&quot;        &quot;VPS52&quot;        &quot;ZC4H2&quot;       
+[189] &quot;ZMYND8&quot;       &quot;ZNF182&quot;       &quot;ZNF229&quot;       &quot;ZNF238&quot;      
+[193] &quot;ZNF496&quot;       &quot;ZNF506&quot;       &quot;ZNF516&quot;       &quot;ZNF546&quot;      
+[197] &quot;ZNF563&quot;       &quot;ZNF662&quot;       &quot;ZNF780B&quot;      &quot;ZNRD1-AS1&quot;   </code></pre>
+<p>The <code>fgsea()</code> function requires a list of gene sets to check, and a named vector of gene-level statistics, where the names should be the same as the gene names in the pathways list. First, let’s create our named vector of test statistics. See ?tibble::deframe for help here - deframe() converts two-column data frames to a named vector or list, using the first column as name and the second column as value. I copied some code from <a href="https://stephenturner.github.io/deseq-to-fgsea/" class="uri">https://stephenturner.github.io/deseq-to-fgsea/</a></p>
+<pre class="r"><code># Naive CD4+ T cells
+pbmc.genes %&gt;%
+  dplyr::filter(group == &quot;0&quot;) %&gt;%
+  arrange(desc(logFC), desc(auc)) %&gt;%
+  head(n = 10)</code></pre>
+<pre><code>   feature group  avgExpr     logFC statistic       auc          pval
+1     LDHB     0 2.237079 1.1313172   3720734 0.8760304  0.000000e+00
+2     TRAC     0 1.998718 1.1093173   3280268 0.7723246 2.917922e-193
+3     CD3E     0 1.875625 1.0529526   3311352 0.7796431 9.625101e-204
+4     TCF7     0 1.587238 1.0255404   3586950 0.8445316  0.000000e+00
+5      LTB     0 2.393230 1.0036746   3028868 0.7131337 2.244504e-113
+6     CD3D     0 1.730219 0.9411404   3208290 0.7553776 6.267795e-172
+7     CCR7     0 1.180417 0.9300371   3603946 0.8485333  0.000000e+00
+8     IL7R     0 1.649311 0.8914322   3104348 0.7309051 3.329368e-148
+9    SARAF     0 2.226600 0.8481803   3713555 0.8743401  0.000000e+00
+10 TRABD2A     0 1.043007 0.8444002   3548526 0.8354848  0.000000e+00
+            padj   pct_in  pct_out
+1   0.000000e+00 98.75195 74.97736
+2  5.030337e-191 97.42590 45.27618
+3  1.826922e-201 97.97192 44.97434
+4   0.000000e+00 94.69579 44.00845
+5  1.794743e-111 98.75195 65.34863
+6  9.273869e-170 96.80187 42.92182
+7   0.000000e+00 85.56942 22.69846
+8  3.959630e-146 88.92356 35.79837
+9   0.000000e+00 99.14197 89.37519
+10  0.000000e+00 80.18721 19.52913</code></pre>
+<pre class="r"><code># we feel assured to see IL7R and CCR7 which are marker genes for naive CD4+ T cells
+  
+# select only the feature and auc columns for fgsea, which statistics to use is an open question
+cluster0.genes&lt;- pbmc.genes %&gt;%
+  dplyr::filter(group == &quot;0&quot;) %&gt;%
+  arrange(desc(auc)) %&gt;% 
+  dplyr::select(feature, auc)
+
+
+ranks&lt;- deframe(cluster0.genes)
+
+head(ranks)</code></pre>
+<pre><code>    RPL30     RPS3A     RPS13    RPL35A     RPL32     RPL11 
+0.9372499 0.9352810 0.9240511 0.9192642 0.9176527 0.9133020 </code></pre>
+<pre class="r"><code>fgseaRes&lt;- fgsea(fgsea_sets, stats = ranks, nperm = 1000)</code></pre>
+<pre><code>Warning in fgsea(fgsea_sets, stats = ranks, nperm = 1000): There are ties in the preranked stats (21% of the list).
+The order of those tied genes will be arbitrary, which may produce unexpected results.</code></pre>
+<p>tidy the data a bit</p>
+<pre class="r"><code>fgseaResTidy &lt;- fgseaRes %&gt;%
+  as_tibble() %&gt;%
+  arrange(desc(NES))
+
+
+fgseaResTidy %&gt;% 
+  dplyr::select(-leadingEdge, -ES, -nMoreExtreme) %&gt;% 
+  arrange(padj) %&gt;% 
+  head()</code></pre>
+<pre><code># A tibble: 6 x 5
+  pathway                                         pval    padj   NES  size
+  &lt;chr&gt;                                          &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
+1 GSE10325_CD4_TCELL_VS_MYELOID_UP             0.00121 0.00699 10.0    190
+2 GSE10325_LUPUS_CD4_TCELL_VS_LUPUS_MYELOID_UP 0.00121 0.00699  9.88   188
+3 GSE22886_NAIVE_TCELL_VS_MONOCYTE_UP          0.00122 0.00699  9.39   184
+4 GSE22886_NAIVE_CD4_TCELL_VS_MONOCYTE_UP      0.00121 0.00699  9.26   188
+5 GSE22886_NAIVE_TCELL_VS_DC_UP                0.00122 0.00699  8.81   183
+6 GSE22886_NAIVE_TCELL_VS_NKCELL_UP            0.00126 0.00699  8.34   176</code></pre>
+</div>
+<div id="plot-a-barplot-for-with-the-normalized-enrichment-score" class="section level3">
+<h3>plot a barplot for with the normalized Enrichment score</h3>
+<pre class="r"><code># only plot the top 20 pathways
+ggplot(fgseaResTidy %&gt;% filter(padj &lt; 0.008) %&gt;% head(n= 20), aes(reorder(pathway, NES), NES)) +
+  geom_col(aes(fill= NES &lt; 7.5)) +
+  coord_flip() +
+  labs(x=&quot;Pathway&quot;, y=&quot;Normalized Enrichment Score&quot;,
+       title=&quot;Hallmark pathways NES from GSEA&quot;) + 
+  theme_minimal()</code></pre>
+<p><img src="figure/scRNAseq_workshop_3.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gsea-style-plot" class="section level2">
+<h2>GSEA style plot</h2>
+<pre class="r"><code>plotEnrichment(fgsea_sets[[&quot;GSE10325_CD4_TCELL_VS_MYELOID_UP&quot;]],
+               ranks) + labs(title=&quot;GSE10325 CD4 TCELL VS MYELOID UP&quot;)</code></pre>
+<p><img src="figure/scRNAseq_workshop_3.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>How to read the figure ?</p>
+<p>The X-axis is all your genes in the expriment (~ 20,000 in this case) pre-ranked by your metric. each black bar is the gene in this gene set(pathway). You have an idea where are the genes located in the pre-ranked list.</p>
+<p>Enrichement Score (ES) is calcuated by some metric that ES is positive if the gene set is located in the top of the pre-ranked gene list. ES is negative if the gene set is located in the bottom of the pre-ranked gene list.</p>
+<div id="more-readings-and-other-tools-to-try" class="section level3">
+<h3>More readings and other tools to try</h3>
+<ul>
+<li><p><a href="https://cran.r-project.org/web/packages/msigdbr/vignettes/msigdbr-intro.html">Introduction to the msigdbr package</a></p></li>
+<li><p><a href="https://bioconductor.org/packages/release/bioc/html/clusterProfiler.html">clusterProfiler</a></p></li>
+<li><p><a href="https://bioconductor.org/packages/devel/bioc/vignettes/MAST/inst/doc/MAITAnalysis.html">Using MAST with RNASeq: MAIT Analysis</a></p></li>
+<li><p><a href="https://sites.google.com/site/fredsoftwares/products/single-cell-signature-explorer">Single-Cell Signature Explorer</a></p></li>
+</ul>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.5.1 (2018-07-02)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS High Sierra 10.13.6
+
+Matrix products: default
+BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] ggplot2_3.1.0 fgsea_1.8.0   msigdbr_6.2.1 tibble_2.0.1  dplyr_0.8.0.1
+[6] presto_1.0.0  Rcpp_1.0.0    Seurat_3.0.2 
+
+loaded via a namespace (and not attached):
+ [1] tsne_0.1-3          nlme_3.1-137        bitops_1.0-6       
+ [4] fs_1.2.6            RColorBrewer_1.1-2  httr_1.4.0         
+ [7] rprojroot_1.3-2     sctransform_0.2.0   tools_3.5.1        
+[10] backports_1.1.3     utf8_1.1.4          R6_2.3.0           
+[13] irlba_2.3.2         KernSmooth_2.23-15  lazyeval_0.2.1     
+[16] colorspace_1.4-1    withr_2.1.2         npsurv_0.4-0       
+[19] tidyselect_0.2.5    gridExtra_2.3       compiler_3.5.1     
+[22] git2r_0.23.0        cli_1.0.1           plotly_4.8.0       
+[25] labeling_0.3        caTools_1.17.1.1    scales_1.0.0       
+[28] lmtest_0.9-36       ggridges_0.5.1      pbapply_1.3-4      
+[31] stringr_1.3.1       digest_0.6.18       rmarkdown_1.11     
+[34] R.utils_2.7.0       pkgconfig_2.0.2     htmltools_0.3.6    
+[37] bibtex_0.4.2        htmlwidgets_1.3     rlang_0.3.1        
+[40] zoo_1.8-4           jsonlite_1.6        BiocParallel_1.16.2
+[43] ica_1.0-2           gtools_3.8.1        R.oo_1.22.0        
+[46] magrittr_1.5        Matrix_1.2-15       fansi_0.4.0        
+[49] munsell_0.5.0       ape_5.2             reticulate_1.10    
+[52] R.methodsS3_1.7.1   stringi_1.2.4       yaml_2.2.0         
+[55] gbRd_0.4-11         MASS_7.3-51.1       gplots_3.0.1       
+[58] Rtsne_0.15          plyr_1.8.4          grid_3.5.1         
+[61] parallel_3.5.1      gdata_2.18.0        listenv_0.7.0      
+[64] ggrepel_0.8.0       crayon_1.3.4        lattice_0.20-38    
+[67] cowplot_0.9.3       splines_3.5.1       SDMTools_1.1-221   
+[70] knitr_1.21          pillar_1.3.1        igraph_1.2.2       
+[73] future.apply_1.0.1  reshape2_1.4.3      codetools_0.2-16   
+[76] fastmatch_1.1-0     glue_1.3.0          evaluate_0.12      
+[79] lsei_1.2-0          metap_1.0           data.table_1.11.8  
+[82] png_0.1-7           Rdpack_0.10-1       gtable_0.2.0       
+[85] RANN_2.6            purrr_0.2.5         tidyr_0.8.2        
+[88] future_1.10.0       assertthat_0.2.0    xfun_0.4           
+[91] rsvd_1.0.0          survival_2.43-3     viridisLite_0.3.0  
+[94] workflowr_1.4.0     cluster_2.0.7-1     globals_0.12.4     
+[97] fitdistrplus_1.0-11 ROCR_1.0-7         </code></pre>
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
