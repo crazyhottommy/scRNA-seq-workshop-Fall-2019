@@ -1,0 +1,128 @@
+---
+title: "Part 3"
+output: html_document
+---
+
+# Downstream analysis of scRNAseq data
+
+### Gene Set enrichment (GSEA) analysis
+
+```{r}
+library(Seurat)
+pbmc<- readRDS("data/pbmc5k/pbmc_5k_v3.rds")
+
+# for GSEA, we need the information of all genes, Seurat is just too slow if we test
+# all 20,000 genes. instead let's try presto which performs a fast Wilcoxon rank sum test 
+
+#library(devtools)
+#install_github('immunogenomics/presto')
+library(presto)
+
+pbmc.genes <- wilcoxauc(pbmc, 'seurat_clusters')
+
+head(pbmc.genes)
+
+# we have all the genes for each cluster
+dplyr::count(pbmc.genes, group)
+```
+
+To do Gene set enrichment analysis, we need to have the annotated gene set first. One popular source is the [MsigDB](http://software.broadinstitute.org/gsea/msigdb/index.jsp) from Broad Institute.
+
+![](img/msigdb.png)
+
+### Gene Set Enrichment with `fgsea`
+
+```{r}
+library(msigdbr)
+library(fgsea)
+library(dplyr)
+library(ggplot2)
+
+msigdbr_show_species()
+
+m_df<- msigdbr(species = "Homo sapiens", category = "C7")
+
+head(m_df)
+
+fgsea_sets<- m_df %>% split(x = .$gene_symbol, f = .$gs_name)
+
+fgsea_sets$GSE11057_NAIVE_VS_MEMORY_CD4_TCELL_UP
+```
+
+The `fgsea()` function requires a list of gene sets to check, and a named vector of gene-level statistics, where the names should be the same as the gene names in the pathways list. First, let’s create our named vector of test statistics. See  ?tibble::deframe for help here - deframe() converts two-column data frames to a named vector or list, using the first column as name and the second column as value. I copied some code from https://stephenturner.github.io/deseq-to-fgsea/
+
+```{r}
+# Naive CD4+ T cells
+pbmc.genes %>%
+  dplyr::filter(group == "0") %>%
+  arrange(desc(logFC), desc(auc)) %>%
+  head(n = 10)
+
+# we feel assured to see IL7R and CCR7 which are marker genes for naive CD4+ T cells
+  
+# select only the feature and auc columns for fgsea, which statistics to use is an open question
+cluster0.genes<- pbmc.genes %>%
+  dplyr::filter(group == "0") %>%
+  arrange(desc(auc)) %>% 
+  dplyr::select(feature, auc)
+
+
+ranks<- deframe(cluster0.genes)
+
+head(ranks)
+fgseaRes<- fgsea(fgsea_sets, stats = ranks, nperm = 1000)
+```
+
+tidy the data a bit
+
+```{r}
+fgseaResTidy <- fgseaRes %>%
+  as_tibble() %>%
+  arrange(desc(NES))
+
+
+fgseaResTidy %>% 
+  dplyr::select(-leadingEdge, -ES, -nMoreExtreme) %>% 
+  arrange(padj) %>% 
+  head()
+
+```
+
+### plot a barplot for with the normalized Enrichment score
+
+```{r}
+# only plot the top 20 pathways
+ggplot(fgseaResTidy %>% filter(padj < 0.008) %>% head(n= 20), aes(reorder(pathway, NES), NES)) +
+  geom_col(aes(fill= NES < 7.5)) +
+  coord_flip() +
+  labs(x="Pathway", y="Normalized Enrichment Score",
+       title="Hallmark pathways NES from GSEA") + 
+  theme_minimal()
+
+```
+
+## GSEA style plot
+
+```{r}
+plotEnrichment(fgsea_sets[["GSE10325_CD4_TCELL_VS_MYELOID_UP"]],
+               ranks) + labs(title="GSE10325 CD4 TCELL VS MYELOID UP")
+```
+
+How to read the figure ?
+
+The X-axis is all your genes in the expriment (~ 20,000 in this case) pre-ranked by your metric. each black bar is the gene in this gene set(pathway). You have an idea where are the genes located in the pre-ranked list.
+
+Enrichement Score (ES) is calcuated by some metric that ES is positive if the gene set is located in the top of the pre-ranked gene list. ES is negative if the gene set is located in the bottom of the pre-ranked gene list.
+
+### More readings and other tools to try
+
+* [Introduction to the msigdbr package](https://cran.r-project.org/web/packages/msigdbr/vignettes/msigdbr-intro.html)
+
+
+* [clusterProfiler](https://bioconductor.org/packages/release/bioc/html/clusterProfiler.html)
+
+* [Using MAST with RNASeq: MAIT Analysis](https://bioconductor.org/packages/devel/bioc/vignettes/MAST/inst/doc/MAITAnalysis.html)
+
+* [Single-Cell Signature Explorer](https://sites.google.com/site/fredsoftwares/products/single-cell-signature-explorer)
+
+
