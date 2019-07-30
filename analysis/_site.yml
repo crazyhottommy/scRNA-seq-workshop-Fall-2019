@@ -9,15 +9,15 @@ navbar:
     href: about.html
   - text: Content
     menu:
-    - text: Part 0
+    - text: Preprocessing
       href: scRNAseq_workshop_0.html
-    - text: Part 1
+    - text: Seurat workflow
       href: scRNAseq_workshop_1.html
-    - text: Part 2
+    - text: Annotate your own scRNAseq data
       href: scRNAseq_workshop_2.html
-    - text: Part 3
+    - text: Downstream analysis
       href: scRNAseq_workshop_3.html
-    - text: Part 4
+    - text: Interactive visualization with iSEE
       href: scRNAseq_workshop_4.html
   - text: License
     href: license.html
