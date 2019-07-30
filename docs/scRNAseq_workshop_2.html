@@ -11,7 +11,7 @@
 
 
 
-<title>scRNAseq_workshop_2</title>
+<title>Part 2</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -392,10 +392,19 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="scRNAseq_workshop_0.html">Part 0</a>
+    </li>
+    <li>
       <a href="scRNAseq_workshop_1.html">Part 1</a>
     </li>
     <li>
       <a href="scRNAseq_workshop_2.html">Part 2</a>
+    </li>
+    <li>
+      <a href="scRNAseq_workshop_3.html">Part 3</a>
+    </li>
+    <li>
+      <a href="scRNAseq_workshop_4.html"></a>
     </li>
   </ul>
 </li>
@@ -427,7 +436,7 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">scRNAseq_workshop_2</h1>
+<h1 class="title toc-ignore">Part 2</h1>
 
 </div>
 
@@ -452,7 +461,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-07-25
+<strong>Last updated:</strong> 2019-07-30
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -543,10 +552,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomcrazyhottommyscRNAseqworkshopFall2019treebb1243320ecfa1cdb40b0f777ab133ecbeca526etargetblankbb12433a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/tree/bb1243320ecfa1cdb40b0f777ab133ecbeca526e" target="_blank">bb12433</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomcrazyhottommyscRNAseqworkshopFall2019tree3a4cb52ab6d2db2ec02d99b046ec9f55d04e1333targetblank3a4cb52a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/tree/3a4cb52ab6d2db2ec02d99b046ec9f55d04e1333" target="_blank">3a4cb52</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomcrazyhottommyscRNAseqworkshopFall2019treebb1243320ecfa1cdb40b0f777ab133ecbeca526etargetblankbb12433a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomcrazyhottommyscRNAseqworkshopFall2019tree3a4cb52ab6d2db2ec02d99b046ec9f55d04e1333targetblank3a4cb52a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -562,7 +571,9 @@ Untracked files:
     Untracked:  data/pbmc5k/
 
 Unstaged changes:
-    Modified:   README.md
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/scRNAseq_workshop_4.Rmd
+    Deleted:    docs/.nojekyll
 
 </code></pre>
 <p>
@@ -601,6 +612,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/89422b21792260a3e646341ffe28bf62b4302879/docs/scRNAseq_workshop_2.html" target="_blank">89422b2</a>
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-25
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -733,14 +761,14 @@ ls -sh</code></pre>
 <pre class="r"><code>library(Seurat)</code></pre>
 <pre><code>Warning: package &#39;Seurat&#39; was built under R version 3.5.2</code></pre>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ──────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.0       ✔ purrr   0.2.5  
 ✔ tibble  2.0.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.2       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
 <pre><code>Warning: package &#39;tibble&#39; was built under R version 3.5.2</code></pre>
 <pre><code>Warning: package &#39;dplyr&#39; was built under R version 3.5.2</code></pre>
-<pre><code>── Conflicts ─────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ───────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code># this returns a seurat object
@@ -1075,6 +1103,43 @@ Ming Tang
   theme_classic(base_size = 14) +
   ggtitle(&quot;distribution of max prediciton score&quot;)</code></pre>
 <p><img src="figure/scRNAseq_workshop_2.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/89422b21792260a3e646341ffe28bf62b4302879/docs/figure/scRNAseq_workshop_2.Rmd/unnamed-chunk-7-1.png" target="_blank">89422b2</a>
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Most of the cells receive a high prediction score (&gt; 0.9).</p>
 </div>
 </div>
@@ -1098,10 +1163,84 @@ pbmc.merge&lt;- pbmc.merge %&gt;%
 <pre><code>Centering and scaling data matrix</code></pre>
 <pre class="r"><code>DimPlot(pbmc.merge, group.by = &quot;orig.ident&quot;)</code></pre>
 <p><img src="figure/scRNAseq_workshop_2.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/89422b21792260a3e646341ffe28bf62b4302879/docs/figure/scRNAseq_workshop_2.Rmd/unnamed-chunk-9-1.png" target="_blank">89422b2</a>
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>The points are overlapping each other and make it difficult to read. use <code>split.by</code> argument</p>
 <pre class="r"><code>p1&lt;- DimPlot(pbmc.merge, group.by = &quot;orig.ident&quot;, split.by = &quot;orig.ident&quot;)
 p1</code></pre>
 <p><img src="figure/scRNAseq_workshop_2.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
+Past versions of unnamed-chunk-10-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/89422b21792260a3e646341ffe28bf62b4302879/docs/figure/scRNAseq_workshop_2.Rmd/unnamed-chunk-10-1.png" target="_blank">89422b2</a>
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>We see the cells in these two data sets mixed well in the PCA space and no batch effect was observed.</p>
 <p>If we do see the cells are seprated by batch. we can do</p>
 <pre class="r"><code>pbmc.anchors &lt;- FindIntegrationAnchors(object.list = list(pbmc.10k, pbmc), dims = 1:30)</code></pre>
@@ -1132,11 +1271,85 @@ pbmc.integrated &lt;- pbmc.integrated %&gt;%
 <pre><code>Centering and scaling data matrix</code></pre>
 <pre class="r"><code>DimPlot(pbmc.integrated, reduction = &quot;umap&quot;, group.by = &quot;orig.ident&quot;, split.by = &quot;orig.ident&quot;)</code></pre>
 <p><img src="figure/scRNAseq_workshop_2.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/89422b21792260a3e646341ffe28bf62b4302879/docs/figure/scRNAseq_workshop_2.Rmd/unnamed-chunk-11-1.png" target="_blank">89422b2</a>
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Let’s compare the PCA with the merged but not “integrated” data</p>
 <pre class="r"><code>p2&lt;- DimPlot(pbmc.integrated, reduction = &quot;pca&quot;, group.by = &quot;orig.ident&quot;, split.by = &quot;orig.ident&quot;)
 
 CombinePlots(plots = list(p1,p2), ncol = 1)</code></pre>
 <p><img src="figure/scRNAseq_workshop_2.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/89422b21792260a3e646341ffe28bf62b4302879/docs/figure/scRNAseq_workshop_2.Rmd/unnamed-chunk-12-1.png" target="_blank">89422b2</a>
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>You may observe the subtle differences :)</p>
 <br>
 <p>

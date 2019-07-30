@@ -11,7 +11,7 @@
 
 
 
-<title>scRNAseq_workshop_1</title>
+<title>Part 1</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -392,10 +392,19 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="scRNAseq_workshop_0.html">Part 0</a>
+    </li>
+    <li>
       <a href="scRNAseq_workshop_1.html">Part 1</a>
     </li>
     <li>
       <a href="scRNAseq_workshop_2.html">Part 2</a>
+    </li>
+    <li>
+      <a href="scRNAseq_workshop_3.html">Part 3</a>
+    </li>
+    <li>
+      <a href="scRNAseq_workshop_4.html"></a>
     </li>
   </ul>
 </li>
@@ -427,7 +436,7 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">scRNAseq_workshop_1</h1>
+<h1 class="title toc-ignore">Part 1</h1>
 
 </div>
 
@@ -452,7 +461,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-07-25
+<strong>Last updated:</strong> 2019-07-30
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -543,10 +552,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomcrazyhottommyscRNAseqworkshopFall2019treebb1243320ecfa1cdb40b0f777ab133ecbeca526etargetblankbb12433a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/tree/bb1243320ecfa1cdb40b0f777ab133ecbeca526e" target="_blank">bb12433</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomcrazyhottommyscRNAseqworkshopFall2019tree3a4cb52ab6d2db2ec02d99b046ec9f55d04e1333targetblank3a4cb52a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/tree/3a4cb52ab6d2db2ec02d99b046ec9f55d04e1333" target="_blank">3a4cb52</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomcrazyhottommyscRNAseqworkshopFall2019treebb1243320ecfa1cdb40b0f777ab133ecbeca526etargetblankbb12433a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomcrazyhottommyscRNAseqworkshopFall2019tree3a4cb52ab6d2db2ec02d99b046ec9f55d04e1333targetblank3a4cb52a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -556,13 +565,14 @@ Ignored files:
     Ignored:    .DS_Store
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/figure/
 
 Untracked files:
     Untracked:  data/pbmc10k/
     Untracked:  data/pbmc5k/
 
 Unstaged changes:
-    Modified:   README.md
+    Deleted:    docs/.nojekyll
 
 </code></pre>
 <p>
@@ -601,6 +611,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/89422b21792260a3e646341ffe28bf62b4302879/docs/scRNAseq_workshop_1.html" target="_blank">89422b2</a>
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-25
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -720,12 +747,12 @@ install.packages(&quot;rmarkdown&quot;)
 install.packages(&#39;Seurat&#39;)</code></pre>
 <p>load the library</p>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ──────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>── Attaching packages ────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>✔ ggplot2 3.1.0       ✔ purrr   0.2.5  
 ✔ tibble  2.0.1       ✔ dplyr   0.8.0.1
 ✔ tidyr   0.8.2       ✔ stringr 1.3.1  
 ✔ readr   1.3.1       ✔ forcats 0.3.0  </code></pre>
-<pre><code>── Conflicts ─────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Conflicts ───────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(Seurat)</code></pre>
@@ -892,29 +919,32 @@ Ming Tang
 <p>Think it as standardize the data. center the mean to 0 and variance to 1. <code>?scale</code></p>
 <p>This step gives equal weight in downstream analyses, so that highly-expressed genes do not dominate * The results of this are stored in <code>pbmc[[&quot;RNA&quot;]]@scale.data</code></p>
 <pre class="r"><code>library(stats)
-x &lt;- matrix(1:10, ncol = 2)
+x &lt;- matrix(1:15, ncol = 3)
 x</code></pre>
-<pre><code>     [,1] [,2]
-[1,]    1    6
-[2,]    2    7
-[3,]    3    8
-[4,]    4    9
-[5,]    5   10</code></pre>
+<pre><code>     [,1] [,2] [,3]
+[1,]    1    6   11
+[2,]    2    7   12
+[3,]    3    8   13
+[4,]    4    9   14
+[5,]    5   10   15</code></pre>
 <pre class="r"><code>## scale works in a column-wise fashion
-(centered.x &lt;- scale(x, scale = FALSE))</code></pre>
-<pre><code>     [,1] [,2]
-[1,]   -2   -2
-[2,]   -1   -1
-[3,]    0    0
-[4,]    1    1
-[5,]    2    2
+centered.x &lt;- scale(x, scale = FALSE)
+centered.x</code></pre>
+<pre><code>     [,1] [,2] [,3]
+[1,]   -2   -2   -2
+[2,]   -1   -1   -1
+[3,]    0    0    0
+[4,]    1    1    1
+[5,]    2    2    2
 attr(,&quot;scaled:center&quot;)
-[1] 3 8</code></pre>
+[1]  3  8 13</code></pre>
 <pre class="r"><code>## variance is 1 
-cov(centered.scaled.x &lt;- scale(x))</code></pre>
-<pre><code>     [,1] [,2]
-[1,]    1    1
-[2,]    1    1</code></pre>
+centered.scaled.x &lt;- scale(x)
+cov(centered.scaled.x)</code></pre>
+<pre><code>     [,1] [,2] [,3]
+[1,]    1    1    1
+[2,]    1    1    1
+[3,]    1    1    1</code></pre>
 <p>apply it to the single-cell count matrix</p>
 <pre class="r"><code>all.genes &lt;- rownames(pbmc)
 pbmc &lt;- ScaleData(pbmc, features = all.genes)</code></pre>
@@ -1051,7 +1081,23 @@ Ming Tang
 </table>
 </div>
 </div>
-<p>replicate the PCA plot ourselves by ggplot2</p>
+<p>replicate the PCA plot ourselves by ggplot2. All the dimension reduction object (<code>DimReduct</code>) are saved in <code>reductions</code> slot.</p>
+<pre class="r"><code># e.g.
+pbmc@reductions$pca</code></pre>
+<pre><code>A dimensional reduction object with key PC_ 
+ Number of dimensions: 50 
+ Projected dimensional reduction calculated:  FALSE 
+ Jackstraw run: FALSE 
+ Computed using assay: RNA </code></pre>
+<pre class="r"><code>## methods that work with the DimReduct object
+utils::methods(class = &#39;DimReduc&#39;)</code></pre>
+<pre><code> [1] [              [[             Cells          DefaultAssay  
+ [5] DefaultAssay&lt;- dim            dimnames       Embeddings    
+ [9] JS             JS&lt;-           Key            Key&lt;-         
+[13] length         Loadings       Loadings&lt;-     names         
+[17] print          RenameCells    RunTSNE        ScoreJackStraw
+[21] show           Stdev          subset        
+see &#39;?methods&#39; for accessing help and source code</code></pre>
 <pre class="r"><code>Embeddings(pbmc, reduction = &quot;pca&quot;) %&gt;% head()</code></pre>
 <pre><code>                       PC_1        PC_2        PC_3      PC_4       PC_5
 AAACCCAAGCGTATGG -31.749686   0.3206036   3.2316902 1.4827653 -1.7225612
@@ -1123,7 +1169,8 @@ AAACGCTAGGGCATGT  0.6105477 -0.7581442  0.9540361 -1.7912117  0.6176227
 AAACGCTGTAGGTACG  0.1363981  0.1479181  0.4921191  0.1698165 -1.2546990
 AAACGCTGTGTCCGGT -1.3998959  0.1247547 -0.9317956  1.7330908  2.2860100
 AAACGCTGTGTGATGG  1.5306216 -0.2381258 -0.8683929  0.1394903  1.8223171</code></pre>
-<pre class="r"><code>p2&lt;- Embeddings(pbmc, reduction = &quot;pca&quot;) %&gt;% as.data.frame() %&gt;% 
+<pre class="r"><code>p2&lt;- Embeddings(pbmc, reduction = &quot;pca&quot;) %&gt;% 
+  as.data.frame()%&gt;% 
   ggplot(aes(x = PC_1, y = PC_2)) +
   geom_point(color = &quot;red&quot;, size = 0.5) +
   theme_classic()
@@ -1402,7 +1449,63 @@ Levels: 0 1 2 3 4 5 6 7 8 9 10 11 12 13</code></pre>
 <p>Seurat offers several <strong>non-linear</strong> dimensional reduction techniques, such as tSNE and UMAP (as opposed to PCA which is a linear dimensional reduction technique), to visualize and explore these datasets. The goal of these algorithms is to learn the underlying manifold of the data in order to place similar cells together in low-dimensional space. Cells within the graph-based clusters determined above should co-localize on these dimension reduction plots. As input to the UMAP and tSNE, we suggest using the same PCs as input to the clustering analysis.</p>
 <pre class="r"><code>pbmc &lt;- RunUMAP(pbmc, dims = 1:20)
 pbmc&lt;- RunTSNE(pbmc, dims = 1:20)
-DimPlot(pbmc, reduction = &quot;umap&quot;, label = TRUE)</code></pre>
+
+## after we run UMAP and TSNE, there are more entries in the reduction slot
+str(pbmc@reductions)</code></pre>
+<pre><code>List of 3
+ $ pca :Formal class &#39;DimReduc&#39; [package &quot;Seurat&quot;] with 8 slots
+  .. ..@ cell.embeddings           : num [1:4595, 1:50] -31.75 -27.91 4.87 11.28 -30.22 ...
+  .. .. ..- attr(*, &quot;dimnames&quot;)=List of 2
+  .. .. .. ..$ : chr [1:4595] &quot;AAACCCAAGCGTATGG&quot; &quot;AAACCCAGTCCTACAA&quot; &quot;AAACGCTAGGGCATGT&quot; &quot;AAACGCTGTAGGTACG&quot; ...
+  .. .. .. ..$ : chr [1:50] &quot;PC_1&quot; &quot;PC_2&quot; &quot;PC_3&quot; &quot;PC_4&quot; ...
+  .. ..@ feature.loadings          : num [1:2000, 1:50] -0.014365 -0.000161 0.005058 -0.013235 -0.058571 ...
+  .. .. ..- attr(*, &quot;dimnames&quot;)=List of 2
+  .. .. .. ..$ : chr [1:2000] &quot;FCER1A&quot; &quot;PPBP&quot; &quot;IGLC2&quot; &quot;C1QA&quot; ...
+  .. .. .. ..$ : chr [1:50] &quot;PC_1&quot; &quot;PC_2&quot; &quot;PC_3&quot; &quot;PC_4&quot; ...
+  .. ..@ feature.loadings.projected: num[0 , 0 ] 
+  .. ..@ assay.used                : chr &quot;RNA&quot;
+  .. ..@ stdev                     : num [1:50] 15.65 7.92 6.7 5.5 4.53 ...
+  .. ..@ key                       : chr &quot;PC_&quot;
+  .. ..@ jackstraw                 :Formal class &#39;JackStrawData&#39; [package &quot;Seurat&quot;] with 4 slots
+  .. .. .. ..@ empirical.p.values     : num[0 , 0 ] 
+  .. .. .. ..@ fake.reduction.scores  : num[0 , 0 ] 
+  .. .. .. ..@ empirical.p.values.full: num[0 , 0 ] 
+  .. .. .. ..@ overall.p.values       : num[0 , 0 ] 
+  .. ..@ misc                      :List of 1
+  .. .. ..$ total.variance: num 1563
+ $ umap:Formal class &#39;DimReduc&#39; [package &quot;Seurat&quot;] with 8 slots
+  .. ..@ cell.embeddings           : num [1:4595, 1:2] 15.41 17.17 21.09 3.56 15.45 ...
+  .. .. ..- attr(*, &quot;dimnames&quot;)=List of 2
+  .. .. .. ..$ : chr [1:4595] &quot;AAACCCAAGCGTATGG&quot; &quot;AAACCCAGTCCTACAA&quot; &quot;AAACGCTAGGGCATGT&quot; &quot;AAACGCTGTAGGTACG&quot; ...
+  .. .. .. ..$ : chr [1:2] &quot;UMAP_1&quot; &quot;UMAP_2&quot;
+  .. ..@ feature.loadings          : num[0 , 0 ] 
+  .. ..@ feature.loadings.projected: num[0 , 0 ] 
+  .. ..@ assay.used                : chr &quot;RNA&quot;
+  .. ..@ stdev                     : num(0) 
+  .. ..@ key                       : chr &quot;UMAP_&quot;
+  .. ..@ jackstraw                 :Formal class &#39;JackStrawData&#39; [package &quot;Seurat&quot;] with 4 slots
+  .. .. .. ..@ empirical.p.values     : num[0 , 0 ] 
+  .. .. .. ..@ fake.reduction.scores  : num[0 , 0 ] 
+  .. .. .. ..@ empirical.p.values.full: num[0 , 0 ] 
+  .. .. .. ..@ overall.p.values       : num[0 , 0 ] 
+  .. ..@ misc                      : list()
+ $ tsne:Formal class &#39;DimReduc&#39; [package &quot;Seurat&quot;] with 8 slots
+  .. ..@ cell.embeddings           : num [1:4595, 1:2] -7.89 10.06 -32.41 -21.91 1.57 ...
+  .. .. ..- attr(*, &quot;dimnames&quot;)=List of 2
+  .. .. .. ..$ : chr [1:4595] &quot;AAACCCAAGCGTATGG&quot; &quot;AAACCCAGTCCTACAA&quot; &quot;AAACGCTAGGGCATGT&quot; &quot;AAACGCTGTAGGTACG&quot; ...
+  .. .. .. ..$ : chr [1:2] &quot;tSNE_1&quot; &quot;tSNE_2&quot;
+  .. ..@ feature.loadings          : num[0 , 0 ] 
+  .. ..@ feature.loadings.projected: num[0 , 0 ] 
+  .. ..@ assay.used                : chr &quot;RNA&quot;
+  .. ..@ stdev                     : num(0) 
+  .. ..@ key                       : chr &quot;tSNE_&quot;
+  .. ..@ jackstraw                 :Formal class &#39;JackStrawData&#39; [package &quot;Seurat&quot;] with 4 slots
+  .. .. .. ..@ empirical.p.values     : num[0 , 0 ] 
+  .. .. .. ..@ fake.reduction.scores  : num[0 , 0 ] 
+  .. .. .. ..@ empirical.p.values.full: num[0 , 0 ] 
+  .. .. .. ..@ overall.p.values       : num[0 , 0 ] 
+  .. ..@ misc                      : list()</code></pre>
+<pre class="r"><code>DimPlot(pbmc, reduction = &quot;umap&quot;, label = TRUE)</code></pre>
 <p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-1">
@@ -1522,6 +1625,53 @@ Ming Tang
 </div>
 </div>
 <p>Tsne/UMAP is for visualization purpose only. The clusters are defined by the graph-based clustering which was implemented by <code>FindClusters</code>. We then color label the cells by the cluster id on the UMAP space.</p>
+<p>We can reproduce the UMAP plot by ggplot ourselves.</p>
+<pre class="r"><code>## there are many slots for the DimReduct object
+pbmc@reductions$umap@cell.embeddings %&gt;% head()</code></pre>
+<pre><code>                    UMAP_1    UMAP_2
+AAACCCAAGCGTATGG 15.409229 14.386008
+AAACCCAGTCCTACAA 17.171036 17.526758
+AAACGCTAGGGCATGT 21.088911  1.469897
+AAACGCTGTAGGTACG  3.561784 14.602443
+AAACGCTGTGTCCGGT 15.452778 16.914408
+AAACGCTGTGTGATGG  4.704505 -1.752043</code></pre>
+<pre class="r"><code>## this gives you the same results
+Embeddings(pbmc, reduction = &quot;umap&quot;) %&gt;% head()</code></pre>
+<pre><code>                    UMAP_1    UMAP_2
+AAACCCAAGCGTATGG 15.409229 14.386008
+AAACCCAGTCCTACAA 17.171036 17.526758
+AAACGCTAGGGCATGT 21.088911  1.469897
+AAACGCTGTAGGTACG  3.561784 14.602443
+AAACGCTGTGTCCGGT 15.452778 16.914408
+AAACGCTGTGTGATGG  4.704505 -1.752043</code></pre>
+<pre class="r"><code>Embeddings(pbmc, reduction = &quot;umap&quot;) %&gt;%
+  as.data.frame() %&gt;% 
+  ggplot(aes(x = UMAP_1, y = UMAP_2)) +
+  geom_point(size = 0.5) +
+  theme_classic(base_size = 14)</code></pre>
+<p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>## color by cluster
+(umap_df&lt;- bind_cols(seurat_clusters = pbmc@meta.data$seurat_clusters,
+          Embeddings(pbmc, reduction = &quot;umap&quot;) %&gt;% as.data.frame()))</code></pre>
+<pre><code># A tibble: 4,595 x 3
+   seurat_clusters UMAP_1  UMAP_2
+   &lt;fct&gt;            &lt;dbl&gt;   &lt;dbl&gt;
+ 1 1                15.4   14.4  
+ 2 1                17.2   17.5  
+ 3 5                21.1    1.47 
+ 4 0                 3.56  14.6  
+ 5 1                15.5   16.9  
+ 6 4                 4.70  -1.75 
+ 7 4                 4.51   0.586
+ 8 3                 4.67   5.38 
+ 9 1                17.6   17.6  
+10 2                 6.00   6.05 
+# … with 4,585 more rows</code></pre>
+<pre class="r"><code># ggplot2 to reproduce
+ggplot(umap_df, aes(x = UMAP_1, y = UMAP_2)) +
+  geom_point(aes(color = seurat_clusters), size = 0.5) +
+  theme_classic(base_size = 14) </code></pre>
+<p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-21-2.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="finding-differentially-expressed-features-cluster-biomarkers" class="section level3">
 <h3>Finding differentially expressed features (cluster biomarkers)</h3>
@@ -1585,13 +1735,13 @@ pbmc.markers &lt;- FindAllMarkers(pbmc, only.pos = TRUE, min.pct = 0.25, logfc.t
 <h3>Visualize marker genes</h3>
 <p>VlnPlot (shows expression probability distributions across clusters), and FeaturePlot (visualizes feature expression on a tSNE or PCA plot) are our most commonly used visualizations. We also suggest exploring RidgePlot, CellScatter, and DotPlot as additional methods to view your dataset.</p>
 <pre class="r"><code>VlnPlot(pbmc, features = c(&quot;MS4A1&quot;, &quot;CD79A&quot;))</code></pre>
-<p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-23-1">
-Past versions of unnamed-chunk-23-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-24-1">
+Past versions of unnamed-chunk-24-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-23-1" class="collapse">
+<div id="fig-unnamed-chunk-24-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -1610,7 +1760,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/7bf52d9a683c9dfce39b23563484aaa02dee2602/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-23-1.png" target="_blank">7bf52d9</a>
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/7bf52d9a683c9dfce39b23563484aaa02dee2602/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-24-1.png" target="_blank">7bf52d9</a>
 </td>
 <td>
 Ming Tang
@@ -1666,86 +1816,6 @@ MS4A1 . . 6 . . . . . . 1 . . . . . . . .  8 . . . . .  6 . . . . 15
 CD79A . . 8 . . . . . . . 1 . . . . . . . 10 . . . . . 13 . . . . 27</code></pre>
 <pre class="r"><code># you can plot raw counts as well
 VlnPlot(pbmc, features = c(&quot;MS4A1&quot;, &quot;CD79A&quot;), slot = &quot;counts&quot;, log = TRUE)</code></pre>
-<p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-24-1">
-Past versions of unnamed-chunk-24-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-24-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/7bf52d9a683c9dfce39b23563484aaa02dee2602/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-24-1.png" target="_blank">7bf52d9</a>
-</td>
-<td>
-Ming Tang
-</td>
-<td>
-2019-07-23
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>VlnPlot(pbmc, features = c(&quot;MS4A1&quot;, &quot;CD79A&quot;), slot = &quot;scale.data&quot;)</code></pre>
-<p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-24-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-24-2">
-Past versions of unnamed-chunk-24-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-24-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/7bf52d9a683c9dfce39b23563484aaa02dee2602/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-24-2.png" target="_blank">7bf52d9</a>
-</td>
-<td>
-Ming Tang
-</td>
-<td>
-2019-07-23
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>FeaturePlot.</p>
-<p>plot the expression intensity overlaid on the Tsne/UMAP plot.</p>
-<pre class="r"><code>FeaturePlot(pbmc, features = c(&quot;MS4A1&quot;, &quot;GNLY&quot;, &quot;CD3E&quot;, &quot;CD14&quot;, &quot;FCER1A&quot;, &quot;FCGR3A&quot;, &quot;LYZ&quot;, &quot;PPBP&quot;, &quot;CD8A&quot;))</code></pre>
 <p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-25-1">
@@ -1784,11 +1854,11 @@ Ming Tang
 </table>
 </div>
 </div>
-<p>ggplot2 plot the data points in the order of the rows present in the dataframe. high-expressed cells can be masked by the (gray) low expressed cells.</p>
-<pre class="r"><code>p&lt;- FeaturePlot(pbmc, features = &quot;CD14&quot;)
-
-## before reordering
-p</code></pre>
+<pre class="r"><code>VlnPlot(pbmc, features = c(&quot;MS4A1&quot;, &quot;CD79A&quot;), slot = &quot;scale.data&quot;)</code></pre>
+<p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-25-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>FeaturePlot.</p>
+<p>plot the expression intensity overlaid on the Tsne/UMAP plot.</p>
+<pre class="r"><code>FeaturePlot(pbmc, features = c(&quot;MS4A1&quot;, &quot;GNLY&quot;, &quot;CD3E&quot;, &quot;CD14&quot;, &quot;FCER1A&quot;, &quot;FCGR3A&quot;, &quot;LYZ&quot;, &quot;PPBP&quot;, &quot;CD8A&quot;))</code></pre>
 <p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-26-1">
@@ -1827,57 +1897,11 @@ Ming Tang
 </table>
 </div>
 </div>
-<pre class="r"><code>p_after&lt;- p
-### after reordering
-p_after$data &lt;- p_after$data[order(p_after$data$CD14),]
+<p>ggplot2 plot the data points in the order of the rows present in the dataframe. high-expressed cells can be masked by the (gray) low expressed cells.</p>
+<pre class="r"><code>p&lt;- FeaturePlot(pbmc, features = &quot;CD14&quot;)
 
-CombinePlots(plots = list(p, p_after))</code></pre>
-<p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-26-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-26-2">
-Past versions of unnamed-chunk-26-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-26-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/7bf52d9a683c9dfce39b23563484aaa02dee2602/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-26-2.png" target="_blank">7bf52d9</a>
-</td>
-<td>
-Ming Tang
-</td>
-<td>
-2019-07-23
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>There is a pacakge to deal with this type of overplotting problem. <a href="https://github.com/SaskiaFreytag/schex" class="uri">https://github.com/SaskiaFreytag/schex</a></p>
-<p><code>DoHeatmap</code> generates an expression heatmap for given cells and features. In this case, we are plotting the top 20 markers (or all markers if less than 20) for each cluster.</p>
-<pre class="r"><code>top10 &lt;- pbmc.markers %&gt;% group_by(cluster) %&gt;% top_n(n = 10, wt = avg_logFC)
-DoHeatmap(pbmc, features = top10$gene) + NoLegend()</code></pre>
-<pre><code>Warning in DoHeatmap(pbmc, features = top10$gene): The following features
-were omitted as they were not found in the scale.data slot for the RNA
-assay: NUCB2, LUC7L3, CSKMT, INTS6, NKTR, HEXIM1, MT-ND5, MALAT1, MT-CYB,
-NOSIP, SARAF, TCF7, LDHB</code></pre>
+## before reordering
+p</code></pre>
 <p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-1">
@@ -1916,6 +1940,21 @@ Ming Tang
 </table>
 </div>
 </div>
+<pre class="r"><code>p_after&lt;- p
+### after reordering
+p_after$data &lt;- p_after$data[order(p_after$data$CD14),]
+
+CombinePlots(plots = list(p, p_after))</code></pre>
+<p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-27-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>There is a pacakge to deal with this type of overplotting problem. <a href="https://github.com/SaskiaFreytag/schex" class="uri">https://github.com/SaskiaFreytag/schex</a></p>
+<p><code>DoHeatmap</code> generates an expression heatmap for given cells and features. In this case, we are plotting the top 20 markers (or all markers if less than 20) for each cluster.</p>
+<pre class="r"><code>top10 &lt;- pbmc.markers %&gt;% group_by(cluster) %&gt;% top_n(n = 10, wt = avg_logFC)
+DoHeatmap(pbmc, features = top10$gene) + NoLegend()</code></pre>
+<pre><code>Warning in DoHeatmap(pbmc, features = top10$gene): The following features
+were omitted as they were not found in the scale.data slot for the RNA
+assay: NUCB2, LUC7L3, CSKMT, INTS6, NKTR, HEXIM1, MT-ND5, MALAT1, MT-CYB,
+NOSIP, SARAF, TCF7, LDHB</code></pre>
+<p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>save the Seurat object into a file</p>
 <pre class="r"><code>saveRDS(pbmc, &quot;data/pbmc5k/pbmc_5k_v3.rds&quot;)</code></pre>
 <br>
