@@ -1,5 +1,5 @@
 ---
-title: "scRNAseq_workshop_1"
+title: "Part 1"
 output: html_document
 ---
 
@@ -124,14 +124,15 @@ This step gives equal weight in downstream analyses, so that highly-expressed ge
 
 ```{r}
 library(stats)
-x <- matrix(1:10, ncol = 2)
+x <- matrix(1:15, ncol = 3)
 x
 
 ## scale works in a column-wise fashion
-(centered.x <- scale(x, scale = FALSE))
-
+centered.x <- scale(x, scale = FALSE)
+centered.x
 ## variance is 1 
-cov(centered.scaled.x <- scale(x))
+centered.scaled.x <- scale(x)
+cov(centered.scaled.x)
 ```
 
 apply it to the single-cell count matrix
@@ -191,12 +192,20 @@ p1<- DimPlot(pbmc, reduction = "pca")
 p1
 ```
 
-replicate the PCA plot ourselves by ggplot2
+replicate the PCA plot ourselves by ggplot2.
+All the dimension reduction object (`DimReduct`) are saved in `reductions` slot.
 
 ```{r}
+# e.g.
+pbmc@reductions$pca
+
+## methods that work with the DimReduct object
+utils::methods(class = 'DimReduc')
+
 Embeddings(pbmc, reduction = "pca") %>% head()
 
-p2<- Embeddings(pbmc, reduction = "pca") %>% as.data.frame() %>% 
+p2<- Embeddings(pbmc, reduction = "pca") %>% 
+  as.data.frame()%>% 
   ggplot(aes(x = PC_1, y = PC_2)) +
   geom_point(color = "red", size = 0.5) +
   theme_classic()
@@ -277,6 +286,10 @@ Seurat offers several **non-linear** dimensional reduction techniques, such as t
 ```{r}
 pbmc <- RunUMAP(pbmc, dims = 1:20)
 pbmc<- RunTSNE(pbmc, dims = 1:20)
+
+## after we run UMAP and TSNE, there are more entries in the reduction slot
+str(pbmc@reductions)
+
 DimPlot(pbmc, reduction = "umap", label = TRUE)
 
 ## now let's visualize in the TSNE space
@@ -287,6 +300,31 @@ DimPlot(pbmc, reduction = "pca")
 ```
 
 Tsne/UMAP is for visualization purpose only. The clusters are defined by the graph-based clustering which was implemented by `FindClusters`. We then color label the cells by the cluster id on the UMAP space.
+
+We can reproduce the UMAP plot by ggplot ourselves.
+
+```{r}
+## there are many slots for the DimReduct object
+pbmc@reductions$umap@cell.embeddings %>% head()
+
+## this gives you the same results
+Embeddings(pbmc, reduction = "umap") %>% head()
+
+Embeddings(pbmc, reduction = "umap") %>%
+  as.data.frame() %>% 
+  ggplot(aes(x = UMAP_1, y = UMAP_2)) +
+  geom_point(size = 0.5) +
+  theme_classic(base_size = 14)
+
+## color by cluster
+(umap_df<- bind_cols(seurat_clusters = pbmc@meta.data$seurat_clusters,
+          Embeddings(pbmc, reduction = "umap") %>% as.data.frame()))
+
+# ggplot2 to reproduce
+ggplot(umap_df, aes(x = UMAP_1, y = UMAP_2)) +
+  geom_point(aes(color = seurat_clusters), size = 0.5) +
+  theme_classic(base_size = 14) 
+```
 
 ### Finding differentially expressed features (cluster biomarkers)
 

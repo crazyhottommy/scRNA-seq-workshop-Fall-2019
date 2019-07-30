@@ -1,5 +1,5 @@
 ---
-title: "scRNAseq_workshop_2"
+title: "Part 2"
 output: html_document
 ---
 
