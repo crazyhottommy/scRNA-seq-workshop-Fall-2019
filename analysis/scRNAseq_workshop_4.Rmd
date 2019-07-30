@@ -5,7 +5,7 @@ output: html_document
 
 # Interactive visulization with iSEE package
 
-We primary used `Seurat` package to work with the single-cell data. However, there are a lot of other cool [bioconductor packages](https://bioconductor.org/) to work with single-cell data as well. In this section, I will introduce you to `iSEE` package which provides cool interactive visulization for the single-cell data sets.
+We primary used `Seurat` package to work with the single-cell data. However, there are a lot of other cool [bioconductor packages](https://bioconductor.org/) to work with single-cell data as well. In this section, I will introduce you to `iSEE` package which provides cool interactive visulization for the single-cell data sets. In fact, there are a suite of packages that work with single-cell data in the bioconductor ecosystem. Please read https://osca.bioconductor.org/ if you are interested.
 
 `iSEE` is a bioconductor package and it works with the `SingleCellExperiment` object not the `Seurat` object. Let's convert it first.
 
