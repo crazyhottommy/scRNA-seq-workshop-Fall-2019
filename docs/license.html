@@ -22,6 +22,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -292,10 +294,19 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="scRNAseq_workshop_0.html">Part 0</a>
+    </li>
+    <li>
       <a href="scRNAseq_workshop_1.html">Part 1</a>
     </li>
     <li>
       <a href="scRNAseq_workshop_2.html">Part 2</a>
+    </li>
+    <li>
+      <a href="scRNAseq_workshop_3.html">Part 3</a>
+    </li>
+    <li>
+      <a href="scRNAseq_workshop_4.html"></a>
     </li>
   </ul>
 </li>
@@ -304,7 +315,13 @@ $(document).ready(function () {
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -346,7 +363,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-07-23
+<strong>Last updated:</strong> 2019-07-30
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -377,22 +394,26 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstronga5cf782"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> a5cf782 </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomcrazyhottommyscRNAseqworkshopFall2019treee3acfd6557ec33f78da826c1c75b64f1e802e789targetblanke3acfd6a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/tree/e3acfd6557ec33f78da826c1c75b64f1e802e789" target="_blank">e3acfd6</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstronga5cf782" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomcrazyhottommyscRNAseqworkshopFall2019treee3acfd6557ec33f78da826c1c75b64f1e802e789targetblanke3acfd6a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    .DS_Store
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
 
 Untracked files:
     Untracked:  data/pbmc10k/
     Untracked:  data/pbmc5k/
+
+Unstaged changes:
+    Modified:   analysis/scRNAseq_workshop_4.Rmd
 
 </code></pre>
 <p>
@@ -433,10 +454,27 @@ Message
 <tbody>
 <tr>
 <td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/2fa5b43024c8b7028b1595a2d8becda5b122dec4/docs/license.html" target="_blank">2fa5b43</a>
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-23
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
 Rmd
 </td>
 <td>
-a5cf782
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/a5cf78233410e886d4154c2989a808c403efabaa/analysis/license.Rmd" target="_blank">a5cf782</a>
 </td>
 <td>
 Ming Tang
@@ -453,7 +491,7 @@ wflow_publish(c(“analysis/about.Rmd”, “analysis/index.Rmd”, “analysis/
 Rmd
 </td>
 <td>
-33e2eb1
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/33e2eb1784dac1ca05194b1677b33adc263c6508/analysis/license.Rmd" target="_blank">33e2eb1</a>
 </td>
 <td>
 crazyhottommy

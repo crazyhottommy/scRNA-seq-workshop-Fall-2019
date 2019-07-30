@@ -552,10 +552,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomcrazyhottommyscRNAseqworkshopFall2019tree3a4cb52ab6d2db2ec02d99b046ec9f55d04e1333targetblank3a4cb52a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/tree/3a4cb52ab6d2db2ec02d99b046ec9f55d04e1333" target="_blank">3a4cb52</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomcrazyhottommyscRNAseqworkshopFall2019treee3acfd6557ec33f78da826c1c75b64f1e802e789targetblanke3acfd6a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/tree/e3acfd6557ec33f78da826c1c75b64f1e802e789" target="_blank">e3acfd6</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomcrazyhottommyscRNAseqworkshopFall2019tree3a4cb52ab6d2db2ec02d99b046ec9f55d04e1333targetblank3a4cb52a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomcrazyhottommyscRNAseqworkshopFall2019treee3acfd6557ec33f78da826c1c75b64f1e802e789targetblanke3acfd6a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -565,14 +565,13 @@ Ignored files:
     Ignored:    .DS_Store
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    analysis/figure/
 
 Untracked files:
     Untracked:  data/pbmc10k/
     Untracked:  data/pbmc5k/
 
 Unstaged changes:
-    Deleted:    docs/.nojekyll
+    Modified:   analysis/scRNAseq_workshop_4.Rmd
 
 </code></pre>
 <p>
@@ -611,6 +610,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/2388094636274a1a82c43e6cf5b9d041a1361551/docs/scRNAseq_workshop_1.html" target="_blank">2388094</a>
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-30
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1650,6 +1666,43 @@ AAACGCTGTGTGATGG  4.704505 -1.752043</code></pre>
   geom_point(size = 0.5) +
   theme_classic(base_size = 14)</code></pre>
 <p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-21-1">
+Past versions of unnamed-chunk-21-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-21-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/2388094636274a1a82c43e6cf5b9d041a1361551/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-21-1.png" target="_blank">2388094</a>
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>## color by cluster
 (umap_df&lt;- bind_cols(seurat_clusters = pbmc@meta.data$seurat_clusters,
           Embeddings(pbmc, reduction = &quot;umap&quot;) %&gt;% as.data.frame()))</code></pre>
@@ -1672,6 +1725,43 @@ ggplot(umap_df, aes(x = UMAP_1, y = UMAP_2)) +
   geom_point(aes(color = seurat_clusters), size = 0.5) +
   theme_classic(base_size = 14) </code></pre>
 <p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-21-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-21-2">
+Past versions of unnamed-chunk-21-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-21-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/2388094636274a1a82c43e6cf5b9d041a1361551/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-21-2.png" target="_blank">2388094</a>
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="finding-differentially-expressed-features-cluster-biomarkers" class="section level3">
 <h3>Finding differentially expressed features (cluster biomarkers)</h3>
@@ -1760,6 +1850,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/2388094636274a1a82c43e6cf5b9d041a1361551/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-24-1.png" target="_blank">2388094</a>
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-30
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/7bf52d9a683c9dfce39b23563484aaa02dee2602/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-24-1.png" target="_blank">7bf52d9</a>
 </td>
 <td>
@@ -1841,6 +1942,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/2388094636274a1a82c43e6cf5b9d041a1361551/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-25-1.png" target="_blank">2388094</a>
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-30
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/7bf52d9a683c9dfce39b23563484aaa02dee2602/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-25-1.png" target="_blank">7bf52d9</a>
 </td>
 <td>
@@ -1856,6 +1968,43 @@ Ming Tang
 </div>
 <pre class="r"><code>VlnPlot(pbmc, features = c(&quot;MS4A1&quot;, &quot;CD79A&quot;), slot = &quot;scale.data&quot;)</code></pre>
 <p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-25-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-25-2">
+Past versions of unnamed-chunk-25-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-25-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/2388094636274a1a82c43e6cf5b9d041a1361551/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-25-2.png" target="_blank">2388094</a>
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>FeaturePlot.</p>
 <p>plot the expression intensity overlaid on the Tsne/UMAP plot.</p>
 <pre class="r"><code>FeaturePlot(pbmc, features = c(&quot;MS4A1&quot;, &quot;GNLY&quot;, &quot;CD3E&quot;, &quot;CD14&quot;, &quot;FCER1A&quot;, &quot;FCGR3A&quot;, &quot;LYZ&quot;, &quot;PPBP&quot;, &quot;CD8A&quot;))</code></pre>
@@ -1882,6 +2031,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/2388094636274a1a82c43e6cf5b9d041a1361551/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-26-1.png" target="_blank">2388094</a>
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-30
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/7bf52d9a683c9dfce39b23563484aaa02dee2602/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-26-1.png" target="_blank">7bf52d9</a>
@@ -1927,6 +2087,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/2388094636274a1a82c43e6cf5b9d041a1361551/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-27-1.png" target="_blank">2388094</a>
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-30
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/7bf52d9a683c9dfce39b23563484aaa02dee2602/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-27-1.png" target="_blank">7bf52d9</a>
 </td>
 <td>
@@ -1946,6 +2117,43 @@ p_after$data &lt;- p_after$data[order(p_after$data$CD14),]
 
 CombinePlots(plots = list(p, p_after))</code></pre>
 <p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-27-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-27-2">
+Past versions of unnamed-chunk-27-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-27-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/2388094636274a1a82c43e6cf5b9d041a1361551/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-27-2.png" target="_blank">2388094</a>
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>There is a pacakge to deal with this type of overplotting problem. <a href="https://github.com/SaskiaFreytag/schex" class="uri">https://github.com/SaskiaFreytag/schex</a></p>
 <p><code>DoHeatmap</code> generates an expression heatmap for given cells and features. In this case, we are plotting the top 20 markers (or all markers if less than 20) for each cluster.</p>
 <pre class="r"><code>top10 &lt;- pbmc.markers %&gt;% group_by(cluster) %&gt;% top_n(n = 10, wt = avg_logFC)
@@ -1955,6 +2163,43 @@ were omitted as they were not found in the scale.data slot for the RNA
 assay: NUCB2, LUC7L3, CSKMT, INTS6, NKTR, HEXIM1, MT-ND5, MALAT1, MT-CYB,
 NOSIP, SARAF, TCF7, LDHB</code></pre>
 <p><img src="figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-28-1">
+Past versions of unnamed-chunk-28-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-28-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/2388094636274a1a82c43e6cf5b9d041a1361551/docs/figure/scRNAseq_workshop_1.Rmd/unnamed-chunk-28-1.png" target="_blank">2388094</a>
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>save the Seurat object into a file</p>
 <pre class="r"><code>saveRDS(pbmc, &quot;data/pbmc5k/pbmc_5k_v3.rds&quot;)</code></pre>
 <br>
