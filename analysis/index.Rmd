@@ -8,7 +8,6 @@ editor_options:
   chunk_output_type: console
 ---
 
-This is the main page of the [Harvard FAS informatics](https://informatics.fas.harvard.edu/pages/about.html) scRNAseq workshop (part of the
-nanocourse) held from August 19th - 22nd.
+### This is the main page of the [Harvard FAS informatics](https://informatics.fas.harvard.edu/pages/about.html) scRNAseq workshop (part of the nanocourse) held from August 19th - 22nd.
 
 ![](welcome_umap.png)
