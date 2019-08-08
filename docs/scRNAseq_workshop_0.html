@@ -552,10 +552,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomcrazyhottommyscRNAseqworkshopFall2019tree0cf484cf63f9ca8407d23eb6d8f325d093a9e70etargetblank0cf484ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/tree/0cf484cf63f9ca8407d23eb6d8f325d093a9e70e" target="_blank">0cf484c</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomcrazyhottommyscRNAseqworkshopFall2019tree04fc259a43e579b77574f615258dce7370c5e940targetblank04fc259a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/tree/04fc259a43e579b77574f615258dce7370c5e940" target="_blank">04fc259</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomcrazyhottommyscRNAseqworkshopFall2019tree0cf484cf63f9ca8407d23eb6d8f325d093a9e70etargetblank0cf484ca" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomcrazyhottommyscRNAseqworkshopFall2019tree04fc259a43e579b77574f615258dce7370c5e940targetblank04fc259a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -569,6 +569,7 @@ Ignored files:
 Untracked files:
     Untracked:  data/pbmc10k/
     Untracked:  data/pbmc5k/
+    Untracked:  docs/assets/
 
 </code></pre>
 <p>
@@ -607,6 +608,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/04fc259a43e579b77574f615258dce7370c5e940/analysis/scRNAseq_workshop_0.Rmd" target="_blank">04fc259</a>
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-08-08
+</td>
+<td>
+wflow_publish(c(“analysis/scRNAseq_workshop_0.Rmd”))
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/ce10b9aeebacac21fa3cfb13616b20868e1a8e5a/docs/scRNAseq_workshop_0.html" target="_blank">ce10b9a</a>
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-08-08
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -685,7 +720,7 @@ Build site.
 <div id="from-sequencer-to-cellranger" class="section level1">
 <h1>From sequencer to <code>cellranger</code></h1>
 <p>In this section, I will show you how to prepare the fastq files and count the scRNAseq matrix by <code>cellranger</code>. After sequencing, one usually gets a folder from the sequencing core with a folder structure like:</p>
-<p><img src="img/Run_folder.png" /></p>
+<p><img src="assets/Run_folder.png" /></p>
 <p>The <code>bcl</code> (Binary Base Call) files in the Data folder contains the raw data generated from the illumina sequencers. <code>cellranger</code> wraps the illumina <a href="https://support.illumina.com/sequencing/sequencing_software/bcl2fastq-conversion-software.html"><code>bcl2fastq</code></a> command into <code>cellranger mkfastq</code> to convert it to fastq files for single-cell RNAseq data.</p>
 <div id="cellranger-mkfastq" class="section level3">
 <h3>cellranger mkfastq</h3>
