@@ -31,4 +31,4 @@ iSEE(pbmc.sce)
 
 It opens the `Shiny` Application and now we are ready to do some interactive exploration of the data set!
 
-![](img/iSEE.png)
+![](assets/iSEE.png)

@@ -28,7 +28,7 @@ dplyr::count(pbmc.genes, group)
 
 To do Gene set enrichment analysis, we need to have the annotated gene set first. One popular source is the [MsigDB](http://software.broadinstitute.org/gsea/msigdb/index.jsp) from Broad Institute.
 
-![](img/msigdb.png)
+![](assets/msigdb.png)
 
 ### Gene Set Enrichment with `fgsea`
 
