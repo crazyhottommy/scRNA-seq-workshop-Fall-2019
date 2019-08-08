@@ -8,7 +8,7 @@ output: html_document
 In this section, I will show you how to prepare the fastq files and count the scRNAseq matrix by `cellranger`.
 After sequencing, one usually gets a folder from the sequencing core with a folder structure like:
 
-![](img/Run_folder.png)
+![](assets/Run_folder.png)
 
 The `bcl` (Binary Base Call) files in the Data folder contains the raw data generated from the illumina sequencers.
 `cellranger` wraps the illumina [`bcl2fastq`](https://support.illumina.com/sequencing/sequencing_software/bcl2fastq-conversion-software.html) command into `cellranger mkfastq` to convert it to fastq files for single-cell RNAseq data.
