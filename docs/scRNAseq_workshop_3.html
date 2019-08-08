@@ -461,7 +461,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-07-30
+<strong>Last updated:</strong> 2019-08-08
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -552,10 +552,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomcrazyhottommyscRNAseqworkshopFall2019treedcb5371d0c24e483de353664d6eec3aedf2ca642targetblankdcb5371a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/tree/dcb5371d0c24e483de353664d6eec3aedf2ca642" target="_blank">dcb5371</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomcrazyhottommyscRNAseqworkshopFall2019treefeb2ce0682ebeb4c0c49e7ca13adf96b1ae026b4targetblankfeb2ce0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/tree/feb2ce0682ebeb4c0c49e7ca13adf96b1ae026b4" target="_blank">feb2ce0</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomcrazyhottommyscRNAseqworkshopFall2019treedcb5371d0c24e483de353664d6eec3aedf2ca642targetblankdcb5371a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomcrazyhottommyscRNAseqworkshopFall2019treefeb2ce0682ebeb4c0c49e7ca13adf96b1ae026b4targetblankfeb2ce0a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -569,6 +569,7 @@ Ignored files:
 Untracked files:
     Untracked:  data/pbmc10k/
     Untracked:  data/pbmc5k/
+    Untracked:  docs/assets/
 
 </code></pre>
 <p>
@@ -607,6 +608,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/blob/feb2ce0682ebeb4c0c49e7ca13adf96b1ae026b4/analysis/scRNAseq_workshop_3.Rmd" target="_blank">feb2ce0</a>
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-08-08
+</td>
+<td>
+wflow_publish(c(“analysis/scRNAseq_workshop_0.Rmd”, “analysis/scRNAseq_workshop_3.Rmd”,
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/crazyhottommy/scRNA-seq-workshop-Fall-2019/b27f0e89247c0cea964b7f0c28e2e237a0f9748d/docs/scRNAseq_workshop_3.html" target="_blank">b27f0e8</a>
+</td>
+<td>
+Ming Tang
+</td>
+<td>
+2019-07-30
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -700,7 +735,7 @@ dplyr::count(pbmc.genes, group)</code></pre>
 13 8     18791
 14 9     18791</code></pre>
 <p>To do Gene set enrichment analysis, we need to have the annotated gene set first. One popular source is the <a href="http://software.broadinstitute.org/gsea/msigdb/index.jsp">MsigDB</a> from Broad Institute.</p>
-<p><img src="img/msigdb.png" /></p>
+<p><img src="assets/msigdb.png" /></p>
 </div>
 <div id="gene-set-enrichment-with-fgsea" class="section level3">
 <h3>Gene Set Enrichment with <code>fgsea</code></h3>
