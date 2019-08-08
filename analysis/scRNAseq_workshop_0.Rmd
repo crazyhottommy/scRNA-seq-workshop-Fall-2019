@@ -11,7 +11,7 @@ After sequencing, one usually gets a folder from the sequencing core with a fold
 ![](img/Run_folder.png)
 
 The `bcl` (Binary Base Call) files in the Data folder contains the raw data generated from the illumina sequencers.
-`cellranger` wraps the illumina [`bcf2fastq`](https://support.illumina.com/sequencing/sequencing_software/bcl2fastq-conversion-software.html) command into `cellranger mkfastq` to convert it to fastq files for single-cell RNAseq data.
+`cellranger` wraps the illumina [`bcl2fastq`](https://support.illumina.com/sequencing/sequencing_software/bcl2fastq-conversion-software.html) command into `cellranger mkfastq` to convert it to fastq files for single-cell RNAseq data.
 
 ### cellranger mkfastq
 
@@ -107,12 +107,62 @@ e.g. for the subsequent two rows in the sparse matrix:
 
 `33506 1` is the index of the row and column of that non-zero entry in the matrix, and `4` is the count number.
 
-# From SRA to fastq
 
 # Alternatives to `cellranger`
 
 `cellranger` is very slow. It can take several days to run a mouse single-cell RNAseq data set with even 20 CPUs. There are other tools which can process single-cell RNAseq data set much faster and accurate as well.
 
-#### Alevin
+### Alevin
 
-#### Kallisto/bustool
+Paper : [Alevin efficiently estimates accurate gene abundances from dscRNA-seq data](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1670-y)  
+
+It supports Drop-seq and 10x-Chromium v1/2/3.
+
+[Tutorial](https://salmon.readthedocs.io/en/latest/alevin.html)
+
+### Kallisto/bustools
+
+Paper: [Modular and efficient pre-processing of single-cell RNA-seq](https://www.biorxiv.org/content/10.1101/673285v2)  
+
+>the bustoools commands we implemented are generic and will work with any BUS file, generated with data from any scRNA-seq technology. Distinct technology encodes barcode and UMI information differently,
+but the kallisto bus command can accept custom formatting rules. While the pre-processing
+steps for error correction and counting may need to be optimized for the distinguishing
+characteristics of different technologies, the modularity of the bustools based workflow makes
+such customization possible and easy.
+
+[Tutorial](https://www.kallistobus.tools/)
+
+### Scumi
+
+[scumi](https://bitbucket.org/jerry00/scumi-dev/src/master/) is a flexible Python package to process fastq files generated from different single-cell RNA-sequencing (scRNA-seq) protocols to produce a gene-cell sparse expression matrix for downstream analyses, e.g., discovering cell types and inferring cell lineages.
+
+It supports CEL-Seq2, 10x Chromium, Drop-seq, Seq-Well, CEL-Seq2, inDrops, and SPLiT-seq.
+
+# Public data sets
+
+If you want to analyze public single-cell data, there are databases you can go to:
+
+* [scRNAseq bioc package](https://bioconductor.org/packages/devel/data/experiment/html/scRNAseq.html) Gene-level counts for a collection of public scRNA-seq datasets, provided as SingleCellExperiment objects with cell- and gene-level metadata.
+* [human cell atlas database](https://staging.data.humancellatlas.org/)
+* [SRA](https://www.ncbi.nlm.nih.gov/sra)
+* [EMBL-EBI atlas](https://www.ebi.ac.uk/gxa/sc/home)
+* [PanglaoDB](https://panglaodb.se/) is a database for the scientific community interested in exploration of single cell RNA sequencing experiments from mouse and human. We collect and integrate data from multiple studies and present them through a unified framework.
+* [scRNASeqDB](https://bioinfo.uth.edu/scrnaseqdb/) database, which contains 36 human single cell gene expression data sets collected from Gene Expression Omnibus (GEO)
+* [JingleBell](http://jinglebells.bgu.ac.il/) A repository of standardized single cell RNA-Seq datasets for analysis and visualization at the single cell level.
+* [Broad single cell portal](https://portals.broadinstitute.org/single_cell)
+* The [conquer](http://imlspenticton.uzh.ch:3838/conquer/) (consistent quantification of external rna-seq data) repository is developed by Charlotte Soneson and Mark D Robinson at the University of Zurich, Switzerland. It is implemented in shiny and provides access to consistently processed public single-cell RNA-seq data sets. 
+
+# Steps to follow this tutorial
+
+Click the `Terminal` tab in your Rstudio
+
+```bash
+# go to your home directory
+cd ~
+
+# clone the github repo
+git clone https://github.com/crazyhottommy/scRNA-seq-workshop-Fall-2019
+
+```
+
+go to `Files` ---> `scRNA-seq-workshop-Fall-2019` folder and double click the `scRNA-seq-workshop-Fall-2019.Rproj` file. Inside the `analysis` folder, you can find all the `Rmd` files which you can execute the commands.

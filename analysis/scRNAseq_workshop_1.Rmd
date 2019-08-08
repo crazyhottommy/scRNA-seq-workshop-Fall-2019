@@ -9,7 +9,7 @@ In this tutorial, we are going to mainly use Seurat package with publicly availa
 
 Here, in the first part, we are going to analyze a single cell RNAseq dataset product by 10X Genomics and processed through Cell Ranger(TM) pipeline, which generates barcode count matrices.
 
-We will download the public 5k pbmc (Peripheral blood mononuclear cell) data set from 10x genomics.
+We will download the public 5k pbmc (Peripheral blood mononuclear cell) dataset from 10x genomics.
 
 go to the `Terminal` tab in your Rstudio.
 
@@ -41,7 +41,7 @@ install.packages('Seurat')
 
 load the library
 
-```{r warning=FALSE}
+```{r warning=FALSE, message=FALSE}
 library(tidyverse)
 library(Seurat)
 ```
@@ -58,6 +58,8 @@ pbmc
 ```
 
 if you want to know more details of the `Seurat` object, you can learn at https://github.com/satijalab/seurat/wiki
+
+Also check https://satijalab.org/seurat/essential_commands.html for all the commands you can use to interact with Seurat objects.
 
 
 ```{r}
@@ -146,7 +148,7 @@ This can take long for large dataset.
 
 Let's check the data matrix before and after scaling.
 ```{r}
-# raw counts
+# raw counts, same as pbmc@assays$RNA@counts[1:6, 1:6]
 pbmc[["RNA"]]@counts[1:6, 1:6]
 
 # library size normalized and log transformed data
@@ -170,14 +172,12 @@ dim(pbmc[["RNA"]]@data)
 
 ### PCA 
 
-principle component analysis
-
-Dimenion reduction
+Principle component analysis (PCA) is a linear dimension reduction technology.
 
 Highly recommend this 5 min video on PCA by StatQuest https://www.youtube.com/watch?v=HMOI_lkzW08
 and two longer versions by the same person:
 
-https://www.youtube.com/watch?v=_UVHneBUBW0
+https://www.youtube.com/watch?v=_UVHneBUBW0  
 https://www.youtube.com/watch?v=FgakZw6K1QQ&t=674s
 
 some blog posts I wrote on PCA: 
@@ -199,9 +199,14 @@ All the dimension reduction object (`DimReduct`) are saved in `reductions` slot.
 # e.g.
 pbmc@reductions$pca
 
+#the same as 
+pbmc[["pca"]]
+
 ## methods that work with the DimReduct object
 utils::methods(class = 'DimReduc')
 
+# the same as pbmc@reductions$pca@cell.embeddings
+# the same as pbmc[["pca"]]@cell.embeddings
 Embeddings(pbmc, reduction = "pca") %>% head()
 
 p2<- Embeddings(pbmc, reduction = "pca") %>% 
@@ -215,14 +220,14 @@ CombinePlots(plots = list(p1, p2))
 
 ### Determine How many PCs to include for downstream analysis
 
-To overcome the extensive technical noise in any single feature for scRNA-seq data, Seurat clusters cells based on their PCA scores, with each PC essentially representing a ‘metafeature’ that combines information across a correlated feature set. The top principal components therefore represent a robust compression of the dataset. However, how many componenets should we choose to include? 10? 20? 100?
+To overcome the extensive technical noise in any single feature for scRNA-seq data, Seurat clusters cells based on their PCA scores, with each PC essentially representing a ‘metafeature’ that combines information across a correlated feature set. The top principal components therefore represent a robust compression of the dataset. However, how many components should we choose to include? 10? 20? 100?
 
 In Macosko et al, we implemented a resampling test inspired by the JackStraw procedure. We randomly permute a subset of the data (1% by default) and rerun PCA, constructing a ‘null distribution’ of feature scores, and repeat this procedure. We identify ‘significant’ PCs as those who have a strong enrichment of low p-value features.
 
 ```{r eval=FALSE}
 # NOTE: This process can take a long time for big datasets, comment out for expediency. More
 # approximate techniques such as those implemented in ElbowPlot() can be used to reduce
-# computation time, takes 10 mins for this data set
+# computation time, takes 10 mins for this dataset
 pbmc <- JackStraw(pbmc, num.replicate = 100, dims = 50)
 pbmc <- ScoreJackStraw(pbmc, dims = 1:50)
 
@@ -241,7 +246,7 @@ ElbowPlot(pbmc, ndims = 50)
 hint from https://github.com/satijalab/seurat/issues/982
 
 ```{r}
-mat <- Seurat::GetAssayData(pbmc, assay = "RNA", slot = "scale.data")
+mat <- pbmc[["RNA"]]@scale.data 
 pca <- pbmc[["pca"]]
 
 # Get the total variance:
@@ -283,6 +288,8 @@ head(Idents(pbmc), 5)
 
 Seurat offers several **non-linear** dimensional reduction techniques, such as tSNE and UMAP (as opposed to PCA which is a linear dimensional reduction technique), to visualize and explore these datasets. The goal of these algorithms is to learn the underlying manifold of the data in order to place similar cells together in low-dimensional space. Cells within the graph-based clusters determined above should co-localize on these dimension reduction plots. As input to the UMAP and tSNE, we suggest using the same PCs as input to the clustering analysis.
 
+t-SNE explained by StatQuest https://www.youtube.com/watch?v=NEaUSP4YerM
+
 ```{r}
 pbmc <- RunUMAP(pbmc, dims = 1:20)
 pbmc<- RunTSNE(pbmc, dims = 1:20)
@@ -305,9 +312,10 @@ We can reproduce the UMAP plot by ggplot ourselves.
 
 ```{r}
 ## there are many slots for the DimReduct object
-pbmc@reductions$umap@cell.embeddings %>% head()
+## the same as pbmc@reductions$umap
+pbmc[["umap"]]
 
-## this gives you the same results
+## extract the cell embeddings
 Embeddings(pbmc, reduction = "umap") %>% head()
 
 Embeddings(pbmc, reduction = "umap") %>%
@@ -328,7 +336,7 @@ ggplot(umap_df, aes(x = UMAP_1, y = UMAP_2)) +
 
 ### Finding differentially expressed features (cluster biomarkers)
 
-Seurat can help you find markers that define clusters via differential expression. By default, it identifes positive and negative markers of a single cluster (specified in ident.1), compared to all other cells. FindAllMarkers automates this process for all clusters, but you can also test groups of clusters vs. each other, or against all cells.
+Seurat can help you find markers that define clusters via differential expression. By default, it identifies positive and negative markers of a single cluster (specified in ident.1), compared to all other cells. FindAllMarkers automates this process for all clusters, but you can also test groups of clusters vs. each other, or against all cells.
 
 
 ```{r}
@@ -344,12 +352,17 @@ head(cluster5.markers, n = 5)
 Finding all marker genes takes long in this step. let's watch the PCA video while Seurat is working hard.
 
 ```{r}
-# we only have 2 CPUs reserved for each one. 
-# Seurat V3.0.2 parallel processing  read more https://satijalab.org/seurat/v3.0/future_vignette.html
-#plan("multiprocess", workers = 2)
 # find markers for every cluster compared to all remaining cells, report only the positive ones
 pbmc.markers <- FindAllMarkers(pbmc, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
 pbmc.markers %>% group_by(cluster) %>% top_n(n = 2, wt = avg_logFC)
+```
+
+This is slow. Seurat V3.0.2 provides  parallel processing for some of the steps including FindAllMarkers.  read more https://satijalab.org/seurat/v3.0/future_vignette.html
+
+```{r eval = FALSE}
+# we only have 2 CPUs reserved for each one. 
+plan("multiprocess", workers = 2)
+pbmc.markers <- FindAllMarkers(pbmc, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
 ```
 
 ### Visualize marker genes
@@ -393,7 +406,7 @@ p_after$data <- p_after$data[order(p_after$data$CD14),]
 CombinePlots(plots = list(p, p_after))
 ```
 
-There is a pacakge to deal with this type of overplotting problem. https://github.com/SaskiaFreytag/schex
+There is a package to deal with this type of overplotting problem. https://github.com/SaskiaFreytag/schex
 
 `DoHeatmap` generates an expression heatmap for given cells and features. In this case, we are plotting the top 20 markers (or all markers if less than 20) for each cluster.
 
